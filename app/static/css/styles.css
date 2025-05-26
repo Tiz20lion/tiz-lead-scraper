@@ -519,6 +519,32 @@ body {
   animation: count-pulse 2s infinite ease-in-out;
 }
 
+.count-input {
+  background: linear-gradient(135deg, hsl(var(--accent-primary)), hsl(var(--accent-secondary)));
+  color: white;
+  border: none;
+  padding: 0.4rem 0.8rem;
+  border-radius: 15px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  width: 80px;
+  text-align: center;
+  margin: 0 0.5rem;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  animation: count-pulse 2s infinite ease-in-out;
+}
+
+.count-input:focus {
+  outline: none;
+  background: linear-gradient(135deg, hsl(var(--accent-secondary)), hsl(var(--accent-primary)));
+  box-shadow: 0 0 0 3px hsl(var(--accent-primary) / 0.3);
+  transform: scale(1.05);
+}
+
+.count-input::placeholder {
+  color: rgba(255, 255, 255, 0.7);
+}
+
 @keyframes count-pulse {
   0%, 100% {
     transform: scale(1);

@@ -38,11 +38,33 @@ class ApolloScraper {
         // Theme toggle
         document.getElementById('themeToggle').addEventListener('click', this.toggleTheme.bind(this));
         
-        // Lead count slider
+        // Lead count slider and input synchronization
         const leadSlider = document.getElementById('leadCount');
-        const leadCountValue = document.getElementById('leadCountValue');
+        const leadCountInput = document.getElementById('leadCountInput');
+        
+        // Update input when slider changes
         leadSlider.addEventListener('input', (e) => {
-            leadCountValue.textContent = e.target.value;
+            leadCountInput.value = e.target.value;
+        });
+        
+        // Update slider when input changes
+        leadCountInput.addEventListener('input', (e) => {
+            let value = parseInt(e.target.value) || 1;
+            if (value < 1) value = 1;
+            if (value > 50000) value = 50000;
+            
+            leadSlider.value = value;
+            leadCountInput.value = value;
+        });
+        
+        // Validate input on blur
+        leadCountInput.addEventListener('blur', (e) => {
+            let value = parseInt(e.target.value) || 100;
+            if (value < 1) value = 1;
+            if (value > 50000) value = 50000;
+            
+            leadSlider.value = value;
+            leadCountInput.value = value;
         });
 
         // Start scraping button
@@ -141,7 +163,7 @@ class ApolloScraper {
 
     async startScraping() {
         const urlInput = document.getElementById('urlInput');
-        const leadCount = parseInt(document.getElementById('leadCount').value);
+        const leadCount = parseInt(document.getElementById('leadCountInput').value);
         const startButton = document.getElementById('startScraping');
         const apifyToken = document.getElementById('apifyToken').value.trim();
         
