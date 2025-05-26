@@ -496,7 +496,18 @@ class ApolloScraper {
             return;
         }
 
+        const notionToken = document.getElementById('notionToken').value.trim();
         const databaseId = document.getElementById('notionDatabaseId').value.trim();
+
+        if (!notionToken) {
+            toastr.error('Please enter your Notion integration token');
+            return;
+        }
+
+        if (!databaseId) {
+            toastr.error('Please enter your Notion database ID');
+            return;
+        }
 
         try {
             // Get task data
@@ -517,8 +528,9 @@ class ApolloScraper {
                     'X-CSRF-Token': this.csrfToken
                 },
                 body: JSON.stringify({
-                    database_id: databaseId || null,
-                    data: taskData.data
+                    database_id: databaseId,
+                    data: taskData.data,
+                    notion_token: notionToken
                 })
             });
 

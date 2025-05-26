@@ -16,7 +16,7 @@ class RequestLoggingMiddleware(BaseHTTPMiddleware):
         logger.info("Request started", 
                    method=request.method,
                    url=str(request.url),
-                   client_ip=request.client.host)
+                   client_ip=request.client.host if request.client else "unknown")
         
         # Process request
         response = await call_next(request)

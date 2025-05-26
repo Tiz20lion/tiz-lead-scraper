@@ -58,7 +58,8 @@ async def scrape_apollo_leads(
             task_id,
             request.urls,
             request.lead_count,
-            [field.value for field in request.fields]
+            [field.value for field in request.fields],
+            request.apify_token
         )
         
         logger.info("Scraping task started", task_id=task_id, urls=request.urls)
@@ -98,7 +99,21 @@ async def export_to_sheets(request: SheetsRequest):
                    spreadsheet_id=request.spreadsheet_id,
                    sheet_name=request.sheet_name)
         
-        result = await sheets_client.append_to_sheet(
+        # Create Google Sheets client with user's credentials
+        from clients.sheets_client import GoogleSheetsClient
+        user_sheets_client = GoogleSheetsClient()
+        
+        # Override credentials with user-provided ones
+        from googleapiclient.discovery import build
+        from google.oauth2.service_account import Credentials
+        
+        credentials = Credentials.from_service_account_info(
+            request.google_credentials,
+            scopes=['https://www.googleapis.com/auth/spreadsheets']
+        )
+        user_sheets_client.service = build('sheets', 'v4', credentials=credentials)
+        
+        result = await user_sheets_client.append_to_sheet(
             spreadsheet_id=request.spreadsheet_id,
             sheet_name=request.sheet_name,
             data=request.data
@@ -118,7 +133,14 @@ async def export_to_notion(request: NotionRequest):
                    database_id=request.database_id,
                    entries=len(request.data))
         
-        result = await notion_client.create_database_entries(
+        # Create Notion client with user's token
+        from clients.notion_client import NotionClient
+        from notion_client import AsyncClient
+        
+        user_notion_client = NotionClient()
+        user_notion_client.client = AsyncClient(auth=request.notion_token)
+        
+        result = await user_notion_client.create_database_entries(
             data=request.data,
             database_id=request.database_id
         )
@@ -204,7 +226,8 @@ async def scrape_leads_background(
     task_id: str, 
     urls: list, 
     lead_count: int, 
-    fields: list
+    fields: list,
+    apify_token: str
 ):
     """Background task for scraping leads"""
     try:
@@ -213,8 +236,15 @@ async def scrape_leads_background(
         tasks_storage[task_id]["progress"] = 10
         tasks_storage[task_id]["message"] = "Initializing scraper..."
         
+        # Create client with user's token
+        from clients.apify_client import ApifyApolloClient
+        from apify_client import ApifyClient
+        
+        user_apify_client = ApifyApolloClient()
+        user_apify_client.client = ApifyClient(apify_token)
+        
         # Perform scraping
-        result = await apify_client.scrape_apollo_leads(
+        result = await user_apify_client.scrape_apollo_leads(
             urls=urls,
             lead_count=lead_count,
             fields=fields

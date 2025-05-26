@@ -18,6 +18,7 @@ class ScrapeRequest(BaseModel):
     urls: List[str] = Field(..., min_items=1, max_items=10)
     lead_count: int = Field(default=100, ge=1, le=1000)
     fields: List[FieldType] = Field(default=[FieldType.NAME, FieldType.EMAIL])
+    apify_token: str = Field(..., min_length=1)
     
     @validator('urls')
     def validate_urls(cls, v):
@@ -30,10 +31,12 @@ class SheetsRequest(BaseModel):
     spreadsheet_id: str
     sheet_name: str = "Leads"
     data: List[Dict[str, Any]]
+    google_credentials: Dict[str, Any]
 
 class NotionRequest(BaseModel):
-    database_id: Optional[str] = None
+    database_id: str
     data: List[Dict[str, Any]]
+    notion_token: str
 
 class ScrapeResponse(BaseModel):
     task_id: str
