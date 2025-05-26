@@ -15,8 +15,8 @@ class FieldType(str, Enum):
     WEBSITE = "website"
 
 class ScrapeRequest(BaseModel):
-    urls: List[str] = Field(..., min_items=1, max_items=10)
-    lead_count: int = Field(default=100, ge=1, le=1000)
+    urls: List[str] = Field(..., min_length=1, max_length=10)
+    lead_count: int = Field(default=100, ge=1, le=50000)
     fields: List[FieldType] = Field(default=[FieldType.NAME, FieldType.EMAIL])
     apify_token: str = Field(..., min_length=1)
     
