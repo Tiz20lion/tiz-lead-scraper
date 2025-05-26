@@ -27,3 +27,7 @@ waitForPort = 5000
 
 [deployment]
 run = ["sh", "-c", "cd app && python main.py"]
+
+[[ports]]
+localPort = 5000
+externalPort = 80

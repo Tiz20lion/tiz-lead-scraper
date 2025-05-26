@@ -48,7 +48,7 @@ app.include_router(api_router, prefix="/api/v1")
 @app.get("/")
 async def serve_frontend():
     """Serve the main frontend application"""
-    return FileResponse("app/static/index.html")
+    return FileResponse("static/index.html")
 
 @app.get("/health")
 async def health_check():
@@ -80,9 +80,9 @@ async def shutdown_event():
 
 if __name__ == "__main__":
     uvicorn.run(
-        "app.main:app",
+        "main:app",
         host="0.0.0.0",
-        port=8000,
+        port=5000,
         reload=os.getenv("DEBUG", "false").lower() == "true",
         access_log=True
     )
