@@ -1,0 +1,28 @@
+≡ƒÜÇ Starting Tiz Lead Scraper...
+≡ƒôü Creating directories...
+≡ƒ¢æ Stopping existing containers...
+time="2025-05-25T23:01:08-07:00" level=warning msg="C:\\Users\\Tizlion\\Downloads\\WebScraperToolkit\\WebScraperToolkit\\docker-compose.yml: the attribute `version` is obsolete, it will be ignored, please remove it to avoid potential confusion"
+≡ƒö¿ Building and starting Tiz Lead Scraper...
+time="2025-05-25T23:01:08-07:00" level=warning msg="C:\\Users\\Tizlion\\Downloads\\WebScraperToolkit\\WebScraperToolkit\\docker-compose.yml: the attribute `version` is obsolete, it will be ignored, please remove it to avoid potential confusion"
+Compose can now delegate builds to bake for better performance.
+ To do so, set COMPOSE_BAKE=true.
+[+] Building 5.1s (8/13)                                                                           docker:desktop-linux
+ => [tiz-lead-scraper internal] load build definition from Dockerfile                                              0.2s
+ => => transferring dockerfile: 1.07kB                                                                             0.0s
+ => [tiz-lead-scraper internal] load metadata for docker.io/library/python:3.11-slim                               4.4s
+ => [tiz-lead-scraper internal] load .dockerignore                                                                 0.1s
+ => => transferring context: 588B                                                                                  0.0s
+ => CANCELED [tiz-lead-scraper 1/9] FROM docker.io/library/python:3.11-slim@sha256:dbf1de478a55d6763afaa39c2f3d7b  0.2s
+ => => resolve docker.io/library/python:3.11-slim@sha256:dbf1de478a55d6763afaa39c2f3d7b54b25230614980276de5cacdde  0.0s
+ => [tiz-lead-scraper internal] load build context                                                                 0.1s
+ => => transferring context: 112.86kB                                                                              0.0s
+ => CACHED [tiz-lead-scraper 2/9] WORKDIR /app                                                                     0.0s
+ => CACHED [tiz-lead-scraper 3/9] RUN apt-get update && apt-get install -y     gcc     g++     && rm -rf /var/lib  0.0s
+ => ERROR [tiz-lead-scraper 4/9] COPY pyproject.toml uv.lock ./                                                    0.0s
+------
+ > [tiz-lead-scraper 4/9] COPY pyproject.toml uv.lock ./:
+------
+failed to solve: failed to compute cache key: failed to calculate checksum of ref vkvpwaqtcu0jb3d0iqxh08ab9::rhl317w2ucepcr84wp17ndpya: "/uv.lock": not found
+ΓÅ│ Waiting for application to start...
+Γ¥î Application failed to start. Check logs with: docker-compose logs
+Press any key to continue . . .

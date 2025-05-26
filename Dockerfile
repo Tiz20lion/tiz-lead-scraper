@@ -12,16 +12,26 @@ ENV PYTHONDONTWRITEBYTECODE=1
 RUN apt-get update && apt-get install -y \
     gcc \
     g++ \
+    curl \
     && rm -rf /var/lib/apt/lists/*
 
 # Copy requirements file
-COPY pyproject.toml uv.lock ./
+COPY pyproject.toml ./
 
-# Install UV package manager for faster dependency installation
-RUN pip install uv
-
-# Install Python dependencies using UV
-RUN uv pip install --system --no-cache -r pyproject.toml
+# Install dependencies directly with pip
+RUN pip install --no-cache-dir --upgrade pip && \
+    pip install --no-cache-dir \
+    apify-client \
+    fastapi \
+    google-api-python-client \
+    google-auth \
+    notion-client \
+    pydantic \
+    pydantic-settings \
+    python-multipart \
+    structlog \
+    tenacity \
+    uvicorn
 
 # Copy application code
 COPY app/ ./app/
