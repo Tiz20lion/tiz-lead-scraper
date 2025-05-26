@@ -14,7 +14,7 @@ class Settings(BaseSettings):
     
     # Security
     secret_key: str = os.getenv("SECRET_KEY", "fallback-secret-key-change-in-production")
-    allowed_origins: List[str] = ["http://localhost:8000", "http://0.0.0.0:8000"]
+    allowed_origins: List[str] = ["http://localhost:5000", "http://0.0.0.0:5000"]
     
     # Rate Limiting
     rate_limit_requests: int = int(os.getenv("RATE_LIMIT_REQUESTS", "10"))

@@ -5,7 +5,6 @@ services:
       - "5000:5000"
     environment:
       - SECRET_KEY=${SECRET_KEY:-tiz-lead-scraper-secret-key-2024}
-      - ALLOWED_ORIGINS=${ALLOWED_ORIGINS:-http://localhost:5000}
       - RATE_LIMIT_REQUESTS=${RATE_LIMIT_REQUESTS:-10}
       - RATE_LIMIT_WINDOW=${RATE_LIMIT_WINDOW:-60}
       - LOG_LEVEL=${LOG_LEVEL:-INFO}

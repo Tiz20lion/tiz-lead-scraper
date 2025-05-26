@@ -1,0 +1,328 @@
+2025-05-25 23:12:30.304 | Traceback (most recent call last):
+2025-05-25 23:12:30.304 |   File "/usr/local/lib/python3.11/site-packages/pydantic_settings/sources/base.py", line 482, in __call__
+2025-05-25 23:12:30.304 |     field_value = self.prepare_field_value(field_name, field, field_value, value_is_complex)
+2025-05-25 23:12:30.304 |                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2025-05-25 23:12:30.304 |   File "/usr/local/lib/python3.11/site-packages/pydantic_settings/sources/providers/env.py", line 120, in prepare_field_value
+2025-05-25 23:12:30.304 |     raise e
+2025-05-25 23:12:30.304 |   File "/usr/local/lib/python3.11/site-packages/pydantic_settings/sources/providers/env.py", line 117, in prepare_field_value
+2025-05-25 23:12:30.304 |     value = self.decode_complex_value(field_name, field, value)
+2025-05-25 23:12:30.305 |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2025-05-25 23:12:30.305 |   File "/usr/local/lib/python3.11/site-packages/pydantic_settings/sources/base.py", line 186, in decode_complex_value
+2025-05-25 23:12:30.305 |     return json.loads(value)
+2025-05-25 23:12:30.305 |            ^^^^^^^^^^^^^^^^^
+2025-05-25 23:12:30.305 |   File "/usr/local/lib/python3.11/json/__init__.py", line 346, in loads
+2025-05-25 23:12:30.305 |     return _default_decoder.decode(s)
+2025-05-25 23:12:30.305 |            ^^^^^^^^^^^^^^^^^^^^^^^^^^
+2025-05-25 23:12:30.306 |   File "/usr/local/lib/python3.11/json/decoder.py", line 337, in decode
+2025-05-25 23:12:30.306 |     obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+2025-05-25 23:12:30.306 |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2025-05-25 23:12:30.306 |   File "/usr/local/lib/python3.11/json/decoder.py", line 355, in raw_decode
+2025-05-25 23:12:30.308 |     raise JSONDecodeError("Expecting value", s, err.value) from None
+2025-05-25 23:12:30.310 | json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+2025-05-25 23:12:30.310 | 
+2025-05-25 23:12:30.310 | The above exception was the direct cause of the following exception:
+2025-05-25 23:12:30.310 | 
+2025-05-25 23:12:30.310 | Traceback (most recent call last):
+2025-05-25 23:12:30.310 |   File "/app/app/main.py", line 8, in <module>
+2025-05-25 23:12:30.312 |     from core.config import settings
+2025-05-25 23:12:30.312 |   File "/app/app/core/config.py", line 40, in <module>
+2025-05-25 23:12:30.315 |     settings = Settings()
+2025-05-25 23:12:30.315 |                ^^^^^^^^^^
+2025-05-25 23:12:30.315 |   File "/app/app/core/config.py", line 27, in __init__
+2025-05-25 23:12:30.315 |     super().__init__(**kwargs)
+2025-05-25 23:12:30.315 |   File "/usr/local/lib/python3.11/site-packages/pydantic_settings/main.py", line 177, in __init__
+2025-05-25 23:12:30.315 |     **__pydantic_self__._settings_build_values(
+2025-05-25 23:12:30.315 |       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2025-05-25 23:12:30.315 |   File "/usr/local/lib/python3.11/site-packages/pydantic_settings/main.py", line 408, in _settings_build_values
+2025-05-25 23:12:30.315 |     source_state = source()
+2025-05-25 23:12:30.315 |                    ^^^^^^^^
+2025-05-25 23:12:30.315 |   File "/usr/local/lib/python3.11/site-packages/pydantic_settings/sources/base.py", line 484, in __call__
+2025-05-25 23:12:30.316 |     raise SettingsError(
+2025-05-25 23:12:30.316 | pydantic_settings.exceptions.SettingsError: error parsing value for field "allowed_origins" from source "EnvSettingsSource"
+2025-05-25 23:12:32.382 | Traceback (most recent call last):
+2025-05-25 23:12:32.382 |   File "/usr/local/lib/python3.11/site-packages/pydantic_settings/sources/base.py", line 482, in __call__
+2025-05-25 23:12:32.382 |     field_value = self.prepare_field_value(field_name, field, field_value, value_is_complex)
+2025-05-25 23:12:32.382 |                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2025-05-25 23:12:32.382 |   File "/usr/local/lib/python3.11/site-packages/pydantic_settings/sources/providers/env.py", line 120, in prepare_field_value
+2025-05-25 23:12:32.383 |     raise e
+2025-05-25 23:12:32.383 |   File "/usr/local/lib/python3.11/site-packages/pydantic_settings/sources/providers/env.py", line 117, in prepare_field_value
+2025-05-25 23:12:32.383 |     value = self.decode_complex_value(field_name, field, value)
+2025-05-25 23:12:32.383 |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2025-05-25 23:12:32.383 |   File "/usr/local/lib/python3.11/site-packages/pydantic_settings/sources/base.py", line 186, in decode_complex_value
+2025-05-25 23:12:32.383 |     return json.loads(value)
+2025-05-25 23:12:32.383 |            ^^^^^^^^^^^^^^^^^
+2025-05-25 23:12:32.383 |   File "/usr/local/lib/python3.11/json/__init__.py", line 346, in loads
+2025-05-25 23:12:32.384 |     return _default_decoder.decode(s)
+2025-05-25 23:12:32.384 |            ^^^^^^^^^^^^^^^^^^^^^^^^^^
+2025-05-25 23:12:32.384 |   File "/usr/local/lib/python3.11/json/decoder.py", line 337, in decode
+2025-05-25 23:12:32.384 |     obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+2025-05-25 23:12:32.384 |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2025-05-25 23:12:32.384 |   File "/usr/local/lib/python3.11/json/decoder.py", line 355, in raw_decode
+2025-05-25 23:12:32.384 |     raise JSONDecodeError("Expecting value", s, err.value) from None
+2025-05-25 23:12:32.384 | json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+2025-05-25 23:12:32.384 | 
+2025-05-25 23:12:32.384 | The above exception was the direct cause of the following exception:
+2025-05-25 23:12:32.384 | 
+2025-05-25 23:12:32.384 | Traceback (most recent call last):
+2025-05-25 23:12:32.384 |   File "/app/app/main.py", line 8, in <module>
+2025-05-25 23:12:32.384 |     from core.config import settings
+2025-05-25 23:12:32.384 |   File "/app/app/core/config.py", line 40, in <module>
+2025-05-25 23:12:32.385 |     settings = Settings()
+2025-05-25 23:12:32.385 |                ^^^^^^^^^^
+2025-05-25 23:12:32.385 |   File "/app/app/core/config.py", line 27, in __init__
+2025-05-25 23:12:32.385 |     super().__init__(**kwargs)
+2025-05-25 23:12:32.385 |   File "/usr/local/lib/python3.11/site-packages/pydantic_settings/main.py", line 177, in __init__
+2025-05-25 23:12:32.385 |     **__pydantic_self__._settings_build_values(
+2025-05-25 23:12:32.385 |       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2025-05-25 23:12:32.385 |   File "/usr/local/lib/python3.11/site-packages/pydantic_settings/main.py", line 408, in _settings_build_values
+2025-05-25 23:12:32.385 |     source_state = source()
+2025-05-25 23:12:32.385 |                    ^^^^^^^^
+2025-05-25 23:12:32.385 |   File "/usr/local/lib/python3.11/site-packages/pydantic_settings/sources/base.py", line 484, in __call__
+2025-05-25 23:12:32.386 |     raise SettingsError(
+2025-05-25 23:12:32.386 | pydantic_settings.exceptions.SettingsError: error parsing value for field "allowed_origins" from source "EnvSettingsSource"
+2025-05-25 23:12:34.493 | Traceback (most recent call last):
+2025-05-25 23:12:34.493 |   File "/usr/local/lib/python3.11/site-packages/pydantic_settings/sources/base.py", line 482, in __call__
+2025-05-25 23:12:34.493 |     field_value = self.prepare_field_value(field_name, field, field_value, value_is_complex)
+2025-05-25 23:12:34.493 |                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2025-05-25 23:12:34.493 |   File "/usr/local/lib/python3.11/site-packages/pydantic_settings/sources/providers/env.py", line 120, in prepare_field_value
+2025-05-25 23:12:34.493 |     raise e
+2025-05-25 23:12:34.493 |   File "/usr/local/lib/python3.11/site-packages/pydantic_settings/sources/providers/env.py", line 117, in prepare_field_value
+2025-05-25 23:12:34.493 |     value = self.decode_complex_value(field_name, field, value)
+2025-05-25 23:12:34.494 |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2025-05-25 23:12:34.494 |   File "/usr/local/lib/python3.11/site-packages/pydantic_settings/sources/base.py", line 186, in decode_complex_value
+2025-05-25 23:12:34.496 |     return json.loads(value)
+2025-05-25 23:12:34.496 |            ^^^^^^^^^^^^^^^^^
+2025-05-25 23:12:34.496 |   File "/usr/local/lib/python3.11/json/__init__.py", line 346, in loads
+2025-05-25 23:12:34.496 |     return _default_decoder.decode(s)
+2025-05-25 23:12:34.496 |            ^^^^^^^^^^^^^^^^^^^^^^^^^^
+2025-05-25 23:12:34.497 |   File "/usr/local/lib/python3.11/json/decoder.py", line 337, in decode
+2025-05-25 23:12:34.497 |     obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+2025-05-25 23:12:34.497 |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2025-05-25 23:12:34.497 |   File "/usr/local/lib/python3.11/json/decoder.py", line 355, in raw_decode
+2025-05-25 23:12:34.497 |     raise JSONDecodeError("Expecting value", s, err.value) from None
+2025-05-25 23:12:34.497 | json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+2025-05-25 23:12:34.497 | 
+2025-05-25 23:12:34.497 | The above exception was the direct cause of the following exception:
+2025-05-25 23:12:34.497 | 
+2025-05-25 23:12:34.497 | Traceback (most recent call last):
+2025-05-25 23:12:34.497 |   File "/app/app/main.py", line 8, in <module>
+2025-05-25 23:12:34.498 |     from core.config import settings
+2025-05-25 23:12:34.498 |   File "/app/app/core/config.py", line 40, in <module>
+2025-05-25 23:12:34.498 |     settings = Settings()
+2025-05-25 23:12:34.498 |                ^^^^^^^^^^
+2025-05-25 23:12:34.498 |   File "/app/app/core/config.py", line 27, in __init__
+2025-05-25 23:12:34.498 |     super().__init__(**kwargs)
+2025-05-25 23:12:34.498 |   File "/usr/local/lib/python3.11/site-packages/pydantic_settings/main.py", line 177, in __init__
+2025-05-25 23:12:34.498 |     **__pydantic_self__._settings_build_values(
+2025-05-25 23:12:34.498 |       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2025-05-25 23:12:34.498 |   File "/usr/local/lib/python3.11/site-packages/pydantic_settings/main.py", line 408, in _settings_build_values
+2025-05-25 23:12:34.499 |     source_state = source()
+2025-05-25 23:12:34.499 |                    ^^^^^^^^
+2025-05-25 23:12:34.499 |   File "/usr/local/lib/python3.11/site-packages/pydantic_settings/sources/base.py", line 484, in __call__
+2025-05-25 23:12:34.499 |     raise SettingsError(
+2025-05-25 23:12:34.499 | pydantic_settings.exceptions.SettingsError: error parsing value for field "allowed_origins" from source "EnvSettingsSource"
+2025-05-25 23:12:36.523 | Traceback (most recent call last):
+2025-05-25 23:12:36.523 |   File "/usr/local/lib/python3.11/site-packages/pydantic_settings/sources/base.py", line 482, in __call__
+2025-05-25 23:12:36.523 |     field_value = self.prepare_field_value(field_name, field, field_value, value_is_complex)
+2025-05-25 23:12:36.523 |                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2025-05-25 23:12:36.524 |   File "/usr/local/lib/python3.11/site-packages/pydantic_settings/sources/providers/env.py", line 120, in prepare_field_value
+2025-05-25 23:12:36.524 |     raise e
+2025-05-25 23:12:36.524 |   File "/usr/local/lib/python3.11/site-packages/pydantic_settings/sources/providers/env.py", line 117, in prepare_field_value
+2025-05-25 23:12:36.524 |     value = self.decode_complex_value(field_name, field, value)
+2025-05-25 23:12:36.524 |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2025-05-25 23:12:36.524 |   File "/usr/local/lib/python3.11/site-packages/pydantic_settings/sources/base.py", line 186, in decode_complex_value
+2025-05-25 23:12:36.524 |     return json.loads(value)
+2025-05-25 23:12:36.524 |            ^^^^^^^^^^^^^^^^^
+2025-05-25 23:12:36.524 |   File "/usr/local/lib/python3.11/json/__init__.py", line 346, in loads
+2025-05-25 23:12:36.525 |     return _default_decoder.decode(s)
+2025-05-25 23:12:36.525 |            ^^^^^^^^^^^^^^^^^^^^^^^^^^
+2025-05-25 23:12:36.525 |   File "/usr/local/lib/python3.11/json/decoder.py", line 337, in decode
+2025-05-25 23:12:36.525 |     obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+2025-05-25 23:12:36.525 |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2025-05-25 23:12:36.525 |   File "/usr/local/lib/python3.11/json/decoder.py", line 355, in raw_decode
+2025-05-25 23:12:36.526 |     raise JSONDecodeError("Expecting value", s, err.value) from None
+2025-05-25 23:12:36.526 | json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+2025-05-25 23:12:36.526 | 
+2025-05-25 23:12:36.526 | The above exception was the direct cause of the following exception:
+2025-05-25 23:12:36.526 | 
+2025-05-25 23:12:36.526 | Traceback (most recent call last):
+2025-05-25 23:12:36.526 |   File "/app/app/main.py", line 8, in <module>
+2025-05-25 23:12:36.532 |     from core.config import settings
+2025-05-25 23:12:36.532 |   File "/app/app/core/config.py", line 40, in <module>
+2025-05-25 23:12:36.533 |     settings = Settings()
+2025-05-25 23:12:36.533 |                ^^^^^^^^^^
+2025-05-25 23:12:36.533 |   File "/app/app/core/config.py", line 27, in __init__
+2025-05-25 23:12:36.533 |     super().__init__(**kwargs)
+2025-05-25 23:12:36.533 |   File "/usr/local/lib/python3.11/site-packages/pydantic_settings/main.py", line 177, in __init__
+2025-05-25 23:12:36.534 |     **__pydantic_self__._settings_build_values(
+2025-05-25 23:12:36.534 |       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2025-05-25 23:12:36.534 |   File "/usr/local/lib/python3.11/site-packages/pydantic_settings/main.py", line 408, in _settings_build_values
+2025-05-25 23:12:36.535 |     source_state = source()
+2025-05-25 23:12:36.535 |                    ^^^^^^^^
+2025-05-25 23:12:36.535 |   File "/usr/local/lib/python3.11/site-packages/pydantic_settings/sources/base.py", line 484, in __call__
+2025-05-25 23:12:36.539 |     raise SettingsError(
+2025-05-25 23:12:36.539 | pydantic_settings.exceptions.SettingsError: error parsing value for field "allowed_origins" from source "EnvSettingsSource"
+2025-05-25 23:12:38.855 | Traceback (most recent call last):
+2025-05-25 23:12:38.855 |   File "/usr/local/lib/python3.11/site-packages/pydantic_settings/sources/base.py", line 482, in __call__
+2025-05-25 23:12:38.855 |     field_value = self.prepare_field_value(field_name, field, field_value, value_is_complex)
+2025-05-25 23:12:38.855 |                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2025-05-25 23:12:38.855 |   File "/usr/local/lib/python3.11/site-packages/pydantic_settings/sources/providers/env.py", line 120, in prepare_field_value
+2025-05-25 23:12:38.855 |     raise e
+2025-05-25 23:12:38.855 |   File "/usr/local/lib/python3.11/site-packages/pydantic_settings/sources/providers/env.py", line 117, in prepare_field_value
+2025-05-25 23:12:38.856 |     value = self.decode_complex_value(field_name, field, value)
+2025-05-25 23:12:38.856 |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2025-05-25 23:12:38.856 |   File "/usr/local/lib/python3.11/site-packages/pydantic_settings/sources/base.py", line 186, in decode_complex_value
+2025-05-25 23:12:38.856 |     return json.loads(value)
+2025-05-25 23:12:38.856 |            ^^^^^^^^^^^^^^^^^
+2025-05-25 23:12:38.856 |   File "/usr/local/lib/python3.11/json/__init__.py", line 346, in loads
+2025-05-25 23:12:38.856 |     return _default_decoder.decode(s)
+2025-05-25 23:12:38.856 |            ^^^^^^^^^^^^^^^^^^^^^^^^^^
+2025-05-25 23:12:38.856 |   File "/usr/local/lib/python3.11/json/decoder.py", line 337, in decode
+2025-05-25 23:12:38.856 |     obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+2025-05-25 23:12:38.856 |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2025-05-25 23:12:38.857 |   File "/usr/local/lib/python3.11/json/decoder.py", line 355, in raw_decode
+2025-05-25 23:12:38.857 |     raise JSONDecodeError("Expecting value", s, err.value) from None
+2025-05-25 23:12:38.857 | json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+2025-05-25 23:12:38.857 | 
+2025-05-25 23:12:38.857 | The above exception was the direct cause of the following exception:
+2025-05-25 23:12:38.857 | 
+2025-05-25 23:12:38.857 | Traceback (most recent call last):
+2025-05-25 23:12:38.857 |   File "/app/app/main.py", line 8, in <module>
+2025-05-25 23:12:38.857 |     from core.config import settings
+2025-05-25 23:12:38.857 |   File "/app/app/core/config.py", line 40, in <module>
+2025-05-25 23:12:38.857 |     settings = Settings()
+2025-05-25 23:12:38.857 |                ^^^^^^^^^^
+2025-05-25 23:12:38.857 |   File "/app/app/core/config.py", line 27, in __init__
+2025-05-25 23:12:38.857 |     super().__init__(**kwargs)
+2025-05-25 23:12:38.857 |   File "/usr/local/lib/python3.11/site-packages/pydantic_settings/main.py", line 177, in __init__
+2025-05-25 23:12:38.858 |     **__pydantic_self__._settings_build_values(
+2025-05-25 23:12:38.858 |       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2025-05-25 23:12:38.858 |   File "/usr/local/lib/python3.11/site-packages/pydantic_settings/main.py", line 408, in _settings_build_values
+2025-05-25 23:12:38.858 |     source_state = source()
+2025-05-25 23:12:38.858 |                    ^^^^^^^^
+2025-05-25 23:12:38.858 |   File "/usr/local/lib/python3.11/site-packages/pydantic_settings/sources/base.py", line 484, in __call__
+2025-05-25 23:12:38.858 |     raise SettingsError(
+2025-05-25 23:12:38.858 | pydantic_settings.exceptions.SettingsError: error parsing value for field "allowed_origins" from source "EnvSettingsSource"
+2025-05-25 23:12:42.166 | Traceback (most recent call last):
+2025-05-25 23:12:42.166 |   File "/usr/local/lib/python3.11/site-packages/pydantic_settings/sources/base.py", line 482, in __call__
+2025-05-25 23:12:42.166 |     field_value = self.prepare_field_value(field_name, field, field_value, value_is_complex)
+2025-05-25 23:12:42.167 |                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2025-05-25 23:12:42.167 |   File "/usr/local/lib/python3.11/site-packages/pydantic_settings/sources/providers/env.py", line 120, in prepare_field_value
+2025-05-25 23:12:42.167 |     raise e
+2025-05-25 23:12:42.167 |   File "/usr/local/lib/python3.11/site-packages/pydantic_settings/sources/providers/env.py", line 117, in prepare_field_value
+2025-05-25 23:12:42.167 |     value = self.decode_complex_value(field_name, field, value)
+2025-05-25 23:12:42.167 |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2025-05-25 23:12:42.167 |   File "/usr/local/lib/python3.11/site-packages/pydantic_settings/sources/base.py", line 186, in decode_complex_value
+2025-05-25 23:12:42.167 |     return json.loads(value)
+2025-05-25 23:12:42.167 |            ^^^^^^^^^^^^^^^^^
+2025-05-25 23:12:42.167 |   File "/usr/local/lib/python3.11/json/__init__.py", line 346, in loads
+2025-05-25 23:12:42.168 |     return _default_decoder.decode(s)
+2025-05-25 23:12:42.168 |            ^^^^^^^^^^^^^^^^^^^^^^^^^^
+2025-05-25 23:12:42.168 |   File "/usr/local/lib/python3.11/json/decoder.py", line 337, in decode
+2025-05-25 23:12:42.168 |     obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+2025-05-25 23:12:42.169 |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2025-05-25 23:12:42.169 |   File "/usr/local/lib/python3.11/json/decoder.py", line 355, in raw_decode
+2025-05-25 23:12:42.169 |     raise JSONDecodeError("Expecting value", s, err.value) from None
+2025-05-25 23:12:42.169 | json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+2025-05-25 23:12:42.169 | 
+2025-05-25 23:12:42.169 | The above exception was the direct cause of the following exception:
+2025-05-25 23:12:42.169 | 
+2025-05-25 23:12:42.169 | Traceback (most recent call last):
+2025-05-25 23:12:42.169 |   File "/app/app/main.py", line 8, in <module>
+2025-05-25 23:12:42.173 |     from core.config import settings
+2025-05-25 23:12:42.178 |   File "/app/app/core/config.py", line 40, in <module>
+2025-05-25 23:12:42.178 |     settings = Settings()
+2025-05-25 23:12:42.178 |                ^^^^^^^^^^
+2025-05-25 23:12:42.178 |   File "/app/app/core/config.py", line 27, in __init__
+2025-05-25 23:12:42.178 |     super().__init__(**kwargs)
+2025-05-25 23:12:42.178 |   File "/usr/local/lib/python3.11/site-packages/pydantic_settings/main.py", line 177, in __init__
+2025-05-25 23:12:42.206 |     **__pydantic_self__._settings_build_values(
+2025-05-25 23:12:42.206 |       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2025-05-25 23:12:42.206 |   File "/usr/local/lib/python3.11/site-packages/pydantic_settings/main.py", line 408, in _settings_build_values
+2025-05-25 23:12:42.206 |     source_state = source()
+2025-05-25 23:12:42.206 |                    ^^^^^^^^
+2025-05-25 23:12:42.206 |   File "/usr/local/lib/python3.11/site-packages/pydantic_settings/sources/base.py", line 484, in __call__
+2025-05-25 23:12:42.206 |     raise SettingsError(
+2025-05-25 23:12:42.206 | pydantic_settings.exceptions.SettingsError: error parsing value for field "allowed_origins" from source "EnvSettingsSource"
+2025-05-25 23:12:47.042 | Traceback (most recent call last):
+2025-05-25 23:12:47.042 |   File "/usr/local/lib/python3.11/site-packages/pydantic_settings/sources/base.py", line 482, in __call__
+2025-05-25 23:12:47.042 |     field_value = self.prepare_field_value(field_name, field, field_value, value_is_complex)
+2025-05-25 23:12:47.042 |                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2025-05-25 23:12:47.042 |   File "/usr/local/lib/python3.11/site-packages/pydantic_settings/sources/providers/env.py", line 120, in prepare_field_value
+2025-05-25 23:12:47.042 |     raise e
+2025-05-25 23:12:47.042 |   File "/usr/local/lib/python3.11/site-packages/pydantic_settings/sources/providers/env.py", line 117, in prepare_field_value
+2025-05-25 23:12:47.042 |     value = self.decode_complex_value(field_name, field, value)
+2025-05-25 23:12:47.045 |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2025-05-25 23:12:47.046 |   File "/usr/local/lib/python3.11/site-packages/pydantic_settings/sources/base.py", line 186, in decode_complex_value
+2025-05-25 23:12:47.047 |     return json.loads(value)
+2025-05-25 23:12:47.047 |            ^^^^^^^^^^^^^^^^^
+2025-05-25 23:12:47.047 |   File "/usr/local/lib/python3.11/json/__init__.py", line 346, in loads
+2025-05-25 23:12:47.048 |     return _default_decoder.decode(s)
+2025-05-25 23:12:47.048 |            ^^^^^^^^^^^^^^^^^^^^^^^^^^
+2025-05-25 23:12:47.048 |   File "/usr/local/lib/python3.11/json/decoder.py", line 337, in decode
+2025-05-25 23:12:47.048 |     obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+2025-05-25 23:12:47.048 |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2025-05-25 23:12:47.048 |   File "/usr/local/lib/python3.11/json/decoder.py", line 355, in raw_decode
+2025-05-25 23:12:47.049 |     raise JSONDecodeError("Expecting value", s, err.value) from None
+2025-05-25 23:12:47.049 | json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+2025-05-25 23:12:47.049 | 
+2025-05-25 23:12:47.049 | The above exception was the direct cause of the following exception:
+2025-05-25 23:12:47.049 | 
+2025-05-25 23:12:47.049 | Traceback (most recent call last):
+2025-05-25 23:12:47.049 |   File "/app/app/main.py", line 8, in <module>
+2025-05-25 23:12:47.049 |     from core.config import settings
+2025-05-25 23:12:47.049 |   File "/app/app/core/config.py", line 40, in <module>
+2025-05-25 23:12:47.049 |     settings = Settings()
+2025-05-25 23:12:47.049 |                ^^^^^^^^^^
+2025-05-25 23:12:47.049 |   File "/app/app/core/config.py", line 27, in __init__
+2025-05-25 23:12:47.049 |     super().__init__(**kwargs)
+2025-05-25 23:12:47.049 |   File "/usr/local/lib/python3.11/site-packages/pydantic_settings/main.py", line 177, in __init__
+2025-05-25 23:12:47.049 |     **__pydantic_self__._settings_build_values(
+2025-05-25 23:12:47.049 |       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2025-05-25 23:12:47.049 |   File "/usr/local/lib/python3.11/site-packages/pydantic_settings/main.py", line 408, in _settings_build_values
+2025-05-25 23:12:47.049 |     source_state = source()
+2025-05-25 23:12:47.049 |                    ^^^^^^^^
+2025-05-25 23:12:47.049 |   File "/usr/local/lib/python3.11/site-packages/pydantic_settings/sources/base.py", line 484, in __call__
+2025-05-25 23:12:47.050 |     raise SettingsError(
+2025-05-25 23:12:47.050 | pydantic_settings.exceptions.SettingsError: error parsing value for field "allowed_origins" from source "EnvSettingsSource"
+2025-05-25 23:12:55.503 | Traceback (most recent call last):
+2025-05-25 23:12:55.503 |   File "/usr/local/lib/python3.11/site-packages/pydantic_settings/sources/base.py", line 482, in __call__
+2025-05-25 23:12:55.503 |     field_value = self.prepare_field_value(field_name, field, field_value, value_is_complex)
+2025-05-25 23:12:55.503 |                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2025-05-25 23:12:55.503 |   File "/usr/local/lib/python3.11/site-packages/pydantic_settings/sources/providers/env.py", line 120, in prepare_field_value
+2025-05-25 23:12:55.503 |     raise e
+2025-05-25 23:12:55.503 |   File "/usr/local/lib/python3.11/site-packages/pydantic_settings/sources/providers/env.py", line 117, in prepare_field_value
+2025-05-25 23:12:55.504 |     value = self.decode_complex_value(field_name, field, value)
+2025-05-25 23:12:55.504 |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2025-05-25 23:12:55.504 |   File "/usr/local/lib/python3.11/site-packages/pydantic_settings/sources/base.py", line 186, in decode_complex_value
+2025-05-25 23:12:55.504 |     return json.loads(value)
+2025-05-25 23:12:55.504 |            ^^^^^^^^^^^^^^^^^
+2025-05-25 23:12:55.504 |   File "/usr/local/lib/python3.11/json/__init__.py", line 346, in loads
+2025-05-25 23:12:55.504 |     return _default_decoder.decode(s)
+2025-05-25 23:12:55.504 |            ^^^^^^^^^^^^^^^^^^^^^^^^^^
+2025-05-25 23:12:55.504 |   File "/usr/local/lib/python3.11/json/decoder.py", line 337, in decode
+2025-05-25 23:12:55.505 |     obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+2025-05-25 23:12:55.505 |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2025-05-25 23:12:55.505 |   File "/usr/local/lib/python3.11/json/decoder.py", line 355, in raw_decode
+2025-05-25 23:12:55.505 |     raise JSONDecodeError("Expecting value", s, err.value) from None
+2025-05-25 23:12:55.505 | json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+2025-05-25 23:12:55.505 | 
+2025-05-25 23:12:55.505 | The above exception was the direct cause of the following exception:
+2025-05-25 23:12:55.505 | 
+2025-05-25 23:12:55.505 | Traceback (most recent call last):
+2025-05-25 23:12:55.505 |   File "/app/app/main.py", line 8, in <module>
+2025-05-25 23:12:55.505 |     from core.config import settings
+2025-05-25 23:12:55.505 |   File "/app/app/core/config.py", line 40, in <module>
+2025-05-25 23:12:55.505 |     settings = Settings()
+2025-05-25 23:12:55.505 |                ^^^^^^^^^^
+2025-05-25 23:12:55.508 |   File "/app/app/core/config.py", line 27, in __init__
+2025-05-25 23:12:55.508 |     super().__init__(**kwargs)
+2025-05-25 23:12:55.508 |   File "/usr/local/lib/python3.11/site-packages/pydantic_settings/main.py", line 177, in __init__
+2025-05-25 23:12:55.508 |     **__pydantic_self__._settings_build_values(
+2025-05-25 23:12:55.508 |       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2025-05-25 23:12:55.508 |   File "/usr/local/lib/python3.11/site-packages/pydantic_settings/main.py", line 408, in _settings_build_values
+2025-05-25 23:12:55.508 |     source_state = source()
+2025-05-25 23:12:55.508 |                    ^^^^^^^^
+2025-05-25 23:12:55.508 |   File "/usr/local/lib/python3.11/site-packages/pydantic_settings/sources/base.py", line 484, in __call__
+2025-05-25 23:12:55.508 |     raise SettingsError(
+2025-05-25 23:12:55.508 | pydantic_settings.exceptions.SettingsError: error parsing value for field "allowed_origins" from source "EnvSettingsSource"
