@@ -81,4 +81,34 @@ Want to contribute? Check out the [GitHub repository](https://github.com/YOUR_US
 - `v1.x.x`: Specific version releases
 - `main`: Latest development build
 
+## 👨‍💻 Meet the Developer
+
+**Built with ❤️ by Olajide Azeez**
+
+Full-Stack Developer & Lead Generation Expert who created this powerful tool to help businesses scale their outreach efforts. With expertise in Python, FastAPI, Docker, and modern web technologies, I specialize in building automation solutions that drive real business results.
+
+### 🚀 Why This Tool Stands Out
+
+- **Production-Ready**: Built with enterprise-grade security and scalability
+- **Modern Architecture**: FastAPI backend with beautiful glass-morphism UI
+- **Developer Experience**: Clean code, comprehensive documentation, easy deployment
+- **Business Focus**: Designed to solve real lead generation challenges
+
+### 🤝 Need Custom Development?
+
+Looking for tailored automation solutions or custom web applications? I'd love to help bring your ideas to life!
+
+**Connect with me:**
+- 💼 **LinkedIn**: [Olajide Azeez](https://www.linkedin.com/in/olajide-azeez-a2133a258) - Let's discuss your project
+- 📸 **Instagram**: [@tizkiya](https://www.instagram.com/tizkiya?igsh=MXFseXhlMGNvaGZwMQ==) - See my latest work
+
+**Services I offer:**
+- Custom Web Application Development
+- API Development & Integration  
+- Automation & Web Scraping Solutions
+- Lead Generation Tools
+- DevOps & Deployment
+
+---
+
 Built with ❤️ for the lead generation community!

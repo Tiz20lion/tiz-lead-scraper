@@ -174,6 +174,44 @@ If you encounter any issues:
 3. Verify your URLs are valid Apollo.io search pages
 4. Check network connectivity
 
-## 🎉 Success!
+## 👨‍💻 About the Developer
 
-Your Tiz Lead Scraper is now ready to help you extract valuable leads from Apollo.io with beautiful animations and seamless integrations!
+**Built with ❤️ by Olajide Azeez**
+
+Full-Stack Developer & Lead Generation Expert specializing in modern web applications, automation, and scalable solutions. Passionate about creating beautiful, functional tools that help businesses grow and succeed.
+
+### 🚀 Skills & Expertise
+- **Backend Development**: Python, FastAPI, Django, Node.js
+- **Frontend Development**: React, Vue.js, Modern CSS, Responsive Design
+- **DevOps & Deployment**: Docker, CI/CD, Cloud Platforms
+- **Data & Automation**: Web Scraping, API Integrations, Lead Generation
+- **Database Management**: PostgreSQL, MongoDB, Redis
+
+### 🤝 Let's Connect & Collaborate
+
+**Looking for custom development or have a project in mind?**
+
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-0077B5?style=for-the-badge&logo=linkedin)](https://www.linkedin.com/in/olajide-azeez-a2133a258)
+[![Instagram](https://img.shields.io/badge/Instagram-Follow-E4405F?style=for-the-badge&logo=instagram)](https://www.instagram.com/tizkiya?igsh=MXFseXhlMGNvaGZwMQ==)
+
+**Why work with me?**
+- ✅ **Proven Expertise**: Successfully built and deployed multiple production applications
+- ✅ **Modern Stack**: Always using the latest technologies and best practices
+- ✅ **Business Focus**: Understanding your needs and delivering solutions that drive results
+- ✅ **Quality Code**: Clean, scalable, and maintainable code with comprehensive documentation
+- ✅ **Fast Delivery**: Efficient development process with regular updates and communication
+
+**Services I Offer:**
+- 🛠️ Custom Web Application Development
+- 🤖 Automation & Web Scraping Solutions
+- 📊 Lead Generation & CRM Integration
+- 🚀 API Development & Integration
+- 🐳 DevOps & Deployment Solutions
+
+**Ready to bring your ideas to life? Let's discuss your next project!**
+
+---
+
+## 🎉 Get Started Today!
+
+Your Tiz Lead Scraper is ready to help you extract valuable leads from Apollo.io with beautiful animations and seamless integrations!
