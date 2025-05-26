@@ -1,0 +1,11 @@
+fastapi==0.104.1
+uvicorn[standard]==0.24.0
+pydantic==2.5.0
+pydantic-settings==2.1.0
+structlog==23.2.0
+tenacity==8.2.3
+python-multipart==0.0.6
+apify-client==1.7.1
+notion-client==2.2.1
+google-api-python-client==2.108.0
+google-auth==2.23.4

@@ -1,7 +1,7 @@
 # 🚀 Tiz Lead Scraper
 
-[![Docker Build](https://github.com/YOUR_USERNAME/tiz-lead-scraper/actions/workflows/docker-publish.yml/badge.svg)](https://github.com/YOUR_USERNAME/tiz-lead-scraper/actions/workflows/docker-publish.yml)
-[![Docker Pulls](https://img.shields.io/docker/pulls/YOUR_USERNAME/tiz-lead-scraper)](https://hub.docker.com/r/YOUR_USERNAME/tiz-lead-scraper)
+[![Docker Build](https://github.com/tiz20lion/tiz-lead-scraper/actions/workflows/docker-publish.yml/badge.svg)](https://github.com/tiz20lion/tiz-lead-scraper/actions/workflows/docker-publish.yml)
+[![Docker Pulls](https://img.shields.io/docker/pulls/tiz20lion/tiz-lead-scraper)](https://hub.docker.com/r/tiz20lion/tiz-lead-scraper)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 A powerful, production-ready web scraper for extracting leads from Apollo.io with seamless Google Sheets and Notion integration. Built with modern web technologies and packaged for easy deployment.
@@ -25,13 +25,30 @@ A powerful, production-ready web scraper for extracting leads from Apollo.io wit
 ### Step 1: Clone Repository
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/tiz-lead-scraper.git
+git clone https://github.com/tiz20lion/tiz-lead-scraper.git
 cd tiz-lead-scraper
 ```
 
 ### Step 2: Install Dependencies
 
 #### Option A: Using pip (Recommended)
+
+First, create a `requirements.txt` file in your project root:
+```txt
+fastapi==0.104.1
+uvicorn[standard]==0.24.0
+pydantic==2.5.0
+pydantic-settings==2.1.0
+structlog==23.2.0
+tenacity==8.2.3
+python-multipart==0.0.6
+apify-client==1.7.1
+notion-client==2.2.1
+google-api-python-client==2.108.0
+google-auth==2.23.4
+```
+
+Then set up your environment:
 ```bash
 # Create virtual environment
 python -m venv venv
@@ -160,14 +177,14 @@ pip install -v fastapi uvicorn pydantic structlog tenacity python-multipart apif
 
 Pull and run the pre-built image:
 ```bash
-docker run -d -p 5000:5000 --name tiz-lead-scraper YOUR_USERNAME/tiz-lead-scraper:latest
+docker run -d -p 5000:5000 --name tiz-lead-scraper tiz20lion/tiz-lead-scraper:latest
 ```
 
 ### Method 2: GitHub Repository
 
 1. **Clone the repository:**
    ```bash
-   git clone https://github.com/YOUR_USERNAME/tiz-lead-scraper.git
+   git clone https://github.com/tiz20lion/tiz-lead-scraper.git
    cd tiz-lead-scraper
    ```
 

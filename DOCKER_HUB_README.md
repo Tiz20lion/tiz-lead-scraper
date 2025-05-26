@@ -16,7 +16,7 @@ Extract up to 50,000 leads with beautiful animations and seamless integrations!
 
 ```bash
 # Pull and run the latest version
-docker run -d -p 5000:5000 --name tiz-lead-scraper YOUR_USERNAME/tiz-lead-scraper:latest
+docker run -d -p 5000:5000 --name tiz-lead-scraper tiz20lion/tiz-lead-scraper:latest
 
 # Access the application
 open http://localhost:5000
@@ -51,7 +51,7 @@ open http://localhost:5000
 version: '3.8'
 services:
   tiz-lead-scraper:
-    image: YOUR_USERNAME/tiz-lead-scraper:latest
+    image: tiz20lion/tiz-lead-scraper:latest
     ports:
       - "5000:5000"
     environment:
@@ -67,7 +67,7 @@ services:
 
 ## 🛠️ Development
 
-Want to contribute? Check out the [GitHub repository](https://github.com/YOUR_USERNAME/tiz-lead-scraper) for the full source code and development setup.
+Want to contribute? Check out the [GitHub repository](https://github.com/tiz20lion/tiz-lead-scraper) for the full source code and development setup.
 
 ## 📞 Support
 
