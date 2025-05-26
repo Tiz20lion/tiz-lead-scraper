@@ -14,20 +14,35 @@
     <link rel="stylesheet" href="/static/css/styles.css">
 </head>
 <body class="dark-theme">
+    <!-- Animated Background -->
+    <div class="animated-background">
+        <div class="floating-shape shape-1"></div>
+        <div class="floating-shape shape-2"></div>
+        <div class="floating-shape shape-3"></div>
+        <div class="floating-shape shape-4"></div>
+    </div>
+
     <!-- Header -->
     <header class="header animate__animated animate__fadeInDown">
         <div class="header-content">
             <h1 class="logo">
-                <i class="fas fa-rocket"></i>
-                Apollo Lead Scraper
+                <div class="logo-icon">
+                    <i class="fas fa-rocket"></i>
+                </div>
+                <div class="logo-text">
+                    <span class="logo-main">Apollo</span>
+                    <span class="logo-sub">Lead Scraper</span>
+                </div>
             </h1>
             <div class="header-controls">
                 <button id="themeToggle" class="theme-toggle" title="Toggle theme">
                     <i class="fas fa-moon"></i>
+                    <span class="toggle-ripple"></span>
                 </button>
                 <div class="status-indicator" id="statusIndicator">
                     <span class="status-dot"></span>
                     <span class="status-text">Ready</span>
+                    <div class="status-wave"></div>
                 </div>
             </div>
         </div>
