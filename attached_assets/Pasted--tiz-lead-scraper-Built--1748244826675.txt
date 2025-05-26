@@ -1,0 +1,97 @@
+ ✔ tiz-lead-scraper                                Built                                                           0.0s
+ ✔ Network tiz-lead-scraper-network                Created                                                         0.1s
+ ✔ Container webscrapertoolkit-tiz-lead-scraper-1  Started                                                         2.5s
+ΓÅ│ Waiting for application to start...
+Γ¥î Application failed to start. Check logs with: docker-compose logs
+Press any key to continue . . .
+PS C:\Users\Tizlion\Downloads\WebScraperToolkit\WebScraperToolkit> docker-compose logs
+tiz-lead-scraper-1  | {"event": "Apify API token not configured", "logger": "clients.apify_client", "level": "warning", "timestamp": "2025-05-26T07:31:43.927341Z"}
+tiz-lead-scraper-1  | {"event": "Google Sheets credentials not configured", "logger": "clients.sheets_client", "level": "warning", "timestamp": "2025-05-26T07:31:44.133121Z"}
+tiz-lead-scraper-1  | {"event": "Notion token not configured", "logger": "clients.notion_client", "level": "warning", "timestamp": "2025-05-26T07:31:44.139497Z"}
+tiz-lead-scraper-1  | Traceback (most recent call last):
+tiz-lead-scraper-1  |   File "/app/app/main.py", line 43, in <module>
+tiz-lead-scraper-1  |     app.mount("/static", StaticFiles(directory="static"), name="static")
+tiz-lead-scraper-1  |                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tiz-lead-scraper-1  |   File "/usr/local/lib/python3.11/site-packages/starlette/staticfiles.py", line 56, in __init__
+tiz-lead-scraper-1  |     raise RuntimeError(f"Directory '{directory}' does not exist")
+tiz-lead-scraper-1  | RuntimeError: Directory 'static' does not exist
+tiz-lead-scraper-1  | {"event": "Apify API token not configured", "logger": "clients.apify_client", "level": "warning", "timestamp": "2025-05-26T07:31:47.736618Z"}
+tiz-lead-scraper-1  | {"event": "Google Sheets credentials not configured", "logger": "clients.sheets_client", "level": "warning", "timestamp": "2025-05-26T07:31:47.947888Z"}
+tiz-lead-scraper-1  | {"event": "Notion token not configured", "logger": "clients.notion_client", "level": "warning", "timestamp": "2025-05-26T07:31:47.956757Z"}
+tiz-lead-scraper-1  | Traceback (most recent call last):
+tiz-lead-scraper-1  |   File "/app/app/main.py", line 43, in <module>
+tiz-lead-scraper-1  |     app.mount("/static", StaticFiles(directory="static"), name="static")
+tiz-lead-scraper-1  |                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tiz-lead-scraper-1  |   File "/usr/local/lib/python3.11/site-packages/starlette/staticfiles.py", line 56, in __init__
+tiz-lead-scraper-1  |     raise RuntimeError(f"Directory '{directory}' does not exist")
+tiz-lead-scraper-1  | RuntimeError: Directory 'static' does not exist
+tiz-lead-scraper-1  | {"event": "Apify API token not configured", "logger": "clients.apify_client", "level": "warning", "timestamp": "2025-05-26T07:31:51.414725Z"}
+tiz-lead-scraper-1  | {"event": "Google Sheets credentials not configured", "logger": "clients.sheets_client", "level": "warning", "timestamp": "2025-05-26T07:31:51.660263Z"}
+tiz-lead-scraper-1  | {"event": "Notion token not configured", "logger": "clients.notion_client", "level": "warning", "timestamp": "2025-05-26T07:31:51.670676Z"}
+tiz-lead-scraper-1  | Traceback (most recent call last):
+tiz-lead-scraper-1  |   File "/app/app/main.py", line 43, in <module>
+tiz-lead-scraper-1  |     app.mount("/static", StaticFiles(directory="static"), name="static")
+tiz-lead-scraper-1  |                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tiz-lead-scraper-1  |   File "/usr/local/lib/python3.11/site-packages/starlette/staticfiles.py", line 56, in __init__
+tiz-lead-scraper-1  |     raise RuntimeError(f"Directory '{directory}' does not exist")
+tiz-lead-scraper-1  | RuntimeError: Directory 'static' does not exist
+tiz-lead-scraper-1  | {"event": "Apify API token not configured", "logger": "clients.apify_client", "level": "warning", "timestamp": "2025-05-26T07:31:55.060005Z"}
+tiz-lead-scraper-1  | {"event": "Google Sheets credentials not configured", "logger": "clients.sheets_client", "level": "warning", "timestamp": "2025-05-26T07:31:55.392186Z"}
+tiz-lead-scraper-1  | {"event": "Notion token not configured", "logger": "clients.notion_client", "level": "warning", "timestamp": "2025-05-26T07:31:55.405009Z"}
+tiz-lead-scraper-1  | Traceback (most recent call last):
+tiz-lead-scraper-1  |   File "/app/app/main.py", line 43, in <module>
+tiz-lead-scraper-1  |     app.mount("/static", StaticFiles(directory="static"), name="static")
+tiz-lead-scraper-1  |                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tiz-lead-scraper-1  |   File "/usr/local/lib/python3.11/site-packages/starlette/staticfiles.py", line 56, in __init__
+tiz-lead-scraper-1  |     raise RuntimeError(f"Directory '{directory}' does not exist")
+tiz-lead-scraper-1  | RuntimeError: Directory 'static' does not exist
+tiz-lead-scraper-1  | {"event": "Apify API token not configured", "logger": "clients.apify_client", "level": "warning", "timestamp": "2025-05-26T07:31:59.244727Z"}
+tiz-lead-scraper-1  | {"event": "Google Sheets credentials not configured", "logger": "clients.sheets_client", "level": "warning", "timestamp": "2025-05-26T07:31:59.608084Z"}
+tiz-lead-scraper-1  | {"event": "Notion token not configured", "logger": "clients.notion_client", "level": "warning", "timestamp": "2025-05-26T07:31:59.619259Z"}
+tiz-lead-scraper-1  | Traceback (most recent call last):
+tiz-lead-scraper-1  |   File "/app/app/main.py", line 43, in <module>
+tiz-lead-scraper-1  |     app.mount("/static", StaticFiles(directory="static"), name="static")
+tiz-lead-scraper-1  |                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tiz-lead-scraper-1  |   File "/usr/local/lib/python3.11/site-packages/starlette/staticfiles.py", line 56, in __init__
+tiz-lead-scraper-1  |     raise RuntimeError(f"Directory '{directory}' does not exist")
+tiz-lead-scraper-1  | RuntimeError: Directory 'static' does not exist
+tiz-lead-scraper-1  | {"event": "Apify API token not configured", "logger": "clients.apify_client", "level": "warning", "timestamp": "2025-05-26T07:32:04.046663Z"}
+tiz-lead-scraper-1  | {"event": "Google Sheets credentials not configured", "logger": "clients.sheets_client", "level": "warning", "timestamp": "2025-05-26T07:32:04.312485Z"}
+tiz-lead-scraper-1  | {"event": "Notion token not configured", "logger": "clients.notion_client", "level": "warning", "timestamp": "2025-05-26T07:32:04.321427Z"}
+tiz-lead-scraper-1  | Traceback (most recent call last):
+tiz-lead-scraper-1  |   File "/app/app/main.py", line 43, in <module>
+tiz-lead-scraper-1  |     app.mount("/static", StaticFiles(directory="static"), name="static")
+tiz-lead-scraper-1  |                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tiz-lead-scraper-1  |   File "/usr/local/lib/python3.11/site-packages/starlette/staticfiles.py", line 56, in __init__
+tiz-lead-scraper-1  |     raise RuntimeError(f"Directory '{directory}' does not exist")
+tiz-lead-scraper-1  | RuntimeError: Directory 'static' does not exist
+tiz-lead-scraper-1  | {"event": "Apify API token not configured", "logger": "clients.apify_client", "level": "warning", "timestamp": "2025-05-26T07:32:10.330994Z"}
+tiz-lead-scraper-1  | {"event": "Google Sheets credentials not configured", "logger": "clients.sheets_client", "level": "warning", "timestamp": "2025-05-26T07:32:10.529638Z"}
+tiz-lead-scraper-1  | {"event": "Notion token not configured", "logger": "clients.notion_client", "level": "warning", "timestamp": "2025-05-26T07:32:10.538900Z"}
+tiz-lead-scraper-1  | Traceback (most recent call last):
+tiz-lead-scraper-1  |   File "/app/app/main.py", line 43, in <module>
+tiz-lead-scraper-1  |     app.mount("/static", StaticFiles(directory="static"), name="static")
+tiz-lead-scraper-1  |                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tiz-lead-scraper-1  |   File "/usr/local/lib/python3.11/site-packages/starlette/staticfiles.py", line 56, in __init__
+tiz-lead-scraper-1  |     raise RuntimeError(f"Directory '{directory}' does not exist")
+tiz-lead-scraper-1  | RuntimeError: Directory 'static' does not exist
+tiz-lead-scraper-1  | {"event": "Apify API token not configured", "logger": "clients.apify_client", "level": "warning", "timestamp": "2025-05-26T07:32:19.840671Z"}
+tiz-lead-scraper-1  | {"event": "Google Sheets credentials not configured", "logger": "clients.sheets_client", "level": "warning", "timestamp": "2025-05-26T07:32:20.165827Z"}
+tiz-lead-scraper-1  | {"event": "Notion token not configured", "logger": "clients.notion_client", "level": "warning", "timestamp": "2025-05-26T07:32:20.176723Z"}
+tiz-lead-scraper-1  | Traceback (most recent call last):
+tiz-lead-scraper-1  |   File "/app/app/main.py", line 43, in <module>
+tiz-lead-scraper-1  |     app.mount("/static", StaticFiles(directory="static"), name="static")
+tiz-lead-scraper-1  |                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tiz-lead-scraper-1  |   File "/usr/local/lib/python3.11/site-packages/starlette/staticfiles.py", line 56, in __init__
+tiz-lead-scraper-1  |     raise RuntimeError(f"Directory '{directory}' does not exist")
+tiz-lead-scraper-1  | RuntimeError: Directory 'static' does not exist
+tiz-lead-scraper-1  | {"event": "Apify API token not configured", "logger": "clients.apify_client", "level": "warning", "timestamp": "2025-05-26T07:32:35.961678Z"}
+tiz-lead-scraper-1  | {"event": "Google Sheets credentials not configured", "logger": "clients.sheets_client", "level": "warning", "timestamp": "2025-05-26T07:32:36.265816Z"}
+tiz-lead-scraper-1  | {"event": "Notion token not configured", "logger": "clients.notion_client", "level": "warning", "timestamp": "2025-05-26T07:32:36.273763Z"}
+tiz-lead-scraper-1  | Traceback (most recent call last):
+tiz-lead-scraper-1  |   File "/app/app/main.py", line 43, in <module>
+tiz-lead-scraper-1  |     app.mount("/static", StaticFiles(directory="static"), name="static")
+tiz-lead-scraper-1  |                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tiz-lead-scraper-1  |   File "/usr/local/lib/python3.11/site-packages/starlette/staticfiles.py", line 56, in __init__
+tiz-lead-scraper-1  |     raise RuntimeError(f"Directory '{directory}' does not exist")
+tiz-lead-scraper-1  | RuntimeError: Directory 'static' does not exist
