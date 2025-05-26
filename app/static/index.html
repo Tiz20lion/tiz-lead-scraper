@@ -158,6 +158,60 @@
                     </div>
                 </div>
 
+                <!-- Export Integrations (Optional) -->
+                <div class="input-section">
+                    <label class="input-label">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        Export Integrations (Optional)
+                    </label>
+                    
+                    <!-- Google Sheets -->
+                    <div class="integration-group">
+                        <label class="integration-label">
+                            <i class="fab fa-google"></i>
+                            Google Sheets
+                        </label>
+                        <textarea 
+                            id="googleCredentials" 
+                            placeholder="Paste Google Service Account JSON credentials (optional)"
+                            class="credentials-input"
+                            rows="3"
+                        ></textarea>
+                        <input 
+                            type="text" 
+                            id="spreadsheetId" 
+                            placeholder="Spreadsheet ID (optional)"
+                            class="api-input"
+                        >
+                        <input 
+                            type="text" 
+                            id="sheetName" 
+                            placeholder="Sheet Name (default: Leads)"
+                            class="api-input"
+                        >
+                    </div>
+
+                    <!-- Notion Database -->
+                    <div class="integration-group">
+                        <label class="integration-label">
+                            <i class="fab fa-notion"></i>
+                            Notion Database
+                        </label>
+                        <input 
+                            type="password" 
+                            id="notionToken" 
+                            placeholder="Notion Integration Token (optional)"
+                            class="api-input"
+                        >
+                        <input 
+                            type="text" 
+                            id="notionDatabaseId" 
+                            placeholder="Notion Database ID (optional)"
+                            class="api-input"
+                        >
+                    </div>
+                </div>
+
                 <!-- Start Button -->
                 <button id="startScraping" class="start-button">
                     <i class="fas fa-play"></i>
@@ -208,78 +262,34 @@
                     </div>
                 </div>
 
-                <!-- Export Section -->
+                <!-- Export Actions -->
                 <div class="export-section" id="exportSection" style="display: none;">
-                    <h3><i class="fas fa-download"></i> Export Options</h3>
+                    <h3><i class="fas fa-download"></i> Export Your Data</h3>
                     
-                    <!-- Direct Download -->
-                    <div class="export-group">
-                        <h4>Direct Download</h4>
-                        <div class="export-buttons">
-                            <button id="exportCsv" class="export-button csv">
-                                <i class="fas fa-file-csv"></i>
-                                Download CSV
-                            </button>
-                            <button id="exportJson" class="export-button json">
-                                <i class="fas fa-file-code"></i>
-                                Download JSON
-                            </button>
-                        </div>
+                    <!-- Export Actions -->
+                    <div class="export-actions">
+                        <button id="exportCsv" class="export-button csv">
+                            <i class="fas fa-file-csv"></i>
+                            Download CSV
+                        </button>
+                        <button id="exportJson" class="export-button json">
+                            <i class="fas fa-file-code"></i>
+                            Download JSON
+                        </button>
+                        <button id="exportSheets" class="export-button sheets">
+                            <i class="fab fa-google"></i>
+                            Export to Google Sheets
+                        </button>
+                        <button id="exportNotion" class="export-button notion">
+                            <i class="fab fa-notion"></i>
+                            Export to Notion
+                        </button>
                     </div>
-
-                    <!-- Google Sheets Export -->
-                    <div class="export-group">
-                        <h4>Google Sheets Integration</h4>
-                        <div class="export-form">
-                            <textarea 
-                                id="googleCredentials" 
-                                placeholder="Paste your Google Service Account JSON credentials here..."
-                                class="credentials-textarea"
-                                rows="4"
-                            ></textarea>
-                            <input 
-                                type="text" 
-                                id="spreadsheetId" 
-                                placeholder="Spreadsheet ID"
-                                class="export-input"
-                            >
-                            <input 
-                                type="text" 
-                                id="sheetName" 
-                                placeholder="Sheet Name (default: Leads)"
-                                class="export-input"
-                            >
-                            <button id="exportSheets" class="export-button sheets">
-                                <i class="fab fa-google"></i>
-                                Export to Sheets
-                            </button>
-                        </div>
+                    
+                    <div class="export-note">
+                        <i class="fas fa-info-circle"></i>
+                        Configure your integration credentials on the left to enable cloud exports
                     </div>
-
-                    <!-- Notion Export -->
-                    <div class="export-group">
-                        <h4>Notion Database Integration</h4>
-                        <div class="export-form">
-                            <input 
-                                type="text" 
-                                id="notionToken" 
-                                placeholder="Notion Integration Token"
-                                class="export-input"
-                            >
-                            <input 
-                                type="text" 
-                                id="notionDatabaseId" 
-                                placeholder="Notion Database ID"
-                                class="export-input"
-                            >
-                            <button id="exportNotion" class="export-button notion">
-                                <i class="fab fa-notion"></i>
-                                Export to Notion
-                            </button>
-                        </div>
-                    </div>
-
-
                 </div>
             </div>
         </div>

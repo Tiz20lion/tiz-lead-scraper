@@ -505,6 +505,25 @@ body {
   flex-wrap: wrap;
 }
 
+.export-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.export-note {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem;
+  background: hsl(var(--bg-secondary));
+  border-radius: 0.5rem;
+  border: 1px solid hsl(var(--border-color));
+  color: hsl(var(--text-secondary));
+  font-size: 0.9rem;
+}
+
 .export-button {
   display: flex;
   align-items: center;
@@ -604,6 +623,45 @@ body {
 }
 
 .api-input:focus {
+  outline: none;
+  border-color: hsl(var(--accent-primary));
+  box-shadow: 0 0 0 3px hsl(var(--accent-primary) / 0.1);
+}
+
+.integration-group {
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  background: hsl(var(--bg-primary));
+  border-radius: 0.5rem;
+  border: 1px solid hsl(var(--border-color));
+}
+
+.integration-label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 600;
+  color: hsl(var(--text-primary));
+  margin-bottom: 0.75rem;
+  font-size: 0.9rem;
+}
+
+.credentials-input {
+  width: 100%;
+  min-height: 80px;
+  padding: 0.75rem;
+  border: 1px solid hsl(var(--border-color));
+  border-radius: 0.5rem;
+  background: hsl(var(--bg-secondary));
+  color: hsl(var(--text-primary));
+  font-family: 'Courier New', monospace;
+  font-size: 0.8rem;
+  resize: vertical;
+  transition: all 0.3s ease;
+  margin-bottom: 0.5rem;
+}
+
+.credentials-input:focus {
   outline: none;
   border-color: hsl(var(--accent-primary));
   box-shadow: 0 0 0 3px hsl(var(--accent-primary) / 0.1);
