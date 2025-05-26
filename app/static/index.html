@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apollo.io Lead Scraper</title>
+    
+    <!-- External Libraries -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body class="dark-theme">
+    <!-- Header -->
+    <header class="header animate__animated animate__fadeInDown">
+        <div class="header-content">
+            <h1 class="logo">
+                <i class="fas fa-rocket"></i>
+                Apollo Lead Scraper
+            </h1>
+            <div class="header-controls">
+                <button id="themeToggle" class="theme-toggle" title="Toggle theme">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <div class="status-indicator" id="statusIndicator">
+                    <span class="status-dot"></span>
+                    <span class="status-text">Ready</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="main-container">
+        <!-- Left Panel - Configuration -->
+        <div class="panel left-panel animate__animated animate__fadeInLeft">
+            <div class="panel-header">
+                <h2><i class="fas fa-cog"></i> Scraping Configuration</h2>
+            </div>
+            
+            <div class="panel-content">
+                <!-- URL Input Section -->
+                <div class="input-section">
+                    <label for="urlInput" class="input-label">
+                        <i class="fas fa-link"></i>
+                        Apollo.io URLs (up to 10)
+                    </label>
+                    <textarea 
+                        id="urlInput" 
+                        class="url-textarea" 
+                        placeholder="Enter Apollo.io URLs, one per line..."
+                        rows="6"
+                    ></textarea>
+                    <div class="input-help">
+                        Enter up to 10 Apollo.io URLs to scrape leads from
+                    </div>
+                </div>
+
+                <!-- Lead Count Section -->
+                <div class="input-section">
+                    <label for="leadCount" class="input-label">
+                        <i class="fas fa-users"></i>
+                        Lead Count: <span id="leadCountValue">100</span>
+                    </label>
+                    <div class="slider-container">
+                        <input 
+                            type="range" 
+                            id="leadCount" 
+                            class="lead-slider" 
+                            min="1" 
+                            max="1000" 
+                            value="100"
+                        >
+                        <div class="slider-labels">
+                            <span>1</span>
+                            <span>1000+</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Field Selection -->
+                <div class="input-section">
+                    <label class="input-label">
+                        <i class="fas fa-list-check"></i>
+                        Fields to Extract
+                    </label>
+                    <div class="field-grid" id="fieldSelection">
+                        <label class="field-checkbox">
+                            <input type="checkbox" value="name" checked>
+                            <span class="checkmark"></span>
+                            Name
+                        </label>
+                        <label class="field-checkbox">
+                            <input type="checkbox" value="email" checked>
+                            <span class="checkmark"></span>
+                            Email
+                        </label>
+                        <label class="field-checkbox">
+                            <input type="checkbox" value="phone">
+                            <span class="checkmark"></span>
+                            Phone
+                        </label>
+                        <label class="field-checkbox">
+                            <input type="checkbox" value="company">
+                            <span class="checkmark"></span>
+                            Company
+                        </label>
+                        <label class="field-checkbox">
+                            <input type="checkbox" value="title">
+                            <span class="checkmark"></span>
+                            Title
+                        </label>
+                        <label class="field-checkbox">
+                            <input type="checkbox" value="location">
+                            <span class="checkmark"></span>
+                            Location
+                        </label>
+                        <label class="field-checkbox">
+                            <input type="checkbox" value="industry">
+                            <span class="checkmark"></span>
+                            Industry
+                        </label>
+                        <label class="field-checkbox">
+                            <input type="checkbox" value="linkedin">
+                            <span class="checkmark"></span>
+                            LinkedIn
+                        </label>
+                        <label class="field-checkbox">
+                            <input type="checkbox" value="twitter">
+                            <span class="checkmark"></span>
+                            Twitter
+                        </label>
+                        <label class="field-checkbox">
+                            <input type="checkbox" value="website">
+                            <span class="checkmark"></span>
+                            Website
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Start Button -->
+                <button id="startScraping" class="start-button">
+                    <i class="fas fa-play"></i>
+                    <span class="button-text">Start Scraping</span>
+                    <div class="loading-spinner" style="display: none;">
+                        <i class="fas fa-spinner fa-spin"></i>
+                    </div>
+                </button>
+            </div>
+        </div>
+
+        <!-- Right Panel - Results & Export -->
+        <div class="panel right-panel animate__animated animate__fadeInRight">
+            <div class="panel-header">
+                <h2><i class="fas fa-chart-line"></i> Results & Export</h2>
+            </div>
+            
+            <div class="panel-content">
+                <!-- Progress Section -->
+                <div class="progress-section" id="progressSection" style="display: none;">
+                    <div class="progress-header">
+                        <span class="progress-label">Scraping Progress</span>
+                        <span class="progress-percentage" id="progressPercentage">0%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progressFill"></div>
+                    </div>
+                    <div class="progress-message" id="progressMessage">Ready to start...</div>
+                </div>
+
+                <!-- Results Table -->
+                <div class="results-section" id="resultsSection" style="display: none;">
+                    <div class="results-header">
+                        <h3><i class="fas fa-table"></i> Results Preview</h3>
+                        <div class="results-stats">
+                            <span id="resultsCount">0 leads found</span>
+                        </div>
+                    </div>
+                    <div class="table-container">
+                        <table class="results-table" id="resultsTable">
+                            <thead id="resultsTableHead">
+                                <!-- Dynamic headers -->
+                            </thead>
+                            <tbody id="resultsTableBody">
+                                <!-- Dynamic rows -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Export Section -->
+                <div class="export-section" id="exportSection" style="display: none;">
+                    <h3><i class="fas fa-download"></i> Export Options</h3>
+                    
+                    <!-- Direct Download -->
+                    <div class="export-group">
+                        <h4>Direct Download</h4>
+                        <div class="export-buttons">
+                            <button id="exportCsv" class="export-button csv">
+                                <i class="fas fa-file-csv"></i>
+                                Download CSV
+                            </button>
+                            <button id="exportJson" class="export-button json">
+                                <i class="fas fa-file-code"></i>
+                                Download JSON
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Google Sheets Export -->
+                    <div class="export-group">
+                        <h4>Google Sheets Integration</h4>
+                        <div class="export-form">
+                            <textarea 
+                                id="googleCredentials" 
+                                placeholder="Paste your Google Service Account JSON credentials here..."
+                                class="credentials-textarea"
+                                rows="4"
+                            ></textarea>
+                            <input 
+                                type="text" 
+                                id="spreadsheetId" 
+                                placeholder="Spreadsheet ID"
+                                class="export-input"
+                            >
+                            <input 
+                                type="text" 
+                                id="sheetName" 
+                                placeholder="Sheet Name (default: Leads)"
+                                class="export-input"
+                            >
+                            <button id="exportSheets" class="export-button sheets">
+                                <i class="fab fa-google"></i>
+                                Export to Sheets
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Notion Export -->
+                    <div class="export-group">
+                        <h4>Notion Database Integration</h4>
+                        <div class="export-form">
+                            <input 
+                                type="text" 
+                                id="notionToken" 
+                                placeholder="Notion Integration Token"
+                                class="export-input"
+                            >
+                            <input 
+                                type="text" 
+                                id="notionDatabaseId" 
+                                placeholder="Notion Database ID"
+                                class="export-input"
+                            >
+                            <button id="exportNotion" class="export-button notion">
+                                <i class="fab fa-notion"></i>
+                                Export to Notion
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- API Configuration for Scraping -->
+                    <div class="export-group">
+                        <h4>Scraping Configuration</h4>
+                        <div class="export-form">
+                            <input 
+                                type="text" 
+                                id="apifyToken" 
+                                placeholder="Apify API Token (required for scraping)"
+                                class="export-input"
+                            >
+                            <div class="input-help">
+                                Get your token from <a href="https://apify.com/" target="_blank">Apify.com</a> → Settings → Integrations
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay" style="display: none;">
+        <div class="loading-content">
+            <div class="loading-spinner-large">
+                <i class="fas fa-spinner fa-spin"></i>
+            </div>
+            <div class="loading-text">Processing...</div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="/static/js/app.js"></script>
+</body>
+</html>
