@@ -34,7 +34,7 @@ docker-compose up --build -d
 
 :: Wait for the application to be ready
 echo ⏳ Waiting for application to start...
-timeout /t 10 /nobreak >nul
+timeout /t 30 /nobreak >nul
 
 :: Check if the application is running
 curl -f http://localhost:5000/health >nul 2>&1

@@ -1,0 +1,47 @@
+≡ƒÜÇ Starting Tiz Lead Scraper...
+≡ƒôü Creating directories...
+≡ƒ¢æ Stopping existing containers...
+≡ƒö¿ Building and starting Tiz Lead Scraper...
+Compose can now delegate builds to bake for better performance.
+ To do so, set COMPOSE_BAKE=true.
+[+] Building 187.4s (14/14) FINISHED                                                               docker:desktop-linux
+ => [tiz-lead-scraper internal] load build definition from Dockerfile                                              0.0s
+ => => transferring dockerfile: 1.23kB                                                                             0.0s
+ => [tiz-lead-scraper internal] load metadata for docker.io/library/python:3.11-slim                               1.1s
+ => [tiz-lead-scraper internal] load .dockerignore                                                                 0.0s
+ => => transferring context: 588B                                                                                  0.0s
+ => [tiz-lead-scraper 1/8] FROM docker.io/library/python:3.11-slim@sha256:dbf1de478a55d6763afaa39c2f3d7b54b25230  34.9s
+ => => resolve docker.io/library/python:3.11-slim@sha256:dbf1de478a55d6763afaa39c2f3d7b54b25230614980276de5cacdde  0.0s
+ => => sha256:9d545c45fb8c5b23b5b88114aeeefb48a96eface42af73e95458458524082e2d 16.21MB / 16.21MB                  18.1s
+ => => sha256:09c4893e5320a7c59acf82e87a07980214c1a955ef9f60cb9d0a48ba562c315a 250B / 250B                         1.1s
+ => => sha256:fa70febde0f65a8b721a3ff8c13b09826c281b025abd1a92b4b08eb839b7cbd1 3.51MB / 3.51MB                    14.7s
+ => => sha256:61320b01ae5e0798393ef25f2dc72faf43703e60ba089b07d7170acbabbf8f62 28.23MB / 28.23MB                  31.9s
+ => => extracting sha256:61320b01ae5e0798393ef25f2dc72faf43703e60ba089b07d7170acbabbf8f62                          1.3s
+ => => extracting sha256:fa70febde0f65a8b721a3ff8c13b09826c281b025abd1a92b4b08eb839b7cbd1                          0.2s
+ => => extracting sha256:9d545c45fb8c5b23b5b88114aeeefb48a96eface42af73e95458458524082e2d                          1.2s
+ => => extracting sha256:09c4893e5320a7c59acf82e87a07980214c1a955ef9f60cb9d0a48ba562c315a                          0.0s
+ => [tiz-lead-scraper internal] load build context                                                                 0.0s
+ => => transferring context: 112.86kB                                                                              0.0s
+ => [tiz-lead-scraper 2/8] WORKDIR /app                                                                            0.3s
+ => [tiz-lead-scraper 3/8] RUN apt-get update && apt-get install -y     gcc     g++     curl     && rm -rf /var/  70.1s
+ => [tiz-lead-scraper 4/8] COPY pyproject.toml ./                                                                  0.1s
+ => [tiz-lead-scraper 5/8] RUN pip install --no-cache-dir --upgrade pip &&     pip install --no-cache-dir     ap  58.0s
+ => [tiz-lead-scraper 6/8] COPY app/ ./app/                                                                        0.1s
+ => [tiz-lead-scraper 7/8] RUN mkdir -p /app/logs /app/data                                                        0.4s
+ => [tiz-lead-scraper 8/8] RUN chmod +x app/                                                                       0.5s
+ => [tiz-lead-scraper] exporting to image                                                                         21.4s
+ => => exporting layers                                                                                           15.2s
+ => => exporting manifest sha256:84cb72701de902f1c2ecb349ed425993fe847a5c58337f25e5c3603783b216ed                  0.0s
+ => => exporting config sha256:2a6af12de175c5fc9f464b446500f578380aaee69c48dc084b2ade1aabb86ba6                    0.0s
+ => => exporting attestation manifest sha256:551d7548c33be5a836eaf83d150a771ddb43b9acf67aaa7068d7df80f77283ef      0.0s
+ => => exporting manifest list sha256:415cd45808e56ae6fc9b796314d67b7fac2d3c570c4d32e059ad86161c56a82d             0.0s
+ => => naming to docker.io/library/webscrapertoolkit-tiz-lead-scraper:latest                                       0.0s
+ => => unpacking to docker.io/library/webscrapertoolkit-tiz-lead-scraper:latest                                    6.1s
+ => [tiz-lead-scraper] resolving provenance for metadata file                                                      0.0s
+[+] Running 3/3
+ ✔ tiz-lead-scraper                                Built                                                           0.0s
+ ✔ Network tiz-lead-scraper-network                Created                                                         0.1s
+ ✔ Container webscrapertoolkit-tiz-lead-scraper-1  Started                                                         1.5s
+ΓÅ│ Waiting for application to start...
+Γ¥î Application failed to start. Check logs with: docker-compose logs
+Press any key to continue . . .
