@@ -58,27 +58,51 @@
             
             <div class="panel-content">
                 <!-- URL Input Section -->
-                <div class="input-section">
+                <div class="input-section animated-card">
                     <label for="urlInput" class="input-label">
-                        <i class="fas fa-link"></i>
+                        <div class="label-icon-wrapper">
+                            <div class="label-icon">
+                                <i class="fas fa-globe-americas"></i>
+                            </div>
+                            <div class="icon-pulse"></div>
+                        </div>
                         Apollo.io URLs (up to 10)
+                        <div class="label-badge">
+                            <i class="fas fa-star"></i>
+                            Required
+                        </div>
                     </label>
-                    <textarea 
-                        id="urlInput" 
-                        class="url-textarea" 
-                        placeholder="Enter Apollo.io URLs, one per line..."
-                        rows="6"
-                    ></textarea>
+                    <div class="input-wrapper">
+                        <textarea 
+                            id="urlInput" 
+                            class="url-textarea" 
+                            placeholder="🌐 Enter Apollo.io URLs, one per line...&#10;💡 Example: https://app.apollo.io/..."
+                            rows="6"
+                        ></textarea>
+                        <div class="input-decorator">
+                            <i class="fas fa-external-link-alt"></i>
+                        </div>
+                    </div>
                     <div class="input-help">
+                        <i class="fas fa-info-circle"></i>
                         Enter up to 10 Apollo.io URLs to scrape leads from
                     </div>
                 </div>
 
                 <!-- Lead Count Section -->
-                <div class="input-section">
+                <div class="input-section animated-card">
                     <label for="leadCount" class="input-label">
-                        <i class="fas fa-users"></i>
-                        Lead Count: <span id="leadCountValue">100</span>
+                        <div class="label-icon-wrapper">
+                            <div class="label-icon">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                            <div class="icon-pulse"></div>
+                        </div>
+                        Lead Count: <span id="leadCountValue" class="count-badge">100</span>
+                        <div class="label-badge">
+                            <i class="fas fa-infinity"></i>
+                            Up to 50K
+                        </div>
                     </label>
                     <div class="slider-container">
                         <input 
@@ -90,68 +114,118 @@
                             value="100"
                         >
                         <div class="slider-labels">
-                            <span>1</span>
-                            <span>50,000</span>
+                            <span><i class="fas fa-user"></i> 1</span>
+                            <span><i class="fas fa-users"></i> 50,000</span>
                         </div>
+                        <div class="slider-progress"></div>
                     </div>
                 </div>
 
                 <!-- Field Selection -->
-                <div class="input-section">
+                <div class="input-section animated-card">
                     <label class="input-label">
-                        <i class="fas fa-list-check"></i>
+                        <div class="label-icon-wrapper">
+                            <div class="label-icon">
+                                <i class="fas fa-database"></i>
+                            </div>
+                            <div class="icon-pulse"></div>
+                        </div>
                         Fields to Extract
+                        <div class="label-badge">
+                            <i class="fas fa-magic"></i>
+                            10 Options
+                        </div>
                     </label>
                     <div class="field-grid" id="fieldSelection">
-                        <label class="field-checkbox">
+                        <label class="field-checkbox animated-field">
                             <input type="checkbox" value="name" checked>
                             <span class="checkmark"></span>
-                            Name
+                            <div class="field-icon">
+                                <i class="fas fa-user-circle"></i>
+                            </div>
+                            <span class="field-text">Name</span>
+                            <div class="field-glow"></div>
                         </label>
-                        <label class="field-checkbox">
+                        <label class="field-checkbox animated-field">
                             <input type="checkbox" value="email" checked>
                             <span class="checkmark"></span>
-                            Email
+                            <div class="field-icon">
+                                <i class="fas fa-envelope-open"></i>
+                            </div>
+                            <span class="field-text">Email</span>
+                            <div class="field-glow"></div>
                         </label>
-                        <label class="field-checkbox">
+                        <label class="field-checkbox animated-field">
                             <input type="checkbox" value="phone">
                             <span class="checkmark"></span>
-                            Phone
+                            <div class="field-icon">
+                                <i class="fas fa-mobile-alt"></i>
+                            </div>
+                            <span class="field-text">Phone</span>
+                            <div class="field-glow"></div>
                         </label>
-                        <label class="field-checkbox">
+                        <label class="field-checkbox animated-field">
                             <input type="checkbox" value="company">
                             <span class="checkmark"></span>
-                            Company
+                            <div class="field-icon">
+                                <i class="fas fa-building"></i>
+                            </div>
+                            <span class="field-text">Company</span>
+                            <div class="field-glow"></div>
                         </label>
-                        <label class="field-checkbox">
+                        <label class="field-checkbox animated-field">
                             <input type="checkbox" value="title">
                             <span class="checkmark"></span>
-                            Title
+                            <div class="field-icon">
+                                <i class="fas fa-id-badge"></i>
+                            </div>
+                            <span class="field-text">Title</span>
+                            <div class="field-glow"></div>
                         </label>
-                        <label class="field-checkbox">
+                        <label class="field-checkbox animated-field">
                             <input type="checkbox" value="location">
                             <span class="checkmark"></span>
-                            Location
+                            <div class="field-icon">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <span class="field-text">Location</span>
+                            <div class="field-glow"></div>
                         </label>
-                        <label class="field-checkbox">
+                        <label class="field-checkbox animated-field">
                             <input type="checkbox" value="industry">
                             <span class="checkmark"></span>
-                            Industry
+                            <div class="field-icon">
+                                <i class="fas fa-chart-pie"></i>
+                            </div>
+                            <span class="field-text">Industry</span>
+                            <div class="field-glow"></div>
                         </label>
-                        <label class="field-checkbox">
+                        <label class="field-checkbox animated-field">
                             <input type="checkbox" value="linkedin">
                             <span class="checkmark"></span>
-                            LinkedIn
+                            <div class="field-icon">
+                                <i class="fab fa-linkedin-in"></i>
+                            </div>
+                            <span class="field-text">LinkedIn</span>
+                            <div class="field-glow"></div>
                         </label>
-                        <label class="field-checkbox">
+                        <label class="field-checkbox animated-field">
                             <input type="checkbox" value="twitter">
                             <span class="checkmark"></span>
-                            Twitter
+                            <div class="field-icon">
+                                <i class="fab fa-twitter"></i>
+                            </div>
+                            <span class="field-text">Twitter</span>
+                            <div class="field-glow"></div>
                         </label>
-                        <label class="field-checkbox">
+                        <label class="field-checkbox animated-field">
                             <input type="checkbox" value="website">
                             <span class="checkmark"></span>
-                            Website
+                            <div class="field-icon">
+                                <i class="fas fa-globe-europe"></i>
+                            </div>
+                            <span class="field-text">Website</span>
+                            <div class="field-glow"></div>
                         </label>
                     </div>
                 </div>

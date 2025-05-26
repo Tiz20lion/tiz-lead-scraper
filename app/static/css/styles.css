@@ -350,6 +350,227 @@ body {
   }
 }
 
+/* Enhanced Input Section Animations */
+.animated-card {
+  position: relative;
+  animation: slideInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  opacity: 0;
+  transform: translateY(30px);
+}
+
+.animated-card:nth-child(1) { animation-delay: 0.1s; }
+.animated-card:nth-child(2) { animation-delay: 0.2s; }
+.animated-card:nth-child(3) { animation-delay: 0.3s; }
+.animated-card:nth-child(4) { animation-delay: 0.4s; }
+
+@keyframes slideInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.label-icon-wrapper {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.label-icon {
+  width: 32px;
+  height: 32px;
+  background: linear-gradient(135deg, hsl(var(--accent-primary)), hsl(var(--accent-secondary)));
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  position: relative;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.label-icon:hover {
+  transform: scale(1.1) rotate(5deg);
+  box-shadow: 0 8px 25px hsl(var(--accent-primary) / 0.4);
+}
+
+.icon-pulse {
+  position: absolute;
+  inset: -3px;
+  border-radius: 11px;
+  background: linear-gradient(135deg, hsl(var(--accent-primary)), hsl(var(--accent-secondary)));
+  opacity: 0.3;
+  animation: icon-pulse 2s infinite ease-in-out;
+}
+
+@keyframes icon-pulse {
+  0%, 100% {
+    transform: scale(0.95);
+    opacity: 0.3;
+  }
+  50% {
+    transform: scale(1.05);
+    opacity: 0.6;
+  }
+}
+
+.label-badge {
+  background: linear-gradient(135deg, hsl(var(--accent-secondary)), hsl(var(--accent-primary)));
+  color: white;
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  margin-left: auto;
+  box-shadow: 0 4px 15px hsl(var(--accent-primary) / 0.3);
+  animation: badge-glow 3s infinite ease-in-out;
+}
+
+@keyframes badge-glow {
+  0%, 100% {
+    box-shadow: 0 4px 15px hsl(var(--accent-primary) / 0.3);
+  }
+  50% {
+    box-shadow: 0 6px 20px hsl(var(--accent-primary) / 0.5);
+  }
+}
+
+.count-badge {
+  background: linear-gradient(135deg, hsl(var(--accent-primary)), hsl(var(--accent-secondary)));
+  color: white;
+  padding: 0.25rem 0.75rem;
+  border-radius: 15px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  margin: 0 0.5rem;
+  animation: count-pulse 2s infinite ease-in-out;
+}
+
+@keyframes count-pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+}
+
+.input-wrapper {
+  position: relative;
+}
+
+.input-decorator {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  color: hsl(var(--text-secondary));
+  opacity: 0.5;
+  font-size: 1.2rem;
+  transition: all 0.3s ease;
+  pointer-events: none;
+}
+
+.url-textarea:focus + .input-decorator {
+  opacity: 1;
+  color: hsl(var(--accent-primary));
+  transform: scale(1.2);
+}
+
+.slider-progress {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  height: 4px;
+  background: linear-gradient(90deg, hsl(var(--accent-primary)), hsl(var(--accent-secondary)));
+  border-radius: 2px;
+  width: 2%;
+  transform: translateY(-50%);
+  transition: width 0.3s ease;
+  pointer-events: none;
+}
+
+/* Enhanced Field Selection Animations */
+.animated-field {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  animation: fadeInField 0.5s ease-out forwards;
+  opacity: 0;
+  transform: translateX(-20px);
+}
+
+.animated-field:nth-child(1) { animation-delay: 0.1s; }
+.animated-field:nth-child(2) { animation-delay: 0.15s; }
+.animated-field:nth-child(3) { animation-delay: 0.2s; }
+.animated-field:nth-child(4) { animation-delay: 0.25s; }
+.animated-field:nth-child(5) { animation-delay: 0.3s; }
+.animated-field:nth-child(6) { animation-delay: 0.35s; }
+.animated-field:nth-child(7) { animation-delay: 0.4s; }
+.animated-field:nth-child(8) { animation-delay: 0.45s; }
+.animated-field:nth-child(9) { animation-delay: 0.5s; }
+.animated-field:nth-child(10) { animation-delay: 0.55s; }
+
+@keyframes fadeInField {
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.animated-field:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 8px 25px hsl(var(--accent-primary) / 0.15);
+}
+
+.field-icon {
+  width: 24px;
+  height: 24px;
+  background: linear-gradient(135deg, hsl(var(--accent-primary) / 0.8), hsl(var(--accent-secondary) / 0.8));
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 0.9rem;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  margin-right: 0.75rem;
+}
+
+.animated-field:hover .field-icon {
+  transform: scale(1.1) rotate(5deg);
+  background: linear-gradient(135deg, hsl(var(--accent-primary)), hsl(var(--accent-secondary)));
+  box-shadow: 0 4px 15px hsl(var(--accent-primary) / 0.4);
+}
+
+.field-text {
+  flex: 1;
+  font-weight: 600;
+  transition: color 0.3s ease;
+}
+
+.field-glow {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(135deg, hsl(var(--accent-primary) / 0.1), hsl(var(--accent-secondary) / 0.1));
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.animated-field:hover .field-glow {
+  opacity: 1;
+}
+
+.animated-field input:checked ~ .field-glow {
+  opacity: 0.5;
+  background: linear-gradient(135deg, hsl(var(--accent-primary) / 0.2), hsl(var(--accent-secondary) / 0.2));
+}
+
 /* Main Container */
 .main-container {
   flex: 1;
