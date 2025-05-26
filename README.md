@@ -176,7 +176,7 @@ If you encounter any issues:
 
 ## 👨‍💻 About the Developer
 
-**Built with ❤️ by Olajide Azeez**
+**Built with ❤️ by Tiz**
 
 Full-Stack Developer & Lead Generation Expert specializing in modern web applications, automation, and scalable solutions. Passionate about creating beautiful, functional tools that help businesses grow and succeed.
 

@@ -83,7 +83,7 @@ Want to contribute? Check out the [GitHub repository](https://github.com/YOUR_US
 
 ## 👨‍💻 Meet the Developer
 
-**Built with ❤️ by Olajide Azeez**
+**Built with ❤️ by Tiz**
 
 Full-Stack Developer & Lead Generation Expert who created this powerful tool to help businesses scale their outreach efforts. With expertise in Python, FastAPI, Docker, and modern web technologies, I specialize in building automation solutions that drive real business results.
 
