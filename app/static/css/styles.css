@@ -181,6 +181,13 @@ body {
   filter: blur(10px);
 }
 
+.logo-svg {
+  width: 24px;
+  height: 24px;
+  filter: brightness(1.2);
+  animation: logo-float 2s infinite ease-in-out;
+}
+
 .logo-icon i {
   font-size: 1.5rem;
   color: white;
@@ -215,6 +222,15 @@ body {
   }
   50% {
     box-shadow: 0 0 30px hsl(var(--accent-primary) / 0.8);
+  }
+}
+
+@keyframes logo-float {
+  0%, 100% {
+    transform: translateY(0) rotate(0deg) scale(1);
+  }
+  50% {
+    transform: translateY(-3px) rotate(5deg) scale(1.05);
   }
 }
 
