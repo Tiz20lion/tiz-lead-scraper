@@ -1,4 +1,8 @@
-# 🚀 Tiz Lead Scraper - Docker Edition
+# 🚀 Tiz Lead Scraper
+
+[![Docker Build](https://github.com/YOUR_USERNAME/tiz-lead-scraper/actions/workflows/docker-publish.yml/badge.svg)](https://github.com/YOUR_USERNAME/tiz-lead-scraper/actions/workflows/docker-publish.yml)
+[![Docker Pulls](https://img.shields.io/docker/pulls/YOUR_USERNAME/tiz-lead-scraper)](https://hub.docker.com/r/YOUR_USERNAME/tiz-lead-scraper)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 A powerful, production-ready web scraper for extracting leads from Apollo.io with seamless Google Sheets and Notion integration. Built with modern web technologies and packaged for easy deployment.
 
@@ -18,20 +22,37 @@ A powerful, production-ready web scraper for extracting leads from Apollo.io wit
 - [Docker](https://docs.docker.com/get-docker/) installed on your system
 - [Docker Compose](https://docs.docker.com/compose/install/) (usually included with Docker Desktop)
 
-### Installation
+### Method 1: Docker Hub (Recommended)
 
-1. **Download the application:**
+Pull and run the pre-built image:
+```bash
+docker run -d -p 5000:5000 --name tiz-lead-scraper YOUR_USERNAME/tiz-lead-scraper:latest
+```
+
+### Method 2: GitHub Repository
+
+1. **Clone the repository:**
    ```bash
-   git clone <your-repository-url>
+   git clone https://github.com/YOUR_USERNAME/tiz-lead-scraper.git
    cd tiz-lead-scraper
    ```
 
-2. **Start the application:**
+2. **Quick start (Windows):**
+   ```bash
+   start.bat
+   ```
+
+3. **Quick start (Linux/Mac):**
+   ```bash
+   ./start.sh
+   ```
+
+4. **Manual Docker Compose:**
    ```bash
    docker-compose up -d
    ```
 
-3. **Access the application:**
+5. **Access the application:**
    Open your browser and visit: `http://localhost:5000`
 
 That's it! Your Tiz Lead Scraper is now running! 🎉
