@@ -141,6 +141,23 @@
                     </div>
                 </div>
 
+                <!-- API Configuration -->
+                <div class="input-section">
+                    <label for="apifyToken" class="input-label">
+                        <i class="fas fa-key"></i>
+                        Apify API Token (Required)
+                    </label>
+                    <input 
+                        type="password" 
+                        id="apifyToken" 
+                        placeholder="Enter your Apify API token..."
+                        class="api-input"
+                    >
+                    <div class="input-help">
+                        Get your token from <a href="https://apify.com/" target="_blank">Apify.com</a> → Settings → Integrations
+                    </div>
+                </div>
+
                 <!-- Start Button -->
                 <button id="startScraping" class="start-button">
                     <i class="fas fa-play"></i>
@@ -262,21 +279,7 @@
                         </div>
                     </div>
 
-                    <!-- API Configuration for Scraping -->
-                    <div class="export-group">
-                        <h4>Scraping Configuration</h4>
-                        <div class="export-form">
-                            <input 
-                                type="text" 
-                                id="apifyToken" 
-                                placeholder="Apify API Token (required for scraping)"
-                                class="export-input"
-                            >
-                            <div class="input-help">
-                                Get your token from <a href="https://apify.com/" target="_blank">Apify.com</a> → Settings → Integrations
-                            </div>
-                        </div>
-                    </div>
+
                 </div>
             </div>
         </div>

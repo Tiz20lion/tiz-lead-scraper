@@ -591,6 +591,24 @@ body {
   text-decoration: underline;
 }
 
+.api-input {
+  width: 100%;
+  padding: 1rem;
+  border: 2px solid hsl(var(--border-color));
+  border-radius: 0.75rem;
+  background: hsl(var(--bg-secondary));
+  color: hsl(var(--text-primary));
+  font-family: inherit;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+}
+
+.api-input:focus {
+  outline: none;
+  border-color: hsl(var(--accent-primary));
+  box-shadow: 0 0 0 3px hsl(var(--accent-primary) / 0.1);
+}
+
 /* Loading Overlay */
 .loading-overlay {
   position: fixed;
