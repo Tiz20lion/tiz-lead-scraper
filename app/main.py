@@ -5,10 +5,10 @@ from fastapi.middleware.cors import CORSMiddleware
 import uvicorn
 import os
 
-from .core.config import settings
-from .core.logging_config import setup_logging
-from .core.security import RateLimitMiddleware, SecurityHeadersMiddleware
-from .api.routes import router as api_router
+from core.config import settings
+from core.logging_config import setup_logging
+from core.security import RateLimitMiddleware, SecurityHeadersMiddleware
+from api.routes import router as api_router
 
 # Setup logging
 logger = setup_logging()

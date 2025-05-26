@@ -49,8 +49,5 @@ RUN chmod +x app/
 HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
     CMD curl -f http://localhost:5000/health || exit 1
 
-# Set working directory to app folder
-WORKDIR /app/app
-
-# Run the application
-CMD ["python", "main.py"]
+# Run the application from the correct directory
+CMD ["python", "-m", "uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "5000"]
