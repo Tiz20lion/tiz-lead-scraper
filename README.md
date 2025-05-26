@@ -15,6 +15,140 @@ A powerful, production-ready web scraper for extracting leads from Apollo.io wit
 - **🐳 Docker Ready**: One-click deployment with Docker Compose
 - **📱 Responsive**: Works perfectly on desktop and mobile devices
 
+## 🐍 Python Setup & Installation
+
+### Prerequisites
+
+- **Python 3.11+** installed on your system
+- **Git** for cloning the repository
+
+### Step 1: Clone Repository
+
+```bash
+git clone https://github.com/YOUR_USERNAME/tiz-lead-scraper.git
+cd tiz-lead-scraper
+```
+
+### Step 2: Install Dependencies
+
+#### Option A: Using pip (Recommended)
+```bash
+# Create virtual environment
+python -m venv venv
+
+# Activate virtual environment
+# Windows:
+venv\Scripts\activate
+# Linux/Mac:
+source venv/bin/activate
+
+# Install dependencies
+pip install -r requirements.txt
+```
+
+#### Option B: Using the included packages
+The project includes these key dependencies:
+```
+fastapi>=0.104.1
+uvicorn[standard]>=0.24.0
+pydantic>=2.5.0
+pydantic-settings>=2.1.0
+structlog>=23.2.0
+tenacity>=8.2.3
+python-multipart>=0.0.6
+apify-client>=1.7.1
+notion-client>=2.2.1
+google-api-python-client>=2.108.0
+google-auth>=2.23.4
+```
+
+### Step 3: Run the Application
+
+#### Start the server:
+```bash
+# From the project root directory
+python -m uvicorn app.main:app --host 0.0.0.0 --port 5000 --reload
+```
+
+#### Alternative startup method:
+```bash
+# Navigate to app directory first
+cd app
+python -m uvicorn main:app --host 0.0.0.0 --port 5000 --reload
+```
+
+### Step 4: Access Your Application
+
+Open your web browser and go to:
+```
+http://localhost:5000
+```
+
+The beautiful Tiz Lead Scraper interface will be ready to use!
+
+### 🔧 Configuration
+
+Set up these environment variables for full functionality:
+
+```bash
+# Required for Apollo.io scraping
+APIFY_API_TOKEN=your_apify_token_here
+
+# Optional: For Google Sheets integration
+GOOGLE_SHEETS_CREDENTIALS=your_google_credentials_json
+
+# Optional: For Notion integration  
+NOTION_TOKEN=your_notion_integration_secret
+NOTION_DATABASE_ID=your_notion_database_id
+
+# Optional: Security settings
+SECRET_KEY=your_secret_key_here
+```
+
+### 🛠️ Troubleshooting Python Setup
+
+#### Common Issues & Solutions:
+
+**1. Module Import Errors:**
+```bash
+# If you get "ModuleNotFoundError", try running from project root:
+python -m uvicorn app.main:app --host 0.0.0.0 --port 5000
+```
+
+**2. Port Already in Use:**
+```bash
+# Use a different port if 5000 is occupied:
+python -m uvicorn app.main:app --host 0.0.0.0 --port 8000
+```
+
+**3. Python Version Issues:**
+```bash
+# Ensure you're using Python 3.11+:
+python --version
+
+# On some systems, use python3:
+python3 -m uvicorn app.main:app --host 0.0.0.0 --port 5000
+```
+
+**4. Virtual Environment Issues:**
+```bash
+# If activation fails, try:
+# Windows (PowerShell):
+venv\Scripts\Activate.ps1
+
+# Windows (Command Prompt):
+venv\Scripts\activate.bat
+```
+
+**5. Dependency Installation Problems:**
+```bash
+# Upgrade pip first:
+python -m pip install --upgrade pip
+
+# Install with verbose output:
+pip install -v fastapi uvicorn pydantic structlog tenacity python-multipart apify-client notion-client google-api-python-client google-auth
+```
+
 ## 🚀 Quick Start with Docker
 
 ### Prerequisites
