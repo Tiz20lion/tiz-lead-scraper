@@ -1,26 +1,23 @@
 version: '3.8'
 
 services:
-  apollo-scraper:
+  tiz-lead-scraper:
     build: .
     ports:
-      - "8000:8000"
+      - "5000:5000"
     environment:
-      - APIFY_API_TOKEN=${APIFY_API_TOKEN}
-      - GOOGLE_SHEETS_CREDENTIALS=${GOOGLE_SHEETS_CREDENTIALS}
-      - NOTION_TOKEN=${NOTION_TOKEN}
-      - NOTION_DATABASE_ID=${NOTION_DATABASE_ID}
-      - SECRET_KEY=${SECRET_KEY:-your-super-secret-key-here}
-      - ALLOWED_ORIGINS=${ALLOWED_ORIGINS:-http://localhost:8000}
+      - SECRET_KEY=${SECRET_KEY:-tiz-lead-scraper-secret-key-2024}
+      - ALLOWED_ORIGINS=${ALLOWED_ORIGINS:-http://localhost:5000}
       - RATE_LIMIT_REQUESTS=${RATE_LIMIT_REQUESTS:-10}
       - RATE_LIMIT_WINDOW=${RATE_LIMIT_WINDOW:-60}
       - LOG_LEVEL=${LOG_LEVEL:-INFO}
       - DEBUG=${DEBUG:-false}
     volumes:
       - ./logs:/app/logs:rw
+      - ./data:/app/data:rw
     restart: unless-stopped
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      test: ["CMD", "curl", "-f", "http://localhost:5000/health"]
       interval: 30s
       timeout: 10s
       retries: 3
@@ -28,12 +25,12 @@ services:
     deploy:
       resources:
         limits:
+          memory: 1G
+          cpus: '1.0'
+        reservations:
           memory: 512M
           cpus: '0.5'
-        reservations:
-          memory: 256M
-          cpus: '0.25'
 
 networks:
   default:
-    name: apollo-scraper-network
+    name: tiz-lead-scraper-network

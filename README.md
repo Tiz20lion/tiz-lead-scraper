@@ -1,111 +1,158 @@
-# Apollo.io Lead Scraper
+# 🚀 Tiz Lead Scraper - Docker Edition
 
-A production-ready, Dockerized web scraper that extracts leads from Apollo.io using the Apify API, with seamless integrations to Google Sheets and Notion databases, featuring a modern animated single-page web interface.
+A powerful, production-ready web scraper for extracting leads from Apollo.io with seamless Google Sheets and Notion integration. Built with modern web technologies and packaged for easy deployment.
 
-## 🚀 Features
+## ✨ Features
 
-### Core Functionality
-- **Apollo.io Integration**: Extract leads directly from Apollo.io using Apify API
-- **Multi-URL Processing**: Process up to 10 Apollo.io URLs simultaneously
-- **Configurable Lead Count**: Extract 1-1000+ leads per session
-- **10+ Field Extraction**: name, email, phone, company, title, location, industry, LinkedIn, Twitter, website
-- **Real-time Progress Tracking**: Live updates with background task processing
-- **Export Options**: CSV, JSON, Google Sheets, and Notion database sync
+- **🎯 Apollo.io Integration**: Extract up to 50,000 leads with 10+ data fields
+- **📊 Multiple Export Options**: CSV, JSON, Google Sheets, and Notion
+- **🎨 Modern UI**: Beautiful glass-morphism design with smooth animations
+- **🔒 Secure**: Built-in CSRF protection and rate limiting
+- **🐳 Docker Ready**: One-click deployment with Docker Compose
+- **📱 Responsive**: Works perfectly on desktop and mobile devices
 
-### User Interface
-- **Modern Animated UI**: Smooth transitions with Animate.css and GSAP
-- **Dual-Panel Design**: Responsive CSS Grid layout
-- **Dark/Light Themes**: Toggle with smooth transitions
-- **Real-time Progress Bars**: Visual feedback with percentage indicators
-- **Toast Notifications**: User-friendly feedback system
-- **Hover Effects**: Micro-interactions for enhanced UX
+## 🚀 Quick Start with Docker
 
-### Technical Features
-- **FastAPI Backend**: Async/await implementation for optimal performance
-- **Docker Integration**: Multi-stage builds with health monitoring
-- **Security First**: CSRF protection, rate limiting, security headers
-- **Structured Logging**: JSON format with comprehensive error tracking
-- **Environment Config**: Secure credential management
-- **Retry Logic**: Exponential backoff for external API calls
+### Prerequisites
 
-## 📋 Prerequisites
+- [Docker](https://docs.docker.com/get-docker/) installed on your system
+- [Docker Compose](https://docs.docker.com/compose/install/) (usually included with Docker Desktop)
 
-### Required API Keys and Credentials
+### Installation
 
-1. **Apify API Token**
-   - Sign up at [Apify](https://apify.com/)
-   - Navigate to Settings > Integrations
-   - Copy your API token
-
-2. **Google Sheets Integration**
-   - Go to [Google Cloud Console](https://console.cloud.google.com/)
-   - Create a new project or select existing
-   - Enable Google Sheets API
-   - Create Service Account credentials
-   - Download the JSON credentials file
-
-3. **Notion Integration**
-   - Go to [Notion Integrations](https://www.notion.so/my-integrations)
-   - Create a new integration
-   - Copy the integration secret (this will be your `NOTION_TOKEN`)
-   - To create a Notion database:
-     - Within your workspace, click "+"
-     - Click "Database"
-     - Define columns for your leads
-     - Click "..." → "Connections" → Select your integration
-     - Copy the database ID from the URL (the part after `https://www.notion.so/` and before `?`)
-
-## 🛠️ Installation & Setup
-
-### Option 1: Docker Compose (Recommended)
-
-1. **Clone and Setup**
+1. **Download the application:**
    ```bash
-   git clone <repository-url>
-   cd apollo-scraper
+   git clone <your-repository-url>
+   cd tiz-lead-scraper
    ```
 
-2. **Environment Configuration**
-   Create a `.env` file:
-   ```env
-   # API Tokens
-   APIFY_API_TOKEN=your_apify_token_here
-   GOOGLE_SHEETS_CREDENTIALS={"type":"service_account",...}
-   NOTION_TOKEN=secret_your_notion_token
-   NOTION_DATABASE_ID=your_notion_db_id
-
-   # Security
-   SECRET_KEY=your-super-secret-key-here
-   ALLOWED_ORIGINS=http://localhost:8000,https://yourdomain.com
-
-   # Rate Limiting
-   RATE_LIMIT_REQUESTS=10
-   RATE_LIMIT_WINDOW=60
-
-   # Logging
-   LOG_LEVEL=INFO
-   DEBUG=false
-   ```
-
-3. **Launch Application**
+2. **Start the application:**
    ```bash
    docker-compose up -d
    ```
 
-4. **Access Interface**
-   Open [http://localhost:8000](http://localhost:8000)
+3. **Access the application:**
+   Open your browser and visit: `http://localhost:5000`
 
-### Option 2: Direct Python Installation
+That's it! Your Tiz Lead Scraper is now running! 🎉
 
-1. **Install Dependencies**
-   ```bash
-   pip install fastapi uvicorn pydantic structlog apify-client google-api-python-client notion-client tenacity python-multipart pydantic-settings
-   ```
+## 📋 Getting Your API Keys
 
-2. **Set Environment Variables**
-   ```bash
-   export APIFY_API_TOKEN="your_token"
-   export GOOGLE_SHEETS_CREDENTIALS='{"type":"service_account",...}'
-   export NOTION_TOKEN="your_notion_token"
-   export NOTION_DATABASE_ID="your_database_id"
-   
+### For Apollo.io Scraping:
+1. Sign up at [Apify.com](https://apify.com)
+2. Go to Account Settings → Integrations
+3. Copy your API token
+4. Enter it in the web interface when scraping
+
+### For Google Sheets Integration (Optional):
+1. Go to [Google Cloud Console](https://console.cloud.google.com)
+2. Create a project and enable Google Sheets API
+3. Create service account credentials
+4. Download the JSON credentials file
+5. Upload the credentials through the web interface
+
+### For Notion Integration (Optional):
+1. Visit [Notion Integrations](https://www.notion.so/my-integrations)
+2. Create a new integration
+3. Copy the integration secret
+4. Create a database and connect your integration
+5. Enter credentials through the web interface
+
+## 🎮 How to Use
+
+1. **Enter Apollo.io URLs**: Paste the URLs you want to scrape
+2. **Set Lead Count**: Use the slider or type a specific number (1-50,000)
+3. **Choose Data Fields**: Select which information to extract
+4. **Add API Token**: Enter your Apify API token
+5. **Start Scraping**: Click the animated start button
+6. **Export Results**: Download as CSV/JSON or export to Sheets/Notion
+
+## 🐳 Docker Commands
+
+```bash
+# Start the application
+docker-compose up -d
+
+# View logs
+docker-compose logs -f
+
+# Stop the application
+docker-compose down
+
+# Rebuild after changes
+docker-compose up --build -d
+
+# Remove everything (including volumes)
+docker-compose down -v
+```
+
+## 📁 Project Structure
+
+```
+tiz-lead-scraper/
+├── app/                    # Main application code
+│   ├── api/               # API routes and middleware
+│   ├── clients/           # External service clients
+│   ├── core/              # Configuration and security
+│   ├── models/            # Data models
+│   ├── static/            # Frontend assets
+│   └── main.py            # Application entry point
+├── logs/                  # Application logs (auto-created)
+├── data/                  # Data storage (auto-created)
+├── Dockerfile             # Docker configuration
+├── docker-compose.yml     # Docker Compose setup
+└── README.md             # This file
+```
+
+## 🔧 Configuration
+
+The application can be customized through environment variables in `docker-compose.yml`:
+
+- `SECRET_KEY`: Application secret key
+- `LOG_LEVEL`: Logging level (INFO, DEBUG, WARNING, ERROR)
+- `RATE_LIMIT_REQUESTS`: API rate limit (requests per window)
+- `RATE_LIMIT_WINDOW`: Rate limit window in seconds
+
+## 🛠️ Troubleshooting
+
+### Container won't start:
+- Check if port 5000 is available: `lsof -i :5000`
+- View logs: `docker-compose logs`
+
+### Can't access the application:
+- Ensure Docker is running
+- Try `http://localhost:5000` instead of `127.0.0.1`
+- Check firewall settings
+
+### Scraping fails:
+- Verify your Apify API token is valid
+- Check Apollo.io URLs are accessible
+- Review application logs for specific errors
+
+## 📈 Performance
+
+The Docker setup includes:
+- **Memory**: 1GB limit, 512MB reserved
+- **CPU**: 1 core limit, 0.5 core reserved
+- **Health Checks**: Automatic container health monitoring
+- **Auto Restart**: Container restarts automatically on failure
+
+## 🔒 Security Features
+
+- CSRF token protection
+- Rate limiting (10 requests per minute by default)
+- Secure headers middleware
+- Input validation and sanitization
+- No sensitive data in logs
+
+## 📞 Support
+
+If you encounter any issues:
+1. Check the logs: `docker-compose logs -f`
+2. Ensure all API keys are correctly configured
+3. Verify your URLs are valid Apollo.io search pages
+4. Check network connectivity
+
+## 🎉 Success!
+
+Your Tiz Lead Scraper is now ready to help you extract valuable leads from Apollo.io with beautiful animations and seamless integrations!
