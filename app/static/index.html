@@ -306,10 +306,10 @@
 
                 <!-- Start Button -->
                 <button id="startScraping" class="start-button">
-                    <i class="fas fa-play"></i>
+                    <span class="material-symbols-outlined">play_arrow</span>
                     <span class="button-text">Start Scraping</span>
                     <div class="loading-spinner" style="display: none;">
-                        <i class="fas fa-spinner fa-spin"></i>
+                        <span class="material-symbols-outlined spinning">refresh</span>
                     </div>
                 </button>
             </div>
@@ -318,7 +318,7 @@
         <!-- Right Panel - Results & Export -->
         <div class="panel right-panel animate__animated animate__fadeInRight">
             <div class="panel-header">
-                <h2><i class="fas fa-chart-line"></i> Results & Export</h2>
+                <h2><span class="material-symbols-outlined">analytics</span> Results & Export</h2>
             </div>
             
             <div class="panel-content">
@@ -337,7 +337,7 @@
                 <!-- Results Table -->
                 <div class="results-section" id="resultsSection" style="display: none;">
                     <div class="results-header">
-                        <h3><i class="fas fa-table"></i> Results Preview</h3>
+                        <h3><span class="material-symbols-outlined">table_view</span> Results Preview</h3>
                         <div class="results-stats">
                             <span id="resultsCount">0 leads found</span>
                         </div>
@@ -356,30 +356,30 @@
 
                 <!-- Export Actions -->
                 <div class="export-section" id="exportSection" style="display: none;">
-                    <h3><i class="fas fa-download"></i> Export Your Data</h3>
+                    <h3><span class="material-symbols-outlined">file_download</span> Export Your Data</h3>
                     
                     <!-- Export Actions -->
                     <div class="export-actions">
                         <button id="exportCsv" class="export-button csv">
-                            <i class="fas fa-file-csv"></i>
+                            <span class="material-symbols-outlined">download</span>
                             Download CSV
                         </button>
                         <button id="exportJson" class="export-button json">
-                            <i class="fas fa-file-code"></i>
+                            <span class="material-symbols-outlined">code</span>
                             Download JSON
                         </button>
                         <button id="exportSheets" class="export-button sheets">
-                            <i class="fab fa-google"></i>
+                            <span class="material-symbols-outlined">table_chart</span>
                             Export to Google Sheets
                         </button>
                         <button id="exportNotion" class="export-button notion">
-                            <i class="fab fa-notion"></i>
+                            <span class="material-symbols-outlined">article</span>
                             Export to Notion
                         </button>
                     </div>
                     
                     <div class="export-note">
-                        <i class="fas fa-info-circle"></i>
+                        <span class="material-symbols-outlined">info</span>
                         Configure your integration credentials on the left to enable cloud exports
                     </div>
                 </div>
