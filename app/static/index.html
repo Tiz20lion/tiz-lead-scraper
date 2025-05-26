@@ -9,6 +9,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Google Material Icons -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"">
     
     <!-- Custom Styles -->
     <link rel="stylesheet" href="/static/css/styles.css">
@@ -27,7 +30,7 @@
         <div class="header-content">
             <h1 class="logo">
                 <div class="logo-icon">
-                    <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTEyIDJMMTMuMDkgOC4yNkwyMCA5TDEzLjA5IDE1Ljc0TDEyIDIyTDEwLjkxIDE1Ljc0TDQgOUwxMC45MSA4LjI2TDEyIDJaIiBmaWxsPSJ3aGl0ZSIvPgo8cGF0aCBkPSJNMTIgNkwxMS4wNSA5Ljc0TDcgMTFMMTEuMDUgMTQuMjZMMTIgMThMMTIuOTUgMTQuMjZMMTcgMTFMMTIuOTUgOS43NEwxMiA2WiIgZmlsbD0iI0ZGRkZGRiIgZmlsbC1vcGFjaXR5PSIwLjMiLz4KPHN2Zz4K" alt="Tiz Logo" class="logo-svg">
+                    <span class="material-symbols-outlined">insights</span>
                 </div>
                 <div class="logo-text">
                     <span class="logo-main">Tiz</span>
@@ -36,7 +39,7 @@
             </h1>
             <div class="header-controls">
                 <button id="themeToggle" class="theme-toggle" title="Toggle theme">
-                    <i class="fas fa-moon"></i>
+                    <span class="material-symbols-outlined">dark_mode</span>
                     <span class="toggle-ripple"></span>
                 </button>
                 <div class="status-indicator" id="statusIndicator">
@@ -53,7 +56,7 @@
         <!-- Left Panel - Configuration -->
         <div class="panel left-panel animate__animated animate__fadeInLeft">
             <div class="panel-header">
-                <h2><i class="fas fa-cog"></i> Scraping Configuration</h2>
+                <h2><span class="material-symbols-outlined">settings</span> Scraping Configuration</h2>
             </div>
             
             <div class="panel-content">
@@ -62,13 +65,13 @@
                     <label for="urlInput" class="input-label">
                         <div class="label-icon-wrapper">
                             <div class="label-icon">
-                                <i class="fas fa-globe-americas"></i>
+                                <span class="material-symbols-outlined">language</span>
                             </div>
                             <div class="icon-pulse"></div>
                         </div>
                         Apollo.io URLs (up to 10)
                         <div class="label-badge">
-                            <i class="fas fa-star"></i>
+                            <span class="material-symbols-outlined">star</span>
                             Required
                         </div>
                     </label>
@@ -80,11 +83,11 @@
                             rows="6"
                         ></textarea>
                         <div class="input-decorator">
-                            <i class="fas fa-external-link-alt"></i>
+                            <span class="material-symbols-outlined">open_in_new</span>
                         </div>
                     </div>
                     <div class="input-help">
-                        <i class="fas fa-info-circle"></i>
+                        <span class="material-symbols-outlined">info</span>
                         Enter up to 10 Apollo.io URLs to scrape leads from
                     </div>
                 </div>
@@ -94,13 +97,13 @@
                     <label for="leadCount" class="input-label">
                         <div class="label-icon-wrapper">
                             <div class="label-icon">
-                                <i class="fas fa-chart-line"></i>
+                                <span class="material-symbols-outlined">trending_up</span>
                             </div>
                             <div class="icon-pulse"></div>
                         </div>
                         Lead Count: <span id="leadCountValue" class="count-badge">100</span>
                         <div class="label-badge">
-                            <i class="fas fa-infinity"></i>
+                            <span class="material-symbols-outlined">all_inclusive</span>
                             Up to 50K
                         </div>
                     </label>
@@ -114,8 +117,8 @@
                             value="100"
                         >
                         <div class="slider-labels">
-                            <span><i class="fas fa-user"></i> 1</span>
-                            <span><i class="fas fa-users"></i> 50,000</span>
+                            <span><span class="material-symbols-outlined">person</span> 1</span>
+                            <span><span class="material-symbols-outlined">groups</span> 50,000</span>
                         </div>
                         <div class="slider-progress"></div>
                     </div>
