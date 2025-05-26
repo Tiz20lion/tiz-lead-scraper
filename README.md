@@ -15,6 +15,48 @@ A powerful, production-ready web scraper for extracting leads from Apollo.io wit
 - **🐳 Docker Ready**: One-click deployment with Docker Compose
 - **📱 Responsive**: Works perfectly on desktop and mobile devices
 
+## 🚀 Quick Start with Docker
+
+### Prerequisites
+
+- [Docker](https://docs.docker.com/get-docker/) installed on your system
+- [Docker Compose](https://docs.docker.com/compose/install/) (usually included with Docker Desktop)
+
+### Method 1: Docker Hub (Recommended)
+
+Pull and run the pre-built image:
+```bash
+docker run -d -p 5000:5000 --name tiz-lead-scraper tiz20lion/tiz-lead-scraper:latest
+```
+
+### Method 2: GitHub Repository
+
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/tiz20lion/tiz-lead-scraper.git
+   cd tiz-lead-scraper
+   ```
+
+2. **Quick start (Windows):**
+   ```bash
+   start.bat
+   ```
+
+3. **Quick start (Linux/Mac):**
+   ```bash
+   ./start.sh
+   ```
+
+4. **Manual Docker Compose:**
+   ```bash
+   docker-compose up -d
+   ```
+
+5. **Access the application:**
+   Open your browser and visit: `http://localhost:5000`
+
+That's it! Your Tiz Lead Scraper is now running! 🎉
+
 ## 🐍 Python Setup & Installation
 
 ### Prerequisites
@@ -31,22 +73,7 @@ cd tiz-lead-scraper
 
 ### Step 2: Install Dependencies
 
-#### Option A: Using pip (Recommended)
-
-First, create a `requirements.txt` file in your project root:
-```txt
-fastapi==0.104.1
-uvicorn[standard]==0.24.0
-pydantic==2.5.0
-pydantic-settings==2.1.0
-structlog==23.2.0
-tenacity==8.2.3
-python-multipart==0.0.6
-apify-client==1.7.1
-notion-client==2.2.1
-google-api-python-client==2.108.0
-google-auth==2.23.4
-```
+#### Using pip (Recommended)
 
 Then set up your environment:
 ```bash
@@ -63,21 +90,6 @@ source venv/bin/activate
 pip install -r requirements.txt
 ```
 
-#### Option B: Using the included packages
-The project includes these key dependencies:
-```
-fastapi>=0.104.1
-uvicorn[standard]>=0.24.0
-pydantic>=2.5.0
-pydantic-settings>=2.1.0
-structlog>=23.2.0
-tenacity>=8.2.3
-python-multipart>=0.0.6
-apify-client>=1.7.1
-notion-client>=2.2.1
-google-api-python-client>=2.108.0
-google-auth>=2.23.4
-```
 
 ### Step 3: Run the Application
 
@@ -103,24 +115,6 @@ http://localhost:5000
 
 The beautiful Tiz Lead Scraper interface will be ready to use!
 
-### 🔧 Configuration
-
-Set up these environment variables for full functionality:
-
-```bash
-# Required for Apollo.io scraping
-APIFY_API_TOKEN=your_apify_token_here
-
-# Optional: For Google Sheets integration
-GOOGLE_SHEETS_CREDENTIALS=your_google_credentials_json
-
-# Optional: For Notion integration  
-NOTION_TOKEN=your_notion_integration_secret
-NOTION_DATABASE_ID=your_notion_database_id
-
-# Optional: Security settings
-SECRET_KEY=your_secret_key_here
-```
 
 ### 🛠️ Troubleshooting Python Setup
 
@@ -166,47 +160,6 @@ python -m pip install --upgrade pip
 pip install -v fastapi uvicorn pydantic structlog tenacity python-multipart apify-client notion-client google-api-python-client google-auth
 ```
 
-## 🚀 Quick Start with Docker
-
-### Prerequisites
-
-- [Docker](https://docs.docker.com/get-docker/) installed on your system
-- [Docker Compose](https://docs.docker.com/compose/install/) (usually included with Docker Desktop)
-
-### Method 1: Docker Hub (Recommended)
-
-Pull and run the pre-built image:
-```bash
-docker run -d -p 5000:5000 --name tiz-lead-scraper tiz20lion/tiz-lead-scraper:latest
-```
-
-### Method 2: GitHub Repository
-
-1. **Clone the repository:**
-   ```bash
-   git clone https://github.com/tiz20lion/tiz-lead-scraper.git
-   cd tiz-lead-scraper
-   ```
-
-2. **Quick start (Windows):**
-   ```bash
-   start.bat
-   ```
-
-3. **Quick start (Linux/Mac):**
-   ```bash
-   ./start.sh
-   ```
-
-4. **Manual Docker Compose:**
-   ```bash
-   docker-compose up -d
-   ```
-
-5. **Access the application:**
-   Open your browser and visit: `http://localhost:5000`
-
-That's it! Your Tiz Lead Scraper is now running! 🎉
 
 ## 📋 Getting Your API Keys
 
