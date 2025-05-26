@@ -14,10 +14,10 @@ author = "agent"
 
 [[workflows.workflow.tasks]]
 task = "workflow.run"
-args = "Tiz Lead Scraper"
+args = "Server"
 
 [[workflows.workflow]]
-name = "Tiz Lead Scraper"
+name = "Server"
 author = "agent"
 
 [[workflows.workflow.tasks]]
