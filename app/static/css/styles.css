@@ -1480,17 +1480,72 @@ textarea:focus {
 }
 
 .developer-avatar {
-  width: 80px;
-  height: 80px;
-  background: linear-gradient(135deg, hsl(var(--accent-primary)), hsl(var(--accent-secondary)));
-  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
+  animation: avatar-float 4s ease-in-out infinite;
+}
+
+.avatar-bg {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+  border-radius: 50%;
+  animation: avatar-rotate 6s linear infinite;
+  box-shadow: 0 15px 40px rgba(102, 126, 234, 0.4);
+}
+
+.avatar-icon {
+  position: relative;
+  z-index: 2;
+  width: 60%;
+  height: 60%;
   color: white;
-  font-size: 2rem;
-  animation: avatar-pulse 3s infinite ease-in-out;
-  box-shadow: 0 10px 30px hsl(var(--accent-primary) / 0.3);
+  animation: icon-bounce 2s ease-in-out infinite;
+}
+
+.avatar-icon svg {
+  width: 100%;
+  height: 100%;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+}
+
+.avatar-sparkles {
+  position: absolute;
+  width: 120%;
+  height: 120%;
+  pointer-events: none;
+}
+
+.sparkle {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background: linear-gradient(45deg, #ffd700, #ffeb3b);
+  border-radius: 50%;
+  animation: sparkle-twinkle 2s ease-in-out infinite;
+}
+
+.sparkle-1 {
+  top: 10%;
+  right: 20%;
+  animation-delay: 0s;
+}
+
+.sparkle-2 {
+  bottom: 15%;
+  left: 10%;
+  animation-delay: 0.7s;
+}
+
+.sparkle-3 {
+  top: 30%;
+  left: -5%;
+  animation-delay: 1.4s;
 }
 
 .developer-info h3 {
@@ -1521,12 +1576,27 @@ textarea:focus {
 .skill-tag {
   background: linear-gradient(135deg, hsl(var(--accent-primary) / 0.2), hsl(var(--accent-secondary) / 0.2));
   color: hsl(var(--accent-primary));
-  padding: 0.3rem 0.8rem;
-  border-radius: 15px;
-  font-size: 0.8rem;
+  padding: 0.4rem 0.9rem;
+  border-radius: 20px;
+  font-size: 0.85rem;
   font-weight: 600;
   border: 1px solid hsl(var(--accent-primary) / 0.3);
   animation: skill-shimmer 4s infinite ease-in-out;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  transition: all 0.3s ease;
+}
+
+.skill-tag:hover {
+  transform: translateY(-2px) scale(1.05);
+  background: linear-gradient(135deg, hsl(var(--accent-primary) / 0.3), hsl(var(--accent-secondary) / 0.3));
+  box-shadow: 0 8px 15px hsl(var(--accent-primary) / 0.2);
+}
+
+.skill-icon {
+  font-size: 1rem;
+  animation: icon-wiggle 3s ease-in-out infinite;
 }
 
 .developer-links {
@@ -1538,16 +1608,28 @@ textarea:focus {
 .dev-link {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
-  padding: 1rem 1.5rem;
-  border-radius: 1rem;
+  gap: 1rem;
+  padding: 1.2rem 1.8rem;
+  border-radius: 1.2rem;
   text-decoration: none;
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   border: 2px solid transparent;
   position: relative;
   overflow: hidden;
   font-weight: 600;
-  min-width: 200px;
+  min-width: 220px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+}
+
+.link-icon {
+  width: 24px;
+  height: 24px;
+  transition: transform 0.3s ease;
+}
+
+.link-icon svg {
+  width: 100%;
+  height: 100%;
 }
 
 .dev-link::before {
@@ -1621,6 +1703,56 @@ textarea:focus {
 @keyframes float {
   0%, 100% { transform: translateY(0px); }
   50% { transform: translateY(-10px); }
+}
+
+@keyframes avatar-float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes avatar-rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes icon-bounce {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+}
+
+@keyframes sparkle-twinkle {
+  0%, 100% {
+    opacity: 0;
+    transform: scale(0);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes icon-wiggle {
+  0%, 100% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(5deg);
+  }
+  75% {
+    transform: rotate(-5deg);
+  }
 }
 
 @media (max-width: 768px) {

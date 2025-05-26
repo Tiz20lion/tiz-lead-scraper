@@ -5,6 +5,25 @@ channel = "stable-24_05"
 packages = ["libxcrypt"]
 
 [workflows]
+runButton = "Project"
+
+[[workflows.workflow]]
+name = "Project"
+mode = "parallel"
+author = "agent"
+
+[[workflows.workflow.tasks]]
+task = "workflow.run"
+args = "Tiz Lead Scraper"
+
+[[workflows.workflow]]
+name = "Tiz Lead Scraper"
+author = "agent"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "python -m uvicorn app.main:app --host 0.0.0.0 --port 5000 --reload"
+waitForPort = 5000
 
 [deployment]
 run = ["sh", "-c", "cd app && python main.py"]
