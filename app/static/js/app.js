@@ -148,17 +148,7 @@ class ApolloScraper {
         });
     }
 
-    updateWorkflowStep(stepNumber) {
-        const steps = document.querySelectorAll('.step');
-
-        steps.forEach((step, index) => {
-            if (index + 1 <= stepNumber) {
-                step.classList.add('active');
-            } else {
-                step.classList.remove('active');
-            }
-        });
-    }
+    
 
     saveSettings() {
         const apifyToken = document.getElementById('apifyToken').value.trim();
@@ -170,7 +160,6 @@ class ApolloScraper {
 
         // Redirect to configuration page
         this.navigateToPage('configure');
-        this.updateWorkflowStep(2);
         toastr.success('Settings saved! Now configure your scraping parameters.');
     }
 
@@ -180,13 +169,11 @@ class ApolloScraper {
         if (!apifyToken) {
             toastr.warning('Please configure your Apify API token first');
             this.navigateToPage('settings');
-            this.updateWorkflowStep(1);
             return;
         }
 
         // If API key is set, go to configuration
         this.navigateToPage('configure');
-        this.updateWorkflowStep(2);
         toastr.success('Ready to configure your scraping parameters!');
     }
 
@@ -316,7 +303,6 @@ class ApolloScraper {
         if (!apifyToken) {
             toastr.error('Please configure your Apify API token first');
             this.navigateToPage('settings');
-            this.updateWorkflowStep(1);
             return;
         }
 
@@ -398,9 +384,6 @@ class ApolloScraper {
 
         const progressSection = document.getElementById('progressSection');
         progressSection.style.display = 'block';
-
-        // Update step indicator
-        this.updateWorkflowStep(3);
 
         gsap.fromTo(progressSection, 
             { opacity: 0, y: 20 }, 
@@ -485,9 +468,6 @@ class ApolloScraper {
 
         // Hide progress section
         this.hideProgressSection();
-
-        // Update workflow step
-        this.updateWorkflowStep(3);
 
         // Update results count
         document.getElementById('resultsCount').textContent = `${totalCount} leads found`;

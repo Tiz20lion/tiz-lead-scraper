@@ -646,77 +646,7 @@ body {
   transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Workflow Steps */
-.workflow-steps {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 2rem;
-  padding: 1rem;
-  background: linear-gradient(135deg, hsl(var(--bg-panel) / 0.3), hsl(var(--bg-secondary) / 0.3));
-  border-radius: 1rem;
-  border: 1px solid hsl(var(--border-color) / 0.3);
-}
 
-.step {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.3rem;
-  position: relative;
-  transition: all 0.3s ease;
-}
-
-.step-number {
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  background: hsl(var(--bg-secondary));
-  border: 2px solid hsl(var(--border-color));
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 700;
-  font-size: 0.7rem;
-  color: hsl(var(--text-secondary));
-  transition: all 0.3s ease;
-}
-
-.step-title {
-  font-size: 0.7rem;
-  font-weight: 600;
-  color: hsl(var(--text-secondary));
-  transition: color 0.3s ease;
-}
-
-.step-connector {
-  width: 40px;
-  height: 2px;
-  background: hsl(var(--border-color));
-  margin: 0 0.5rem;
-  position: relative;
-  overflow: hidden;
-}
-
-.step-connector::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, hsl(var(--accent-primary)), hsl(var(--accent-secondary)));
-  transition: left 0.5s ease;
-}
-
-.step.active + .step-connector::after {
-  left: 0;
-}
-
-@keyframes step-pulse {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.05); }
-}
 
 /* Workflow Sections */
 .workflow-section {
@@ -1791,35 +1721,7 @@ body {
     flex: 1;
   }
 
-  .workflow-steps {
-    flex-direction: column;
-    gap: 0.75rem;
-    padding: 1rem;
-    margin-bottom: 1.5rem;}
-
-  .step {
-    flex-direction: row;
-    align-items: center;
-    gap: 0.75rem;
-    width: 100%;
-  }
-
-  .step-number {
-    width: 28px;
-    height: 28px;
-    font-size: 0.8rem;
-    flex-shrink: 0;
-  }
-
-  .step-title {
-    flex: 1;
-    text-align: left;
-    font-size: 0.8rem;
-  }
-
-  .step-connector {
-    display: none;
-  }
+  
 
   .section-header {
     flex-direction: column;
