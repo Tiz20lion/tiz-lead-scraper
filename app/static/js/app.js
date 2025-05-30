@@ -45,18 +45,18 @@ class ApolloScraper {
 
         // Dropdown menu functionality
         const dropdownTrigger = document.querySelector('.menu-dropdown-trigger');
-        const dropdown = document.querySelector('.menu-dropdown-container');
+        const dropdownContainer = document.querySelector('.menu-dropdown-container');
 
-        if (dropdownTrigger && dropdown) {
+        if (dropdownTrigger && dropdownContainer) {
             dropdownTrigger.addEventListener('click', (e) => {
                 e.stopPropagation();
-                dropdown.classList.toggle('show');
+                dropdownContainer.classList.toggle('show');
             });
 
             // Close dropdown when clicking outside
             document.addEventListener('click', (e) => {
-                if (!dropdown.contains(e.target)) {
-                    dropdown.classList.remove('show');
+                if (!dropdownContainer.contains(e.target)) {
+                    dropdownContainer.classList.remove('show');
                 }
             });
         }
