@@ -86,14 +86,13 @@ body {
 
 /* Header Styles */
 .header {
-  background: linear-gradient(135deg, hsl(var(--bg-panel) / 0.95), hsl(var(--bg-secondary) / 0.95));
+  background: hsl(var(--bg-panel));
   border-bottom: 1px solid hsl(var(--border-color));
   padding: 0.5rem 1rem;
   box-shadow: var(--shadow-lg);
   position: sticky;
   top: 0;
   z-index: 100;
-  backdrop-filter: blur(20px);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -321,12 +320,11 @@ body {
 /* Enhanced Input Section Animations */
 .animated-card {
   position: relative;
-  background: linear-gradient(135deg, hsl(var(--bg-secondary) / 0.1), hsl(var(--bg-panel) / 0.15));
-  border: 1px solid hsl(var(--border-color) / 0.2);
+  background: hsl(var(--bg-secondary));
+  border: 1px solid hsl(var(--border-color));
   border-radius: 1.5rem;
   padding: 2rem;
   margin-bottom: 2rem;
-  backdrop-filter: blur(10px);
   animation: slideInBounce 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
   opacity: 0;
   transform: translateY(50px) scale(0.8);
@@ -632,10 +630,9 @@ body {
 /* Dashboard Sidebar */
 .dashboard-sidebar {
   width: 240px;
-  background: linear-gradient(135deg, hsl(var(--bg-secondary) / 0.1), hsl(var(--bg-panel) / 0.15));
+  background: hsl(var(--bg-panel));
   border-radius: 1.5rem;
-  border: 1px solid hsl(var(--border-color) / 0.2);
-  backdrop-filter: blur(10px);
+  border: 1px solid hsl(var(--border-color));
   padding: 1.5rem;
   height: fit-content;
   position: sticky;
@@ -684,10 +681,9 @@ body {
 /* Dashboard Content */
 .dashboard-content {
   flex: 1;
-  background: linear-gradient(135deg, hsl(var(--bg-secondary) / 0.1), hsl(var(--bg-panel) / 0.15));
+  background: hsl(var(--bg-panel));
   border-radius: 2rem;
-  border: 1px solid hsl(var(--border-color) / 0.2);
-  backdrop-filter: blur(10px);
+  border: 1px solid hsl(var(--border-color));
   padding: 3rem;
   transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -704,10 +700,9 @@ body {
 .unified-panel {
   width: 100%;
   max-width: 1200px;
-  background: linear-gradient(135deg, hsl(var(--bg-secondary) / 0.1), hsl(var(--bg-panel) / 0.15));
+  background: hsl(var(--bg-panel));
   border-radius: 2rem;
-  border: 1px solid hsl(var(--border-color) / 0.2);
-  backdrop-filter: blur(10px);
+  border: 1px solid hsl(var(--border-color));
   padding: 3rem;
   transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -719,9 +714,9 @@ body {
   justify-content: center;
   margin-bottom: 2rem;
   padding: 1rem;
-  background: linear-gradient(135deg, hsl(var(--bg-panel) / 0.3), hsl(var(--bg-secondary) / 0.3));
+  background: hsl(var(--bg-secondary));
   border-radius: 1rem;
-  border: 1px solid hsl(var(--border-color) / 0.3);
+  border: 1px solid hsl(var(--border-color));
 }
 
 .step {
