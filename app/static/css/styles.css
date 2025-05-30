@@ -3169,6 +3169,73 @@ input[type="range"] {
 }
 
 @keyframes sparkle-twinkle {
+  0%, 100% {
+    opacity: 0;
+    transform: scale(0);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes icon-wiggle {
+  0%, 100% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(5deg);
+  }
+  75% {
+    transform: rotate(-5deg);
+  }
+}
+
+@media (max-width: 768px) {
+  .developer-card {
+    max-width: 280px;
+    padding: 15px 0 25px;
+  }
+
+  .developer-picture {
+    height: 70px;
+    width: 70px;
+    margin-bottom: 25px;
+  }
+
+  .developer-info h3 {
+    font-size: 0.9rem;
+  }
+
+  .developer-description {
+    font-size: 0.7rem;
+  }
+
+  .skill-tag {
+    font-size: 0.55rem;
+    padding: 0.15rem 0.4rem;
+  }
+
+  .skill-icon {
+    font-size: 0.6rem;
+  }
+
+  .dev-link {
+    padding: 6px 10px;
+    font-size: 10px;
+    min-height: 32px;
+    min-width: 32px;
+  }
+
+  .link-icon {
+    width: 14px;
+    height: 14px;
+  }
+
+  .developer-social {
+    bottom: -50px;
+  }
+}
 ```text
   0%, 100% {
     opacity: 0;
