@@ -2837,7 +2837,7 @@ input[type="range"] {
 .menu-dropdown-container {
   position: relative;
   width: fit-content;
-  z-index: 1000;
+  z-index: 1;
 }
 
 .menu-icon {
@@ -2853,7 +2853,7 @@ input[type="range"] {
   border: 1px solid hsl(var(--border-color) / 0.4);
   border-radius: 1rem;
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
-  z-index: 1001;
+  z-index: 2;
   min-width: 200px;
   overflow: hidden;
   opacity: 0;
