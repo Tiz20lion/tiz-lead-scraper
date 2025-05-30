@@ -15,11 +15,6 @@
     
     <!-- Custom Styles -->
     <link rel="stylesheet" href="/static/css/styles.css">
-    <link rel="stylesheet" href="/static/css/card-components.css">
-    <link rel="stylesheet" href="/static/css/modal-components.css">
-    <link rel="stylesheet" href="/static/css/toast-components.css">
-    <link rel="stylesheet" href="/static/css/dropdown-components.css">
-    <link rel="stylesheet" href="/static/css/component-demos.css">
 </head>
 <body class="dark-theme">
     <!-- Animated Background -->
@@ -56,57 +51,10 @@
         </div>
     </header>
 
-    <!-- Quick Stats Dashboard -->
-    <section class="stats-dashboard">
-        <div class="stats-container">
-            <div class="stat-card glass-panel">
-                <div class="stat-icon">
-                    <span class="material-symbols-outlined">groups</span>
-                </div>
-                <div class="stat-content">
-                    <div class="stat-number" id="totalLeads">0</div>
-                    <div class="stat-label">Total Leads</div>
-                </div>
-                <div class="stat-trend positive">
-                    <span class="material-symbols-outlined">trending_up</span>
-                    <span>+12%</span>
-                </div>
-            </div>
-            
-            <div class="stat-card glass-panel">
-                <div class="stat-icon">
-                    <span class="material-symbols-outlined">speed</span>
-                </div>
-                <div class="stat-content">
-                    <div class="stat-number" id="processingSpeed">0</div>
-                    <div class="stat-label">Leads/Min</div>
-                </div>
-                <div class="stat-trend positive">
-                    <span class="material-symbols-outlined">bolt</span>
-                    <span>Fast</span>
-                </div>
-            </div>
-            
-            <div class="stat-card glass-panel">
-                <div class="stat-icon">
-                    <span class="material-symbols-outlined">verified</span>
-                </div>
-                <div class="stat-content">
-                    <div class="stat-number" id="qualityScore">98%</div>
-                    <div class="stat-label">Quality Score</div>
-                </div>
-                <div class="stat-trend positive">
-                    <span class="material-symbols-outlined">star</span>
-                    <span>High</span>
-                </div>
-            </div>
-        </div>
-    </section>
-
     <!-- Main Container -->
-    <main class="main-container smart-grid">
+    <main class="main-container">
         <!-- Left Panel - Configuration -->
-        <div class="panel left-panel feature-card animate__animated animate__fadeInLeft">
+        <div class="panel left-panel animate__animated animate__fadeInLeft">
             <div class="panel-header">
                 <h2><span class="material-symbols-outlined">settings</span> Scraping Configuration</h2>
             </div>
@@ -368,7 +316,7 @@
         </div>
 
         <!-- Right Panel - Results & Export -->
-        <div class="panel right-panel feature-card animate__animated animate__fadeInRight">
+        <div class="panel right-panel animate__animated animate__fadeInRight">
             <div class="panel-header">
                 <h2><span class="material-symbols-outlined">analytics</span> Results & Export</h2>
             </div>
@@ -512,20 +460,13 @@
         </div>
     </footer>
 
-    <!-- Floating Action Button -->
-    <button class="fab" id="quickActions" title="Quick Actions">
-        <span class="material-symbols-outlined">add</span>
-    </button>
-
     <!-- Loading Overlay -->
     <div class="loading-overlay" id="loadingOverlay" style="display: none;">
-        <div class="loading-content glass-panel">
-            <div class="progress-ring">
-                <div class="progress-ring-circle" style="--progress: 75%">
-                    <div class="progress-ring-text">75%</div>
-                </div>
+        <div class="loading-content">
+            <div class="loading-spinner-large">
+                <i class="fas fa-spinner fa-spin"></i>
             </div>
-            <div class="loading-text">Processing your leads...</div>
+            <div class="loading-text">Processing...</div>
         </div>
     </div>
 
@@ -533,9 +474,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="/static/js/ui-components.js"></script>
-    <script src="/static/js/component-demos.js"></script>
-    <script src="/static/js/component-usage-examples.js"></script>
     <script src="/static/js/app.js"></script>
 </body>
 </html>
