@@ -854,7 +854,8 @@ body {
   color: hsl(var(--text-secondary));
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.3s ease;
+  ```text
+transition: all 0.3s ease;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1035,7 +1036,6 @@ body {
   border: 2px solid hsl(var(--border-color));
   border-radius: 0.75rem;
   background: linear-gradient(135deg, hsl(var(--bg-secondary) / 0.8), hsl(var(--bg-panel) / 0.9));
-  backdrop-filter: blur(10px);
   color: hsl(var(--text-primary));
   font-family: inherit;
   font-size: 0.8rem;
@@ -1126,7 +1126,6 @@ body {
   border-radius: 0.5rem;
   background: linear-gradient(135deg, hsl(var(--bg-secondary) / 0.7), hsl(var(--bg-panel) / 0.8));
   border: 1px solid hsl(var(--border-color) / 0.5);
-  backdrop-filter: blur(10px);
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   font-size: 0.8rem;
   font-weight: 500;
@@ -1266,7 +1265,6 @@ body {
 /* Progress Styles */
 .progress-section {
   background: linear-gradient(135deg, hsl(var(--bg-secondary) / 0.1), hsl(var(--bg-panel) / 0.15));
-  backdrop-filter: blur(8px);
   border-radius: 1.25rem;
   padding: 2rem;
   margin-bottom: 2.5rem;
@@ -2824,4 +2822,52 @@ input[type="range"] {
     bottom: -50px;
   }
 }
+}
+
+.dropdown-trigger {
+  background: linear-gradient(135deg, hsl(var(--bg-secondary) / 0.8), hsl(var(--bg-panel) / 0.9));
+  border: 1px solid hsl(var(--border-color));
+  border-radius: 0.75rem;
+  padding: 0.75rem 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.dropdown-trigger {
+  background: linear-gradient(135deg, hsl(var(--bg-secondary) / 0.8), hsl(var(--bg-panel) / 0.9));
+  border: 1px solid hsl(var(--border-color));
+  border-radius: 0.75rem;
+  padding: 0.75rem 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.dropdown-trigger {
+  background: linear-gradient(135deg, hsl(var(--bg-secondary) / 0.8), hsl(var(--bg-panel) / 0.9));
+  border: 1px solid hsl(var(--border-color));
+  border-radius: 0.75rem;
+  padding: 0.75rem 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.dropdown-trigger {
+  background: linear-gradient(135deg, hsl(var(--bg-secondary) / 0.8), hsl(var(--bg-panel) / 0.9));
+  border: 1px solid hsl(var(--border-color));
+  border-radius: 0.75rem;
+  padding: 0.75rem 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
