@@ -2835,7 +2835,7 @@ input[type="range"] {
 .dropdown-menu {
   position: absolute;
   top: 100%;
-  right: 0;
+  left: 0;
   background: hsl(var(--bg-panel));
   border: 1px solid hsl(var(--border-color));
   border-radius: 0.75rem;
