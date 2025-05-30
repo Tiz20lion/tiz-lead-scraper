@@ -153,7 +153,7 @@ async def export_to_notion(request: NotionRequest):
 
 @router.get("/export/csv/{task_id}")
 async def export_csv(task_id: str):
-    """Export task results as CSV"""
+    """Export task results as CSV with proper formatting"""
     if task_id not in tasks_storage:
         raise HTTPException(status_code=404, detail="Task not found")
     
@@ -162,12 +162,15 @@ async def export_csv(task_id: str):
         raise HTTPException(status_code=400, detail="No data available for export")
     
     try:
-        # Create CSV content
+        # Create CSV content with cleaned data
         output = io.StringIO()
         if task["data"]:
-            writer = csv.DictWriter(output, fieldnames=task["data"][0].keys())
-            writer.writeheader()
-            writer.writerows(task["data"])
+            # Clean and validate data before export
+            cleaned_data = _clean_export_data(task["data"])
+            if cleaned_data:
+                writer = csv.DictWriter(output, fieldnames=cleaned_data[0].keys())
+                writer.writeheader()
+                writer.writerows(cleaned_data)
         
         csv_content = output.getvalue()
         output.close()
@@ -222,6 +225,30 @@ async def get_notion_database_info(database_id: str = None):
         logger.error("Failed to get Notion database info", error=str(e))
         raise HTTPException(status_code=500, detail=f"Failed to get database info: {str(e)}")
 
+def _clean_export_data(data: List[Dict]) -> List[Dict]:
+    """Clean and validate data before export"""
+    cleaned_data = []
+    
+    for item in data:
+        cleaned_item = {}
+        for key, value in item.items():
+            # Ensure value is string and properly formatted
+            if value is None:
+                cleaned_item[key] = ""
+            elif isinstance(value, str):
+                # Remove any problematic characters for CSV/cloud export
+                cleaned_value = value.replace('\n', ' ').replace('\r', ' ').replace('\t', ' ')
+                cleaned_value = ' '.join(cleaned_value.split())  # Remove extra whitespace
+                cleaned_item[key] = cleaned_value
+            else:
+                cleaned_item[key] = str(value)
+        
+        # Only include items with at least one non-empty field
+        if any(val.strip() for val in cleaned_item.values() if isinstance(val, str)):
+            cleaned_data.append(cleaned_item)
+    
+    return cleaned_data
+
 async def scrape_leads_background(
     task_id: str, 
     urls: list, 
@@ -252,11 +279,14 @@ async def scrape_leads_background(
         
         # Update task with results
         if result["status"] == "success":
+            # Clean the data before storing
+            cleaned_data = _clean_export_data(result["data"]) if result["data"] else []
+            
             tasks_storage[task_id]["status"] = "completed"
             tasks_storage[task_id]["progress"] = 100
             tasks_storage[task_id]["message"] = result["message"]
-            tasks_storage[task_id]["data"] = result["data"]
-            tasks_storage[task_id]["total_count"] = result["total_scraped"]
+            tasks_storage[task_id]["data"] = cleaned_data
+            tasks_storage[task_id]["total_count"] = len(cleaned_data)
         else:
             tasks_storage[task_id]["status"] = "failed"
             tasks_storage[task_id]["progress"] = 0

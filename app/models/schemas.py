@@ -12,6 +12,7 @@ class FieldType(str, Enum):
     INDUSTRY = "industry"
     LINKEDIN = "linkedin"
     TWITTER = "twitter"
+    INSTAGRAM = "instagram"
     WEBSITE = "website"
 
 class ScrapeRequest(BaseModel):
