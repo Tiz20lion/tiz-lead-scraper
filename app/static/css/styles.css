@@ -826,8 +826,7 @@ body {
 
 .export-card:hover {
   transform: translateY(-3px);
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-}
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);}
 
 .export-icon {
   width: 20px;
@@ -2886,4 +2885,109 @@ input[type="range"] {
   background: linear-gradient(135deg, hsl(var(--accent-primary) / 0.2), hsl(var(--accent-secondary) / 0.2));
   color: hsl(var(--accent-primary));
   font-weight: 600;
+}
+
+/* ===== ANIMATIONS ===== */
+.animate__animated {
+    animation-duration: 1s;
+    animation-fill-mode: both;
+}
+
+/* Add missing animation targets */
+.left-panel, .right-panel, .unified-panel, .header {
+    opacity: 1;
+    transform: none;
+}
+
+/* ===== DROPDOWN IMPROVEMENTS ===== */
+.dropdown {
+    position: relative;
+    width: 100%;
+}
+
+.dropdown-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 12px 16px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.dropdown-toggle:hover {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(64, 224, 208, 0.5);
+}
+
+.dropdown.active .dropdown-toggle {
+    border-color: #40E0D0;
+    background: rgba(64, 224, 208, 0.1);
+}
+
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: rgba(30, 41, 59, 0.95);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    margin-top: 8px;
+    max-height: 300px;
+    overflow-y: auto;
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all 0.3s ease;
+}
+
+.dropdown.active .dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.dropdown-option {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    color: rgba(255, 255, 255, 0.8);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.dropdown-option:last-child {
+    border-bottom: none;
+}
+
+.dropdown-option:hover {
+    background: rgba(64, 224, 208, 0.1);
+    color: #40E0D0;
+}
+
+.dropdown-option.selected {
+    background: rgba(64, 224, 208, 0.2);
+    color: #40E0D0;
+}
+
+.dropdown-option.selected::before {
+    content: "✓";
+    font-weight: bold;
+}
+
+.dropdown-arrow {
+    transition: transform 0.3s ease;
+}
+
+.dropdown.active .dropdown-arrow {
+    transform: rotate(180deg);
 }

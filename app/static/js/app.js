@@ -138,12 +138,12 @@ class ApolloScraper {
         // Lead count slider sync
         const leadCountSlider = document.getElementById('leadCount');
         const leadCountInput = document.getElementById('leadCountInput');
-        
+
         if (leadCountSlider && leadCountInput) {
             leadCountSlider.addEventListener('input', () => {
                 leadCountInput.value = leadCountSlider.value;
             });
-            
+
             leadCountInput.addEventListener('input', () => {
                 leadCountSlider.value = leadCountInput.value;
             });
@@ -804,7 +804,7 @@ window.addEventListener('load', () => {
     const header = document.querySelector('.header');
     const dashboardContent = document.querySelector('.dashboard-content');
     const animatedCards = document.querySelectorAll('.animated-card');
-    
+
     if (header) {
         header.style.opacity = '0';
         header.style.transform = 'translateY(-20px)';
@@ -814,7 +814,7 @@ window.addEventListener('load', () => {
             header.style.transform = 'translateY(0)';
         }, 100);
     }
-    
+
     if (dashboardContent) {
         dashboardContent.style.opacity = '0';
         dashboardContent.style.transform = 'translateY(20px)';
@@ -824,7 +824,7 @@ window.addEventListener('load', () => {
             dashboardContent.style.transform = 'translateY(0)';
         }, 300);
     }
-    
+
     animatedCards.forEach((card, index) => {
         if (card) {
             card.style.opacity = '0';

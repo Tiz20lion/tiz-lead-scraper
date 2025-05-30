@@ -18,18 +18,28 @@ class RateLimitMiddleware(BaseHTTPMiddleware):
 
     async def dispatch(self, request: Request, call_next):
         client_ip = request.client.host if request.client else "unknown"
+
+        # Skip rate limiting for static files and health check
+        if (request.url.path.startswith("/static/") or 
+            request.url.path.startswith("/css/") or 
+            request.url.path.startswith("/js/") or
+            request.url.path == "/health" or
+            request.url.path == "/" or
+            request.url.path.startswith("/api/v1/csrf-token")):
+            return await call_next(request)
+
         now = time.time()
-        
+
         # Clean old requests
         self.clients[client_ip] = [
             req_time for req_time in self.clients[client_ip]
             if now - req_time < self.period
         ]
-        
+
         # Check rate limit
-        if len(self.clients[client_ip]) >= self.calls:
+        if len(self.clients[client_ip]) >= 100:
             raise HTTPException(status_code=429, detail="Rate limit exceeded")
-        
+
         self.clients[client_ip].append(now)
         response = await call_next(request)
         return response
@@ -54,7 +64,7 @@ def verify_csrf_token(token: str, secret_key: str, user_id: str = "anonymous") -
 class SecurityHeadersMiddleware(BaseHTTPMiddleware):
     async def dispatch(self, request: Request, call_next):
         response = await call_next(request)
-        
+
         # Security headers
         response.headers["X-Content-Type-Options"] = "nosniff"
         response.headers["X-Frame-Options"] = "DENY"
@@ -68,5 +78,5 @@ class SecurityHeadersMiddleware(BaseHTTPMiddleware):
             "img-src 'self' data: https:; "
             "connect-src 'self'"
         )
-        
+
         return response
