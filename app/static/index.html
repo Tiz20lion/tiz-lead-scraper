@@ -58,6 +58,11 @@
                     <div class="step-number">1</div>
                     <div class="step-title">Configure</div>
                 </div>
+                 <div class="step-connector"></div>
+                <div class="step" data-step="4">
+                    <div class="step-number">4</div>
+                    <div class="step-title">Settings</div>
+                </div>
                 <div class="step-connector"></div>
                 <div class="step" data-step="2">
                     <div class="step-number">2</div>
@@ -68,6 +73,7 @@
                     <div class="step-number">3</div>
                     <div class="step-title">Results</div>
                 </div>
+
             </div>
 
             <!-- Configuration Section -->
@@ -144,32 +150,7 @@
                             </div>
                         </div>
 
-                        <!-- API Configuration -->
-                        <div class="input-section animated-card">
-                            <label for="apifyToken" class="input-label">
-                                <div class="label-icon-wrapper">
-                                    <div class="label-icon">
-                                        <span class="material-symbols-outlined">key</span>
-                                    </div>
-                                    <div class="icon-pulse"></div>
-                                </div>
-                                Apify API Token
-                                <div class="label-badge">
-                                    <span class="material-symbols-outlined">star</span>
-                                    Required
-                                </div>
-                            </label>
-                            <input 
-                                type="password" 
-                                id="apifyToken" 
-                                placeholder="Enter your Apify API token..."
-                                class="api-input"
-                            >
-                            <div class="input-help">
-                                <span class="material-symbols-outlined">info</span>
-                                Get your token from <a href="https://apify.com/" target="_blank">Apify.com</a> → Settings → Integrations
-                            </div>
-                        </div>
+                       
                     </div>
 
                     <!-- Right Column - Field Selection & Integrations -->
@@ -283,6 +264,62 @@
                             </div>
                         </div>
 
+                        
+                    </div>
+                </div>
+
+                <!-- Action Button -->
+                <div class="action-section">
+                    <button id="startScraping" class="start-button">
+                        <span class="material-symbols-outlined">play_arrow</span>
+                        <span class="button-text">Start Scraping Journey</span>
+                        <div class="loading-spinner" style="display: none;">
+                            <span class="material-symbols-outlined spinning">refresh</span>
+                        </div>
+                    </button>
+                </div>
+            </div>
+            
+                         <!-- Settings Section -->
+            <div class="workflow-section" id="settingsSection" style="display: none;">
+                <div class="section-header">
+                    <h2><span class="material-symbols-outlined">settings</span> Settings</h2>
+                    <div class="section-badge">Step 4</div>
+                </div>
+
+                <div class="config-grid">
+                    <!-- Left Column - API Key Settings -->
+                    <div class="config-column">
+                        <!-- API Configuration -->
+                        <div class="input-section animated-card">
+                            <label for="apifyToken" class="input-label">
+                                <div class="label-icon-wrapper">
+                                    <div class="label-icon">
+                                        <span class="material-symbols-outlined">key</span>
+                                    </div>
+                                    <div class="icon-pulse"></div>
+                                </div>
+                                Apify API Token
+                                <div class="label-badge">
+                                    <span class="material-symbols-outlined">star</span>
+                                    Required
+                                </div>
+                            </label>
+                            <input 
+                                type="password" 
+                                id="apifyToken" 
+                                placeholder="Enter your Apify API token..."
+                                class="api-input"
+                            >
+                            <div class="input-help">
+                                <span class="material-symbols-outlined">info</span>
+                                Get your token from <a href="https://apify.com/" target="_blank">Apify.com</a> → Settings → Integrations
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Column - Integration Settings -->
+                    <div class="config-column">
                         <!-- Export Integrations -->
                         <div class="input-section animated-card">
                             <label class="input-label">
@@ -349,17 +386,6 @@
                             </div>
                         </div>
                     </div>
-                </div>
-
-                <!-- Action Button -->
-                <div class="action-section">
-                    <button id="startScraping" class="start-button">
-                        <span class="material-symbols-outlined">play_arrow</span>
-                        <span class="button-text">Start Scraping Journey</span>
-                        <div class="loading-spinner" style="display: none;">
-                            <span class="material-symbols-outlined spinning">refresh</span>
-                        </div>
-                    </button>
                 </div>
             </div>
 

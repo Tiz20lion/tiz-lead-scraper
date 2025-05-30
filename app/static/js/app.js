@@ -67,6 +67,9 @@ class ApolloScraper {
             leadCountInput.value = value;
         });
 
+        // Save settings button
+        document.getElementById('saveSettings').addEventListener('click', this.saveSettings.bind(this));
+
         // Start scraping button
         document.getElementById('startScraping').addEventListener('click', this.startScraping.bind(this));
 
@@ -112,6 +115,43 @@ class ApolloScraper {
                 step.classList.remove('active');
             }
         });
+    }
+
+    saveSettings() {
+        const apifyToken = document.getElementById('apifyToken').value.trim();
+        
+        if (!apifyToken) {
+            toastr.error('Please enter your Apify API token');
+            return;
+        }
+
+        // Show configuration section
+        this.showConfigurationSection();
+        this.updateWorkflowStep(2);
+        toastr.success('Settings saved! Now configure your scraping parameters.');
+    }
+
+    showConfigurationSection() {
+        const settingsSection = document.getElementById('settingsSection');
+        const configurationSection = document.getElementById('configurationSection');
+        
+        // Hide settings section
+        gsap.to(settingsSection, {
+            opacity: 0,
+            y: -20,
+            duration: 0.3,
+            ease: "power2.out",
+            onComplete: () => {
+                settingsSection.style.display = 'none';
+            }
+        });
+
+        // Show configuration section
+        configurationSection.style.display = 'block';
+        gsap.fromTo(configurationSection, 
+            { opacity: 0, y: 20 }, 
+            { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }
+        );
     }
 
     async getCsrfToken() {
@@ -283,7 +323,7 @@ class ApolloScraper {
         progressSection.style.display = 'block';
         
         // Update step indicator
-        this.updateWorkflowStep(2);
+        this.updateWorkflowStep(3);
         
         gsap.fromTo(progressSection, 
             { opacity: 0, y: 20 }, 
@@ -367,7 +407,7 @@ class ApolloScraper {
         }
 
         // Update workflow step
-        this.updateWorkflowStep(3);
+        this.updateWorkflowStep(4);
 
         // Update results count
         document.getElementById('resultsCount').textContent = `${totalCount} leads found`;
