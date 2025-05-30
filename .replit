@@ -1,0 +1,9 @@
+modules = ["python-3.11", "web", "nodejs-20"]
+run = "uvicorn undefined:app --host 0.0.0.0 --port 3000"
+
+[nix]
+channel = "stable-24_05"
+packages = ["libxcrypt"]
+
+[deployment]
+run = ["sh", "-c", "uvicorn undefined:app --host 0.0.0.0 --port 3000"]
