@@ -7,6 +7,65 @@ class ComponentDemos {
         this.setupComponentExamples();
     }
 
+    static setupComponentExamples() {
+        // Initialize component examples
+        UIComponents.initDropdowns();
+        this.initAdvancedComponents();
+    }
+
+    static initAdvancedComponents() {
+        // Setup advanced component demonstrations
+        this.setupProgressCards();
+        this.setupInteractiveElements();
+    }
+
+    static setupProgressCards() {
+        // Create sample progress cards for demonstration
+        const progressData = [
+            { title: 'Data Collection', progress: 85, description: 'Gathering lead information' },
+            { title: 'Processing', progress: 60, description: 'Analyzing and validating data' },
+            { title: 'Export Ready', progress: 30, description: 'Preparing for download' }
+        ];
+
+        progressData.forEach(data => {
+            const card = this.createProgressCard(data.title, data.progress, data.description);
+            // Could be added to a demo container if needed
+        });
+    }
+
+    static setupInteractiveElements() {
+        // Setup interactive demo elements
+        this.setupHoverEffects();
+        this.setupClickAnimations();
+    }
+
+    static setupHoverEffects() {
+        // Add enhanced hover effects to existing elements
+        const cards = document.querySelectorAll('.animated-card');
+        cards.forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.transform = 'translateY(-12px) scale(1.05)';
+            });
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+    }
+
+    static setupClickAnimations() {
+        // Add click animations to buttons
+        const buttons = document.querySelectorAll('button');
+        buttons.forEach(button => {
+            button.addEventListener('click', (e) => {
+                const ripple = document.createElement('span');
+                ripple.classList.add('button-ripple');
+                button.appendChild(ripple);
+                
+                setTimeout(() => ripple.remove(), 600);
+            });
+        });
+    }
+
     static setupDemoButtons() {
         // Add demo buttons to test components
         const demoContainer = document.createElement('div');

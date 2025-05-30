@@ -3,6 +3,8 @@
 @import url('toast-components.css');
 @import url('dropdown-components.css');
 @import url('card-components.css');
+@import url('enhanced-ui.css');
+@import url('stats-dashboard.css');
 
 /* Custom CSS Properties */
 :root {
