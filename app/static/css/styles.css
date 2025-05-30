@@ -1721,7 +1721,7 @@ body {
     flex: 1;
   }
 
-  
+
 
   .section-header {
     flex-direction: column;
@@ -2800,4 +2800,25 @@ input[type="range"] {
     bottom: -50px;
   }
 }
+}
+
+.dropdown-trigger {
+  background: hsl(var(--bg-secondary));
+  border: 1px solid hsl(var(--border-color));
+  border-radius: 0.5rem;
+  padding: 0.75rem 1rem;
+  color: hsl(var(--text-primary));
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.3s ease;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.menu-dropdown-trigger {
+  padding: 0.5rem;
+  min-width: 44px;
+  justify-content: center;
 }
