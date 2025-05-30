@@ -48,40 +48,13 @@ class ApolloScraper {
     }
 
     setupDropdownMenu() {
+        // Menu Dropdown Functionality - Disabled for background decoration
         const dropdownTrigger = document.querySelector('.menu-dropdown-trigger');
         const dropdownContainer = document.querySelector('.menu-dropdown-container');
 
+        // Remove all event listeners - this is now just a background decoration
         if (dropdownTrigger && dropdownContainer) {
-            dropdownTrigger.addEventListener('click', (e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                dropdownContainer.classList.toggle('show');
-            });
-
-            // Close dropdown when clicking outside
-            document.addEventListener('click', (e) => {
-                if (!dropdownContainer.contains(e.target)) {
-                    dropdownContainer.classList.remove('show');
-                }
-            });
-
-            // Navigation for dropdown items
-            const dropdownItems = document.querySelectorAll('.dropdown-item');
-            dropdownItems.forEach(item => {
-                item.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    const page = item.getAttribute('data-page');
-                    if (page) {
-                        this.navigateToPage(page);
-                        // Update active states
-                        dropdownItems.forEach(dItem => dItem.classList.remove('active'));
-                        item.classList.add('active');
-                        // Close dropdown after navigation
-                        dropdownContainer.classList.remove('show');
-                    }
-                });
-            });
+            // No functionality - purely decorative
         }
     }
 
