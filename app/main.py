@@ -26,8 +26,8 @@ app = FastAPI(
 app.add_middleware(SecurityHeadersMiddleware)
 app.add_middleware(
     RateLimitMiddleware,
-    calls=settings.rate_limit_requests,
-    period=settings.rate_limit_window
+    calls=getattr(settings, 'rate_limit_requests', 100),
+    period=getattr(settings, 'rate_limit_window', 60)
 )
 
 # CORS middleware

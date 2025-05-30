@@ -10,7 +10,7 @@ from core.config import settings
 
 # Rate Limiting
 class RateLimitMiddleware(BaseHTTPMiddleware):
-    def __init__(self, app, calls: int = 10, period: int = 60):
+    def __init__(self, app, calls: int = 100, period: int = 60):
         super().__init__(app)
         self.calls = calls
         self.period = period
