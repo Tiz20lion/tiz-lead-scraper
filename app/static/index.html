@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <!-- Google Material Icons -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"">
 
     <!-- Custom Styles -->
     <link rel="stylesheet" href="/static/css/styles.css">
@@ -22,349 +22,536 @@
         <!-- Particle background will be injected by JavaScript -->
     </div>
 
-    <div class="dash">
-        <!-- HEADER -->
-        <header class="header">
-            <h1 class="header__heading">
-                <a href="#" rel="noreferrer noopener">Tiz Lead Scraper</a>
-            </h1>
-            <div class="header__search">
-                <div class="header__search-icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                    </svg>
+    <!-- Header -->
+    <header class="header animate__animated animate__fadeInDown">
+        <div class="header-content">
+            <h1 class="logo">
+                <div class="logo-icon">
+                    <span class="material-symbols-outlined">insights</span>
                 </div>
-            </div>
-            <div class="header__options">
+                <div class="logo-text">
+                    <span class="logo-main">Tiz</span>
+                    <span class="logo-sub">Lead Scraper</span>
+                </div>
+            </h1>
+            <div class="header-controls">
                 <button id="themeToggle" class="theme-toggle" title="Toggle theme">
                     <span class="material-symbols-outlined">dark_mode</span>
+                    <span class="toggle-ripple"></span>
                 </button>
                 <div class="status-indicator" id="statusIndicator">
                     <span class="status-dot"></span>
                     <span class="status-text">Ready</span>
+                    <div class="status-wave"></div>
                 </div>
             </div>
-        </header>
-
-        <!-- BODY -->
-        <div class="body">
-            <!-- SIDEBAR -->
-            <div class="sidebar">
-                <div class="sidebar__icon active" data-page="home">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
-                    </svg>
-                </div>
-
-                <div class="sidebar__icon" data-page="settings">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                    </svg>
-                </div>
-            </div>
-
-            <!-- MAIN -->
-            <main class="main">
-                <!-- Welcome Page -->
-                <div class="main__page" id="homePage" style="display: block;">
-                    <div class="main__col-1">
-                        <!-- HEADING -->
-                        <div class="welcome-section">
-                            <h2 class="main__heading">
-                                <span class="welcome-icon">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="#fff">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
-                                    </svg>
-                                </span> 
-                                Welcome to Tiz Lead Scraper
-                            </h2>
-                            <p class="main__desc">Your powerful Apollo.io lead generation and data extraction tool. Streamline your lead generation process with advanced scraping capabilities, intelligent data processing, and seamless integrations.</p>
-                            <p class="main__sub">
-                                <span>Powered by:</span> 
-                                <span>Apollo.io API • Apify • Google Sheets • Notion</span>
-                            </p>
-                        </div>
-
-                        <!-- FEATURES LIST -->
-                        <div class="main__list-heading-wrap">
-                            <h2 class="main__list-heading ss-heading">Key Features</h2>
-                            <a href="#" class="ss-show">explore all</a>
-                        </div>
-
-                        <ul class="main__list">
-                            <li class="main__list-item">
-                                <div class="main__list-content-wrap">
-                                    <p class="main__list-content">Smart URL Processing</p>
-                                    <p class="main__list-sub">Process up to 10 Apollo.io URLs</p>
-                                </div>
-                            </li>
-
-                            <li class="main__list-item">
-                                <div class="main__list-content-wrap">
-                                    <p class="main__list-content">Advanced Field Selection</p>
-                                    <p class="main__list-sub">Extract 10+ data fields per lead</p>
-                                </div>
-                            </li>
-
-                            <li class="main__list-item">
-                                <div class="main__list-content-wrap">
-                                    <p class="main__list-content">Real-time Progress Tracking</p>
-                                    <p class="main__list-sub">Monitor scraping status live</p>
-                                </div>
-                            </li>
-
-                            <li class="main__list-item">
-                                <div class="main__list-content-wrap">
-                                    <p class="main__list-content">Multiple Export Options</p>
-                                    <p class="main__list-sub">CSV, JSON, Google Sheets, Notion</p>
-                                </div>
-                            </li>
-
-                            <li class="main__list-item">
-                                <div class="main__list-content-wrap">
-                                    <p class="main__list-content">Cloud Integration</p>
-                                    <p class="main__list-sub">Direct sync to your workspace</p>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-
-                    <!-- COL-2 -->
-                    <div class="main__col-2">
-                        <!-- QUICK ACTIONS -->
-                        <div class="main__cards-container">
-                            <div class="main__cards-container-heading-wrap">
-                                <h2 class="main__cards-container-heading ss-heading">Quick Actions</h2>
-                                <a href="#" class="ss-show">get started</a>
-                            </div>
-
-                            <ul class="main__cards">
-                                <li class="main__card" style="--hue: 217">
-                                    <div class="main__card-icon-container">
-                                        <div class="main__card-icon">
-                                            <span class="material-symbols-outlined">settings</span>
-                                        </div>
-                                    </div>
-                                    <h3 class="main__card-heading">Configure Settings</h3>
-                                    <p class="main__card-heading-sub">API Keys & Integrations</p>
-                                    <p class="main__card-heading-type">Setup</p>
-                                </li>
-
-                                <li class="main__card" style="--hue: 142">
-                                    <div class="main__card-icon-container">
-                                        <div class="main__card-icon">
-                                            <span class="material-symbols-outlined">play_arrow</span>
-                                        </div>
-                                    </div>
-                                    <h3 class="main__card-heading">Start Scraping</h3>
-                                    <p class="main__card-heading-sub">Begin Lead Generation</p>
-                                    <p class="main__card-heading-type">Action</p>
-                                </li>
-
-                                <li class="main__card" style="--hue: 45">
-                                    <div class="main__card-icon-container">
-                                        <div class="main__card-icon">
-                                            <span class="material-symbols-outlined">download</span>
-                                        </div>
-                                    </div>
-                                    <h3 class="main__card-heading">Export Data</h3>
-                                    <p class="main__card-heading-sub">Multiple Formats</p>
-                                    <p class="main__card-heading-type">Export</p>
-                                </li>
-                            </ul>
-                        </div>
-
-                        <!-- STATS -->
-                        <div class="main__crossing-container">
-                            <div class="main__crossing-image">
-                                <span class="material-symbols-outlined">analytics</span>
-                            </div>
-                            <div class="main__crossing-current">
-                                <p class="main__crossing-upper">System Status</p>
-                                <h3 class="main__crossing-heading">Ready to Scrape</h3>
-                            </div>
-                        </div>
-
-                        <!-- GETTING STARTED -->
-                        <div class="main__discover">
-                            <div class="main__discover-heading-container">
-                                <h3 class="main__discover-heading ss-heading">Getting Started</h3>
-                                <a href="#" class="ss-show">full guide</a>
-                            </div>
-
-                            <ul class="main__discover-places">
-                                <li class="main__discover-place">
-                                    <h4 class="main__discover-place-heading">1. Configure API Keys</h4>
-                                    <p class="main__discover-place-sub">Set up Apify token</p>
-                                    <div class="main__discover__more">
-                                        <div class="main__discover__more-svg" style="background: linear-gradient(20deg, hsla(217, 60%, 50%, .2), hsla(237, 60%, 50%, .3));">
-                                            <span class="material-symbols-outlined">key</span>
-                                        </div>
-                                    </div>
-                                </li>
-
-                                <li class="main__discover-place">
-                                    <h4 class="main__discover-place-heading">2. Add Apollo URLs</h4>
-                                    <p class="main__discover-place-sub">Paste target URLs</p>
-                                    <div class="main__discover__more">
-                                        <div class="main__discover__more-svg" style="background: linear-gradient(20deg, hsla(142, 60%, 50%, .2), hsla(162, 60%, 50%, .3));">
-                                            <span class="material-symbols-outlined">link</span>
-                                        </div>
-                                    </div>
-                                </li>
-
-                                <li class="main__discover-place">
-                                    <h4 class="main__discover-place-heading">3. Select Fields</h4>
-                                    <p class="main__discover-place-sub">Choose data to extract</p>
-                                    <div class="main__discover__more">
-                                        <div class="main__discover__more-svg" style="background: linear-gradient(20deg, hsla(45, 60%, 50%, .2), hsla(65, 60%, 50%, .3));">
-                                            <span class="material-symbols-outlined">checklist</span>
-                                        </div>
-                                    </div>
-                                </li>
-
-                                <li class="main__discover-place">
-                                    <h4 class="main__discover-place-heading">4. Start Scraping</h4>
-                                    <p class="main__discover-place-sub">Begin extraction</p>
-                                    <div class="main__discover__more">
-                                        <div class="main__discover__more-svg" style="background: linear-gradient(20deg, hsla(0, 60%, 50%, .2), hsla(20, 60%, 50%, .3));">
-                                            <span class="material-symbols-outlined">rocket_launch</span>
-                                        </div>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Settings Page -->
-                <div class="main__page" id="settingsPage" style="display: none;">
-                    <div class="settings-container">
-                        <div class="settings-header">
-                            <h2 class="settings-title">
-                                <span class="material-symbols-outlined">settings</span>
-                                Settings
-                            </h2>
-                            <p class="settings-subtitle">Configure your API keys and integration settings</p>
-                        </div>
-
-                        <div class="settings-content">
-                            <!-- API Configuration -->
-                            <div class="settings-section">
-                                <h3 class="settings-section-title">
-                                    <span class="material-symbols-outlined">key</span>
-                                    API Configuration
-                                </h3>
-                                <div class="settings-card">
-                                    <div class="form-group">
-                                        <label for="apifyToken" class="form-label">
-                                            Apify API Token
-                                            <span class="required">*</span>
-                                        </label>
-                                        <input 
-                                            type="password" 
-                                            id="apifyToken" 
-                                            class="form-input"
-                                            placeholder="Enter your Apify API token..."
-                                        >
-                                        <small class="form-help">
-                                            <span class="material-symbols-outlined">info</span>
-                                            Get your token from <a href="https://apify.com/" target="_blank">Apify.com</a> → Settings → Integrations
-                                        </small>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Google Sheets Integration -->
-                            <div class="settings-section">
-                                <h3 class="settings-section-title">
-                                    <span class="material-symbols-outlined">table_chart</span>
-                                    Google Sheets Integration
-                                </h3>
-                                <div class="settings-card">
-                                    <div class="form-group">
-                                        <label for="googleCredentials" class="form-label">
-                                            Service Account Credentials (JSON)
-                                        </label>
-                                        <textarea 
-                                            id="googleCredentials" 
-                                            class="form-textarea"
-                                            placeholder="Paste your Google Service Account JSON credentials here..."
-                                            rows="6"
-                                        ></textarea>
-                                        <small class="form-help">
-                                            <span class="material-symbols-outlined">info</span>
-                                            Create a service account in Google Cloud Console and download the JSON key
-                                        </small>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="spreadsheetId" class="form-label">Default Spreadsheet ID</label>
-                                        <input 
-                                            type="text" 
-                                            id="spreadsheetId" 
-                                            class="form-input"
-                                            placeholder="Enter Google Sheets spreadsheet ID..."
-                                        >
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="sheetName" class="form-label">Default Sheet Name</label>
-                                        <input 
-                                            type="text" 
-                                            id="sheetName" 
-                                            class="form-input"
-                                            placeholder="Leads"
-                                            value="Leads"
-                                        >
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Notion Integration -->
-                            <div class="settings-section">
-                                <h3 class="settings-section-title">
-                                    <span class="material-symbols-outlined">article</span>
-                                    Notion Integration
-                                </h3>
-                                <div class="settings-card">
-                                    <div class="form-group">
-                                        <label for="notionToken" class="form-label">Notion Integration Token</label>
-                                        <input 
-                                            type="password" 
-                                            id="notionToken" 
-                                            class="form-input"
-                                            placeholder="Enter your Notion integration token..."
-                                        >
-                                        <small class="form-help">
-                                            <span class="material-symbols-outlined">info</span>
-                                            Create an integration at <a href="https://www.notion.so/my-integrations" target="_blank">notion.so/my-integrations</a>
-                                        </small>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="notionDatabaseId" class="form-label">Default Database ID</label>
-                                        <input 
-                                            type="text" 
-                                            id="notionDatabaseId" 
-                                            class="form-input"
-                                            placeholder="Enter Notion database ID..."
-                                        >
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Save Button -->
-                            <div class="settings-actions">
-                                <button id="saveSettings" class="btn-primary">
-                                    <span class="material-symbols-outlined">save</span>
-                                    Save Settings
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </main>
         </div>
-    </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="main-container">
+        <!-- Unified Scraping Workflow -->
+        <div class="unified-panel animate__animated animate__fadeInUp">
+            <!-- Step Indicator -->
+            <div class="workflow-steps">
+                <div class="step active" data-step="1">
+                    <div class="step-number">1</div>
+                    <div class="step-title">Configure</div>
+                </div>
+                 <div class="step-connector"></div>
+                <div class="step" data-step="4">
+                    <div class="step-number">4</div>
+                    <div class="step-title">Settings</div>
+                </div>
+                <div class="step-connector"></div>
+                <div class="step" data-step="2">
+                    <div class="step-number">2</div>
+                    <div class="step-title">Execute</div>
+                </div>
+                <div class="step-connector"></div>
+                <div class="step" data-step="3">
+                    <div class="step-number">3</div>
+                    <div class="step-title">Results</div>
+                </div>
+
+            </div>
+
+            <!-- Configuration Section -->
+            <div class="workflow-section" id="configurationSection">
+                <div class="section-header">
+                    <h2><span class="material-symbols-outlined">settings</span> Scraping Configuration</h2>
+                    <div class="section-badge">Step 1</div>
+                </div>
+
+                <div class="config-grid">
+                    <!-- Left Column - Core Settings -->
+                    <div class="config-column">
+                        <!-- URL Input -->
+                        <div class="input-section animated-card">
+                            <label for="urlInput" class="input-label">
+                                <div class="label-icon-wrapper">
+                                    <div class="label-icon">
+                                        <span class="material-symbols-outlined">language</span>
+                                    </div>
+                                    <div class="icon-pulse"></div>
+                                </div>
+                                Apollo.io URLs (up to 10)
+                                <div class="label-badge">
+                                    <span class="material-symbols-outlined">star</span>
+                                    Required
+                                </div>
+                            </label>
+                            <div class="input-wrapper">
+                                <textarea 
+                                    id="urlInput" 
+                                    class="url-textarea" 
+                                    placeholder="🌐 Enter Apollo.io URLs, one per line...&#10;💡 Example: https://app.apollo.io/..."
+                                    rows="6"
+                                ></textarea>
+                                <div class="input-decorator">
+                                    <span class="material-symbols-outlined">open_in_new</span>
+                                </div>
+                            </div>
+                            <div class="input-help">
+                                <span class="material-symbols-outlined">info</span>
+                                Enter up to 10 Apollo.io URLs to scrape leads from
+                            </div>
+                        </div>
+
+                        <!-- Lead Count -->
+                        <div class="input-section animated-card">
+                            <label for="leadCount" class="input-label">
+                                <div class="label-icon-wrapper">
+                                    <div class="label-icon">
+                                        <span class="material-symbols-outlined">trending_up</span>
+                                    </div>
+                                    <div class="icon-pulse"></div>
+                                </div>
+                                Lead Count: <input type="number" id="leadCountInput" class="count-input" value="100" min="1" max="50000">
+                                <div class="label-badge">
+                                    <span class="material-symbols-outlined">all_inclusive</span>
+                                    Up to 50K
+                                </div>
+                            </label>
+                            <div class="slider-container">
+                                <input 
+                                    type="range" 
+                                    id="leadCount" 
+                                    class="lead-slider" 
+                                    min="1" 
+                                    max="50000" 
+                                    value="100"
+                                >
+                                <div class="slider-labels">
+                                    <span><span class="material-symbols-outlined">person</span> 1</span>
+                                    <span><span class="material-symbols-outlined">groups</span> 50,000</span>
+                                </div>
+                                <div class="slider-progress"></div>
+                            </div>
+                        </div>
+
+                       
+                    </div>
+
+                    <!-- Right Column - Field Selection & Integrations -->
+                    <div class="config-column">
+                        <!-- Field Selection -->
+                        <div class="input-section animated-card">
+                            <label class="input-label">
+                                <div class="label-icon-wrapper">
+                                    <div class="label-icon">
+                                        <span class="material-symbols-outlined">storage</span>
+                                    </div>
+                                    <div class="icon-pulse"></div>
+                                </div>
+                                Fields to Extract
+                                <div class="label-badge">
+                                    <span class="material-symbols-outlined">auto_awesome</span>
+                                    10 Options
+                                </div>
+                            </label>
+                            <div class="field-grid" id="fieldSelection">
+                                <label class="field-checkbox animated-field">
+                                    <input type="checkbox" value="name" checked>
+                                    <span class="checkmark"></span>
+                                    <div class="field-icon">
+                                        <span class="material-symbols-outlined">person</span>
+                                    </div>
+                                    <span class="field-text">Name</span>
+                                    <div class="field-glow"></div>
+                                </label>
+                                <label class="field-checkbox animated-field">
+                                    <input type="checkbox" value="email" checked>
+                                    <span class="checkmark"></span>
+                                    <div class="field-icon">
+                                        <span class="material-symbols-outlined">mail</span>
+                                    </div>
+                                    <span class="field-text">Email</span>
+                                    <div class="field-glow"></div>
+                                </label>
+                                <label class="field-checkbox animated-field">
+                                    <input type="checkbox" value="phone">
+                                    <span class="checkmark"></span>
+                                    <div class="field-icon">
+                                        <span class="material-symbols-outlined">phone</span>
+                                    </div>
+                                    <span class="field-text">Phone</span>
+                                    <div class="field-glow"></div>
+                                </label>
+                                <label class="field-checkbox animated-field">
+                                    <input type="checkbox" value="company">
+                                    <span class="checkmark"></span>
+                                    <div class="field-icon">
+                                        <span class="material-symbols-outlined">business</span>
+                                    </div>
+                                    <span class="field-text">Company</span>
+                                    <div class="field-glow"></div>
+                                </label>
+                                <label class="field-checkbox animated-field">
+                                    <input type="checkbox" value="title">
+                                    <span class="checkmark"></span>
+                                    <div class="field-icon">
+                                        <span class="material-symbols-outlined">badge</span>
+                                    </div>
+                                    <span class="field-text">Title</span>
+                                    <div class="field-glow"></div>
+                                </label>
+                                <label class="field-checkbox animated-field">
+                                    <input type="checkbox" value="location">
+                                    <span class="checkmark"></span>
+                                    <div class="field-icon">
+                                        <span class="material-symbols-outlined">location_on</span>
+                                    </div>
+                                    <span class="field-text">Location</span>
+                                    <div class="field-glow"></div>
+                                </label>
+                                <label class="field-checkbox animated-field">
+                                    <input type="checkbox" value="industry">
+                                    <span class="checkmark"></span>
+                                    <div class="field-icon">
+                                        <span class="material-symbols-outlined">factory</span>
+                                    </div>
+                                    <span class="field-text">Industry</span>
+                                    <div class="field-glow"></div>
+                                </label>
+                                <label class="field-checkbox animated-field">
+                                    <input type="checkbox" value="linkedin">
+                                    <span class="checkmark"></span>
+                                    <div class="field-icon">
+                                        <span class="material-symbols-outlined">work</span>
+                                    </div>
+                                    <span class="field-text">LinkedIn</span>
+                                    <div class="field-glow"></div>
+                                </label>
+                                <label class="field-checkbox animated-field">
+                                    <input type="checkbox" value="twitter">
+                                    <span class="checkmark"></span>
+                                    <div class="field-icon">
+                                        <span class="material-symbols-outlined">chat</span>
+                                    </div>
+                                    <span class="field-text">Twitter</span>
+                                    <div class="field-glow"></div>
+                                </label>
+                                <label class="field-checkbox animated-field">
+                                    <input type="checkbox" value="website">
+                                    <span class="checkmark"></span>
+                                    <div class="field-icon">
+                                        <span class="material-symbols-outlined">public</span>
+                                    </div>
+                                    <span class="field-text">Website</span>
+                                    <div class="field-glow"></div>
+                                </label>
+                            </div>
+                        </div>
+
+                        
+                    </div>
+                </div>
+
+                <!-- Action Button -->
+                <div class="action-section">
+                    <button id="startScraping" class="start-button">
+                        <span class="material-symbols-outlined">play_arrow</span>
+                        <span class="button-text">Start Scraping Journey</span>
+                        <div class="loading-spinner" style="display: none;">
+                            <span class="material-symbols-outlined spinning">refresh</span>
+                        </div>
+                    </button>
+                </div>
+            </div>
+            
+                         <!-- Settings Section -->
+            <div class="workflow-section" id="settingsSection" style="display: none;">
+                <div class="section-header">
+                    <h2><span class="material-symbols-outlined">settings</span> Settings</h2>
+                    <div class="section-badge">Step 4</div>
+                </div>
+
+                <div class="config-grid">
+                    <!-- Left Column - API Key Settings -->
+                    <div class="config-column">
+                        <!-- API Configuration -->
+                        <div class="input-section animated-card">
+                            <label for="apifyToken" class="input-label">
+                                <div class="label-icon-wrapper">
+                                    <div class="label-icon">
+                                        <span class="material-symbols-outlined">key</span>
+                                    </div>
+                                    <div class="icon-pulse"></div>
+                                </div>
+                                Apify API Token
+                                <div class="label-badge">
+                                    <span class="material-symbols-outlined">star</span>
+                                    Required
+                                </div>
+                            </label>
+                            <input 
+                                type="password" 
+                                id="apifyToken" 
+                                placeholder="Enter your Apify API token..."
+                                class="api-input"
+                            >
+                            <div class="input-help">
+                                <span class="material-symbols-outlined">info</span>
+                                Get your token from <a href="https://apify.com/" target="_blank">Apify.com</a> → Settings → Integrations
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Column - Integration Settings -->
+                    <div class="config-column">
+                        <!-- Export Integrations -->
+                        <div class="input-section animated-card">
+                            <label class="input-label">
+                                <div class="label-icon-wrapper">
+                                    <div class="label-icon">
+                                        <span class="material-symbols-outlined">cloud_upload</span>
+                                    </div>
+                                    <div class="icon-pulse"></div>
+                                </div>
+                                Export Integrations
+                                <div class="label-badge">
+                                    <span class="material-symbols-outlined">tips_and_updates</span>
+                                    Optional
+                                </div>
+                            </label>
+
+                            <div class="integrations-tabs">
+                                <div class="tab-buttons">
+                                    <button class="tab-button active" data-tab="sheets">
+                                        <span class="material-symbols-outlined">table_chart</span>
+                                        Google Sheets
+                                    </button>
+                                    <button class="tab-button" data-tab="notion">
+                                        <i class="fab fa-notion"></i>
+                                        Notion
+                                    </button>
+                                </div>
+
+                                <div class="tab-content active" id="sheets-tab">
+                                    <textarea 
+                                        id="googleCredentials" 
+                                        placeholder="Paste Google Service Account JSON credentials (optional)"
+                                        class="credentials-input"
+                                        rows="3"
+                                    ></textarea>
+                                    <input 
+                                        type="text" 
+                                        id="spreadsheetId" 
+                                        placeholder="Spreadsheet ID (optional)"
+                                        class="api-input"
+                                    >
+                                    <input 
+                                        type="text" 
+                                        id="sheetName" 
+                                        placeholder="Sheet Name (default: Leads)"
+                                        class="api-input"
+                                    >
+                                </div>
+
+                                <div class="tab-content" id="notion-tab">
+                                    <input 
+                                        type="password" 
+                                        id="notionToken" 
+                                        placeholder="Notion Integration Token (optional)"
+                                        class="api-input"
+                                    >
+                                    <input 
+                                        type="text" 
+                                        id="notionDatabaseId" 
+                                        placeholder="Notion Database ID (optional)"
+                                        class="api-input"
+                                    >
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Progress Section -->
+            <div class="workflow-section" id="progressSection" style="display: none;">
+                <div class="section-header">
+                    <h2><span class="material-symbols-outlined">analytics</span> Scraping in Progress</h2>
+                    <div class="section-badge">Step 2</div>
+                </div>
+
+                <div class="progress-container">
+                    <div class="progress-header">
+                        <span class="progress-label">Scraping Progress</span>
+                        <span class="progress-percentage" id="progressPercentage">0%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progressFill"></div>
+                    </div>
+                    <div class="progress-message" id="progressMessage">Ready to start...</div>
+                </div>
+            </div>
+
+            <!-- Results Section -->
+            <div class="workflow-section" id="resultsSection" style="display: none;">
+                <div class="section-header">
+                    <h2><span class="material-symbols-outlined">table_view</span> Results & Export</h2>
+                    <div class="section-badge">Step 3</div>
+                    <div class="results-stats">
+                        <span id="resultsCount">0 leads found</span>
+                    </div>
+                </div>
+
+                <div class="results-grid">
+                    <!-- Results Preview -->
+                    <div class="results-preview">
+                        <h3><span class="material-symbols-outlined">preview</span> Preview</h3>
+                        <div class="table-container">
+                            <table class="results-table" id="resultsTable">
+                                <thead id="resultsTableHead">
+                                    <!-- Dynamic headers -->
+                                </thead>
+                                <tbody id="resultsTableBody">
+                                    <!-- Dynamic rows -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Export Actions -->
+                    <div class="export-panel">
+                        <h3><span class="material-symbols-outlined">file_download</span> Export Your Data</h3>
+
+                        <div class="export-grid">
+                            <button id="exportCsv" class="export-card csv">
+                                <div class="export-icon">
+                                    <span class="material-symbols-outlined">download</span>
+                                </div>
+                                <div class="export-info">
+                                    <div class="export-title">Download CSV</div>
+                                    <div class="export-desc">Standard spreadsheet format</div>
+                                </div>
+                            </button>
+
+                            <button id="exportJson" class="export-card json">
+                                <div class="export-icon">
+                                    <span class="material-symbols-outlined">code</span>
+                                </div>
+                                <div class="export-info">
+                                    <div class="export-title">Download JSON</div>
+                                    <div class="export-desc">Structured data format</div>
+                                </div>
+                            </button>
+
+                            <button id="exportSheets" class="export-card sheets">
+                                <div class="export-icon">
+                                    <span class="material-symbols-outlined">table_chart</span>
+                                </div>
+                                <div class="export-info">
+                                    <div class="export-title">Google Sheets</div>
+                                    <div class="export-desc">Direct cloud export</div>
+                                </div>
+                            </button>
+
+                            <button id="exportNotion" class="export-card notion">
+                                <div class="export-icon">
+                                    <span class="material-symbols-outlined">article</span>
+                                </div>
+                                <div class="export-info">
+                                    <div class="export-title">Notion Database</div>
+                                    <div class="export-desc">Sync to workspace</div>
+                                </div>
+                            </button>
+                        </div>
+
+                        <div class="export-note">
+                            <span class="material-symbols-outlined">info</span>
+                            Configure integration credentials above to enable cloud exports
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Developer Section -->
+    <footer class="developer-section">
+        <div class="developer-card">
+            <div class="developer-picture">
+                <div class="developer-avatar">
+                    <div class="avatar-icon">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+            <div class="developer-info">
+                <h3>Built with ❤️ by Tiz</h3>
+                <span class="developer-description">
+                    Full-Stack Developer & Lead Generation Expert
+                </span>
+                <div class="developer-skills">
+                    <span class="skill-tag">
+                        <span class="skill-icon">🐍</span>
+                        Python
+                    </span>
+                    <span class="skill-tag">
+                        <span class="skill-icon">⚡</span>
+                        FastAPI
+                    </span>
+                    <span class="skill-tag">
+                        <span class="skill-icon">🐳</span>
+                        Docker
+                    </span>
+                    <span class="skill-tag">
+                        <span class="skill-icon">🕷️</span>
+                        Scraping
+                    </span>
+                    <span class="skill-tag">
+                        <span class="skill-icon">📈</span>
+                        Leads
+                    </span>
+                </div>
+            </div>
+            <ul class="developer-social">
+                <li>
+                    <a href="https://www.linkedin.com/in/olajide-azeez-a2133a258" target="_blank" class="dev-link">
+                        <div class="link-icon">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                            </svg>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://www.instagram.com/olajide.azeez/" target="_blank" class="dev-link">
+                        <div class="link-icon">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                            </svg>
+                        </div>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </footer>
 
     <!-- Loading Overlay -->
     <div class="loading-overlay" id="loadingOverlay" style="display: none;">
