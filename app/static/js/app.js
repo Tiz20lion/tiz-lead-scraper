@@ -3,6 +3,7 @@ class ApolloScraper {
         this.currentTaskId = null;
         this.pollInterval = null;
         this.csrfToken = null;
+        this.currentPage = 'home';
         
         this.init();
     }
@@ -10,8 +11,42 @@ class ApolloScraper {
     async init() {
         this.setupEventListeners();
         this.setupToastr();
+        this.setupNavigation();
         await this.getCsrfToken();
         this.checkServiceStatus();
+    }
+
+    setupNavigation() {
+        const sidebarIcons = document.querySelectorAll('.sidebar__icon');
+        
+        sidebarIcons.forEach(icon => {
+            icon.addEventListener('click', () => {
+                const page = icon.getAttribute('data-page');
+                this.navigateToPage(page);
+            });
+        });
+    }
+
+    navigateToPage(page) {
+        // Update active sidebar icon
+        document.querySelectorAll('.sidebar__icon').forEach(icon => {
+            icon.classList.remove('active');
+        });
+        document.querySelector(`[data-page="${page}"]`).classList.add('active');
+
+        // Show/hide pages
+        document.querySelectorAll('.main__page').forEach(pageEl => {
+            pageEl.style.display = 'none';
+        });
+        document.getElementById(`${page}Page`).style.display = 'block';
+
+        this.currentPage = page;
+
+        // Animate page transition
+        gsap.fromTo(`#${page}Page`, 
+            { opacity: 0, y: 20 }, 
+            { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }
+        );
     }
 
     setupToastr() {
@@ -119,16 +154,36 @@ class ApolloScraper {
 
     saveSettings() {
         const apifyToken = document.getElementById('apifyToken').value.trim();
+        const googleCredentials = document.getElementById('googleCredentials').value.trim();
+        const notionToken = document.getElementById('notionToken').value.trim();
         
         if (!apifyToken) {
             toastr.error('Please enter your Apify API token');
             return;
         }
 
-        // Show configuration section
-        this.showConfigurationSection();
-        this.updateWorkflowStep(2);
-        toastr.success('Settings saved! Now configure your scraping parameters.');
+        // Validate Google credentials if provided
+        if (googleCredentials) {
+            try {
+                JSON.parse(googleCredentials);
+            } catch (e) {
+                toastr.error('Invalid Google credentials JSON format');
+                return;
+            }
+        }
+
+        // Store settings in localStorage for demo purposes
+        const settings = {
+            apifyToken,
+            googleCredentials,
+            spreadsheetId: document.getElementById('spreadsheetId').value.trim(),
+            sheetName: document.getElementById('sheetName').value.trim() || 'Leads',
+            notionToken,
+            notionDatabaseId: document.getElementById('notionDatabaseId').value.trim()
+        };
+
+        localStorage.setItem('scraperSettings', JSON.stringify(settings));
+        toastr.success('Settings saved successfully!');
     }
 
     showConfigurationSection() {
