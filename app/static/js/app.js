@@ -35,6 +35,14 @@ class ApolloScraper {
     }
 
     setupEventListeners() {
+        // Theme toggle
+        const themeToggle = document.getElementById('themeToggle');
+        if (themeToggle) {
+            themeToggle.addEventListener('click', () => {
+                this.toggleTheme();
+            });
+        }
+
         // Dropdown menu functionality
         const dropdownTrigger = document.querySelector('.menu-dropdown-trigger');
         const dropdown = document.querySelector('.menu-dropdown-container');
@@ -66,76 +74,6 @@ class ApolloScraper {
                 }
             });
         });
-
-        // Start automation button
-        const startAutomationBtn = document.getElementById('startAutomationBtn');
-        if (startAutomationBtn) {
-            startAutomationBtn.addEventListener('click', () => {
-                this.navigateToPage('settings');
-            });
-        }
-
-        // Start scraping button
-        const startScrapingBtn = document.getElementById('startScraping');
-        if (startScrapingBtn) {
-            startScrapingBtn.addEventListener('click', () => {
-                this.startScraping();
-            });
-        }
-
-        // Save settings button
-        const saveSettingsBtn = document.getElementById('saveSettings');
-        if (saveSettingsBtn) {
-            saveSettingsBtn.addEventListener('click', () => {
-                this.saveSettings();
-            });
-        }
-
-        // Export buttons
-        const exportCsvBtn = document.getElementById('exportCsv');
-        if (exportCsvBtn) {
-            exportCsvBtn.addEventListener('click', () => {
-                this.exportCsv();
-            });
-        }
-
-        const exportJsonBtn = document.getElementById('exportJson');
-        if (exportJsonBtn) {
-            exportJsonBtn.addEventListener('click', () => {
-                this.exportJson();
-            });
-        }
-
-        const exportSheetsBtn = document.getElementById('exportSheets');
-        if (exportSheetsBtn) {
-            exportSheetsBtn.addEventListener('click', () => {
-                this.exportToSheets();
-            });
-        }
-
-        const exportNotionBtn = document.getElementById('exportNotion');
-        if (exportNotionBtn) {
-            exportNotionBtn.addEventListener('click', () => {
-                this.exportToNotion();
-            });
-        }
-
-        // Slider synchronization
-        const leadSlider = document.getElementById('leadCount');
-        const leadInput = document.getElementById('leadCountInput');
-        
-        if (leadSlider && leadInput) {
-            leadSlider.addEventListener('input', (e) => {
-                leadInput.value = e.target.value;
-            });
-            
-            leadInput.addEventListener('input', (e) => {
-                leadSlider.value = e.target.value;
-            });
-        }
-
-        // Tab functionality
-        this.setupTabs();
     }
 
     setupTabs() {
@@ -261,16 +199,10 @@ class ApolloScraper {
     async getCsrfToken() {
         try {
             const response = await fetch('/api/v1/csrf-token');
-            if (response.ok) {
-                const data = await response.json();
-                this.csrfToken = data.csrf_token;
-            } else {
-                console.warn('CSRF token endpoint not available, proceeding without token');
-                this.csrfToken = 'dummy-token';
-            }
+            const data = await response.json();
+            this.csrfToken = data.csrf_token;
         } catch (error) {
-            console.warn('Failed to get CSRF token, proceeding without token:', error);
-            this.csrfToken = 'dummy-token';
+            console.error('Failed to get CSRF token:', error);
         }
     }
 
@@ -808,25 +740,137 @@ gsap.registerPlugin();
 
 // Animate page load
 window.addEventListener('load', () => {
-    // Only animate elements that exist
-    const timeline = gsap.timeline();
-    
-    const dashboardContent = document.querySelector('.dashboard-content');
-    if (dashboardContent) {
-        timeline.fromTo(dashboardContent, 
+    gsap.timeline()
+        .fromTo('.header', 
+            { y: -50, opacity: 0 }, 
+            { y: 0, opacity: 1, duration: 0.6, ease: "power2.out" }
+        )
+        .fromTo('.dashboard-content', 
             { y: 30, opacity: 0 }, 
-            { y: 0, opacity: 1, duration: 0.8, ease: "power2.out" }
-        );
-    }
-    
-    const animatedCards = document.querySelectorAll('.animated-card');
-    if (animatedCards.length > 0) {
-        timeline.fromTo(animatedCards, 
+            { y: 0, opacity: 1, duration: 0.8, ease: "power2.out" }, 
+            "-=0.3"
+        )
+        .fromTo('.animated-card', 
             { y: 20, opacity: 0 }, 
             { y: 0, opacity: 1, duration: 0.6, ease: "power2.out", stagger: 0.1 }, 
             "-=0.4"
         );
-    }
 });
 
-// Clean initialization - remove duplicates
+// Navigation handlers
+function setupNavigation() {
+    // Add event listeners for navigation
+    document.addEventListener('click', function(e) {
+        if (e.target.matches('[data-page]') || e.target.closest('[data-page]')) {
+            const pageElement = e.target.matches('[data-page]') ? e.target : e.target.closest('[data-page]');
+            const page = pageElement.getAttribute('data-page');
+            navigateToPage(page);
+        }
+    });
+}
+
+function navigateToPage(page) {
+    // Update active menu item
+    document.querySelectorAll('.menu-item').forEach(item => {
+        item.classList.remove('active');
+    });
+    document.querySelector(`[data-page="${page}"]`).classList.add('active');
+
+    // Show corresponding page
+    const pageMap = {
+        'home': 'homePage',
+        'settings': 'settingsPage', 
+        'configure': 'configurationSection',
+        'results': 'resultsSection'
+    };
+
+    if (pageMap[page]) {
+        showSection(pageMap[page]);
+    }
+}
+
+// Start automation button
+$('#startAutomationBtn').on('click', function() {
+    navigateToPage('settings');
+});
+
+// Function to show a section and hide the others
+// Navigation functionality
+function showSection(sectionId) {
+    const sections = ['homePage', 'configurationSection', 'settingsPage', 'resultsSection'];
+    sections.forEach(id => {
+        const element = document.getElementById(id);
+        if (element) {
+            element.style.display = (id === sectionId) ? 'block' : 'none';
+        }
+    });
+
+    // Update active menu item
+    updateActiveMenuItem(sectionId);
+}
+
+function updateActiveMenuItem(sectionId) {
+    const menuItems = document.querySelectorAll('.menu-item');
+    menuItems.forEach(item => {
+        item.classList.remove('active');
+        if (item.dataset.page === sectionId) {
+            item.classList.add('active');
+        }
+    });
+
+    // Update dropdown trigger text
+    const activeItem = document.querySelector(`.menu-item[data-page="${sectionId}"]`);
+    if (activeItem) {
+        const menuLabel = document.querySelector('.menu-label');
+        const menuText = activeItem.querySelector('.menu-text');
+        if (menuLabel && menuText) {
+            menuLabel.textContent = menuText.textContent;
+        }
+    }
+
+    // Close dropdown after selection
+    const dropdown = document.querySelector('.dropdown');
+    if (dropdown) {
+        dropdown.classList.remove('active');
+    }
+}
+
+function setupNavigation() {
+    // Menu item click handlers
+    document.querySelectorAll('.menu-item').forEach(item => {
+        item.addEventListener('click', (e) => {
+            e.preventDefault();
+            const page = item.dataset.page;
+            if (page) {
+                showSection(page);
+            }
+        });
+    });
+
+    // Initialize dropdown functionality
+    const dropdown = document.querySelector('.dropdown');
+    const trigger = document.querySelector('.dropdown-trigger');
+
+    if (trigger && dropdown) {
+        trigger.addEventListener('click', (e) => {
+            e.stopPropagation();
+            dropdown.classList.toggle('active');
+        });
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', () => {
+            dropdown.classList.remove('active');
+        });
+
+        // Prevent dropdown from closing when clicking inside
+        dropdown.addEventListener('click', (e) => {
+            e.stopPropagation();
+        });
+    }
+}
+
+// Initialize on page load
+document.addEventListener('DOMContentLoaded', () => {
+    setupNavigation();
+    showSection('homePage');
+});
