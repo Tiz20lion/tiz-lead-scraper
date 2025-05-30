@@ -2817,10 +2817,10 @@ input[type="range"] {
 }
 
 .menu-dropdown-trigger {
-  padding: 0.75rem 1rem;
-  min-width: 120px;
+  padding: 0.75rem;
+  min-width: 44px;
   min-height: 44px;
-  justify-content: space-between;
+  justify-content: center;
   background: linear-gradient(135deg, hsl(var(--bg-secondary) / 0.8), hsl(var(--bg-panel) / 0.9));
   border: 1px solid hsl(var(--border-color));
   border-radius: 12px;
@@ -2829,6 +2829,8 @@ input[type="range"] {
   pointer-events: all;
   cursor: pointer;
   transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
 }
 
 .menu-dropdown-trigger:hover {
@@ -2841,8 +2843,8 @@ input[type="range"] {
 .menu-dropdown-container {
   position: fixed;
   top: 20px;
-  right: 20px;
-  width: 180px;
+  left: 20px;
+  width: 60px;
   height: auto;
   z-index: 1000;
   opacity: 1;
@@ -2858,14 +2860,13 @@ input[type="range"] {
   position: absolute;
   top: 100%;
   left: 0;
-  right: 0;
   background: linear-gradient(135deg, hsl(var(--bg-panel) / 0.95), hsl(var(--bg-secondary) / 0.98));
   backdrop-filter: blur(20px);
   border: 1px solid hsl(var(--border-color) / 0.3);
   border-radius: 12px;
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
   z-index: 1001;
-  min-width: 180px;
+  min-width: 60px;
   overflow: hidden;
   opacity: 0;
   visibility: hidden;
@@ -2885,14 +2886,16 @@ input[type="range"] {
 .dropdown-item {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
-  padding: 0.75rem 1rem;
+  justify-content: center;
+  padding: 0.75rem;
   color: hsl(var(--text-primary));
   cursor: pointer;
   transition: all 0.2s ease;
   border-bottom: 1px solid hsl(var(--border-color) / 0.2);
   font-size: 0.9rem;
   pointer-events: all;
+  min-height: 44px;
+  min-width: 44px;
 }
 
 .dropdown-item:last-child {
