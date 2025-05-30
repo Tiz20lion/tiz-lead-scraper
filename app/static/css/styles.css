@@ -1497,7 +1497,7 @@ body {
   left: -100%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
   transition: left 0.5s ease;
 }
 
@@ -1519,27 +1519,6 @@ body {
 
 .export-button.notion {
   background: #000000;
-}
-
-.export-button:hover {
-  transform: translateY(-4px) scale(1.05);
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
-}
-
-.export-button.csv:hover {
-  box-shadow: 0 8px 25px hsl(var(--accent-secondary) / 0.4);
-}
-
-.export-button.json:hover {
-  box-shadow: 0 8px 25px hsl(var(--accent-warning) / 0.4);
-}
-
-.export-button.sheets:hover {
-  box-shadow: 0 8px 25px rgba(15, 157, 88, 0.4);
-}
-
-.export-button.notion:hover {
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
 }
 
 .export-form {
@@ -1810,7 +1789,7 @@ body {
     height: 20px;
   }
 
-  .logo-icon .material-symbols-outlined {
+  .logo-icon .material-symbols-outlined{
     font-size: 0.8rem;
   }
 
@@ -2222,6 +2201,135 @@ body {
   margin-bottom: 2rem;
 }
 
+/* Feature Accordion Section */
+.features-section {
+  width: 100%;
+  padding: 3rem 0;
+  background: linear-gradient(135deg, hsl(var(--bg-primary)), hsl(var(--bg-secondary)));
+  margin: 2rem 0;
+}
+
+.features-container {
+  width: 100%;
+  max-width: 80rem;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+.accordion-item {
+  background: linear-gradient(135deg, hsl(var(--bg-secondary) / 0.1), hsl(var(--bg-panel) / 0.15));
+  border-radius: 1rem;
+  border: 1px solid hsl(var(--border-color) / 0.2);
+  margin-bottom: 1rem;
+  transition: all 0.3s ease;
+}
+
+.accordion-item:hover {
+  border-color: hsl(var(--accent-primary) / 0.4);
+  box-shadow: 0 8px 25px hsl(var(--accent-primary) / 0.1);
+}
+
+.accordion-item hr {
+  border: 1px solid hsl(var(--border-color) / 0.3);
+  margin: 0;
+}
+
+.accordion-link {
+  font-size: 1.6rem;
+  color: hsl(var(--text-primary));
+  text-decoration: none;
+  background: transparent;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.5rem 2rem;
+  transition: all 0.3s ease;
+}
+
+.accordion-link:hover {
+  background: linear-gradient(135deg, hsl(var(--accent-primary) / 0.05), hsl(var(--accent-secondary) / 0.05));
+}
+
+.accordion-link h3 {
+  font-weight: 600;
+  font-size: 1.25rem;
+  color: hsl(var(--text-primary));
+  margin: 0;
+}
+
+.accordion-link .feature-icon {
+  color: hsl(var(--accent-primary));
+  font-size: 1.5rem;
+  margin-right: 1rem;
+}
+
+.accordion-link ul {
+  display: flex;
+  align-items: center;
+  list-style-type: none;
+  margin-left: 2rem;
+  gap: 1rem;
+}
+
+.accordion-link li {
+  font-size: 0.8rem;
+  color: hsl(var(--text-muted));
+  padding: 0.25rem 0.75rem;
+  background: linear-gradient(135deg, hsl(var(--accent-primary) / 0.1), hsl(var(--accent-secondary) / 0.1));
+  border-radius: 12px;
+  border: 1px solid hsl(var(--accent-primary) / 0.2);
+}
+
+.accordion-link .feature-header {
+  display: flex;
+  align-items: center;
+}
+
+.accordion-link .expand-icon {
+  color: hsl(var(--accent-primary));
+  font-size: 1.5rem;
+  transition: transform 0.3s ease;
+}
+
+.accordion-link .ion-md-arrow-down {
+  display: none;
+}
+
+.answer {
+  max-height: 0;
+  overflow: hidden;
+  position: relative;
+  background: linear-gradient(135deg, hsl(var(--bg-panel) / 0.5), hsl(var(--bg-secondary) / 0.3));
+  transition: max-height 0.65s cubic-bezier(0.4, 0, 0.2, 1);
+  border-radius: 0 0 1rem 1rem;
+}
+
+.answer p {
+  color: hsl(var(--text-secondary));
+  font-size: 1rem;
+  padding: 2rem;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.accordion-item:target .answer {
+  max-height: 20rem;
+}
+
+.accordion-item:target .accordion-link .ion-md-arrow-forward {
+  display: none;
+}
+
+.accordion-item:target .accordion-link .ion-md-arrow-down {
+  display: block;
+}
+
+.accordion-item:target .accordion-link .expand-icon {
+  transform: rotate(180deg);
+}
+
+/* Legacy Feature Highlights - keeping for backward compatibility */
 .feature-highlights {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -2754,6 +2862,7 @@ input[type="range"] {
 }
 
 @keyframes sparkle-twinkle {
+```text
   0%, 100% {
     opacity: 0;
     transform: scale(0);
