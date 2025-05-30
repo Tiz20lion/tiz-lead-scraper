@@ -5,9 +5,9 @@ from fastapi.middleware.cors import CORSMiddleware
 import uvicorn
 import os
 
-from app.core.config import settings
-from app.core.logging_config import setup_logging
-from app.core.security import RateLimitMiddleware, SecurityHeadersMiddleware
+from core.config import settings
+from core.logging_config import setup_logging
+from core.security import RateLimitMiddleware, SecurityHeadersMiddleware
 from api.routes import router as api_router
 
 # Setup logging
@@ -40,7 +40,7 @@ app.add_middleware(
 )
 
 # Mount static files
-app.mount("/static", StaticFiles(directory="app/static"), name="static")
+app.mount("/static", StaticFiles(directory="static"), name="static")
 
 # Include API routes
 app.include_router(api_router, prefix="/api/v1")
@@ -48,7 +48,7 @@ app.include_router(api_router, prefix="/api/v1")
 @app.get("/")
 async def serve_frontend():
     """Serve the main frontend application"""
-    return FileResponse("app/static/index.html")
+    return FileResponse("static/index.html")
 
 @app.get("/health")
 async def health_check():

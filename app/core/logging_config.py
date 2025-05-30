@@ -1,7 +1,7 @@
 import structlog
 import logging
 import sys
-from app.core.config import settings
+from .config import settings
 
 def setup_logging():
     # Configure stdlib logging
