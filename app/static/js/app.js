@@ -53,6 +53,7 @@ class ApolloScraper {
 
         if (dropdownTrigger && dropdownContainer) {
             dropdownTrigger.addEventListener('click', (e) => {
+                e.preventDefault();
                 e.stopPropagation();
                 dropdownContainer.classList.toggle('show');
             });
@@ -64,15 +65,21 @@ class ApolloScraper {
                 }
             });
 
-            // Navigation
-            const menuItems = document.querySelectorAll('.menu-item');
-            menuItems.forEach(item => {
+            // Navigation for dropdown items
+            const dropdownItems = document.querySelectorAll('.dropdown-item');
+            dropdownItems.forEach(item => {
                 item.addEventListener('click', (e) => {
+                    e.preventDefault();
                     e.stopPropagation();
-                    const page = e.currentTarget.getAttribute('data-page');
-                    this.navigateToPage(page);
-                    // Close dropdown after navigation
-                    dropdownContainer.classList.remove('show');
+                    const page = item.getAttribute('data-page');
+                    if (page) {
+                        this.navigateToPage(page);
+                        // Update active states
+                        dropdownItems.forEach(dItem => dItem.classList.remove('active'));
+                        item.classList.add('active');
+                        // Close dropdown after navigation
+                        dropdownContainer.classList.remove('show');
+                    }
                 });
             });
         }

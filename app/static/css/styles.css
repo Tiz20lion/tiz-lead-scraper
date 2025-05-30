@@ -2819,17 +2819,25 @@ input[type="range"] {
 .menu-dropdown-trigger {
   padding: 0.75rem;
   min-width: 44px;
-  justify-content: center;
+  justify-content: space-between;
   background: linear-gradient(135deg, hsl(var(--accent-primary) / 0.1), hsl(var(--accent-secondary) / 0.1));
   border: 1px solid hsl(var(--accent-primary) / 0.2);
   border-radius: 12px;
   color: hsl(var(--accent-primary));
   margin-bottom: 2rem;
+  width: 100px;
+}
+
+.menu-dropdown-trigger:hover {
+  background: linear-gradient(135deg, hsl(var(--accent-primary) / 0.2), hsl(var(--accent-secondary) / 0.2));
+  border-color: hsl(var(--accent-primary) / 0.4);
+  transform: translateY(-2px);
 }
 
 .menu-dropdown-container {
   position: relative;
   width: fit-content;
+  z-index: 1000;
 }
 
 .menu-icon {
@@ -2845,10 +2853,11 @@ input[type="range"] {
   border: 1px solid hsl(var(--border-color) / 0.4);
   border-radius: 1rem;
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
-  z-index: 1000;
+  z-index: 1001;
   min-width: 200px;
   overflow: hidden;
   opacity: 0;
+  visibility: hidden;
   transform: translateY(-10px) scale(0.95);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   pointer-events: none;
@@ -2857,6 +2866,7 @@ input[type="range"] {
 
 .menu-dropdown-container.show .dropdown-menu {
   opacity: 1;
+  visibility: visible;
   transform: translateY(0) scale(1);
   pointer-events: all;
 }
