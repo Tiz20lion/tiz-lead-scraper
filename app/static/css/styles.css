@@ -647,56 +647,342 @@ body {
 /* Main Container */
 .main-container {
   flex: 1;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 2rem;
+  display: flex;
+  justify-content: center;
   padding: 2rem;
   max-width: 1400px;
   margin: 0 auto;
   width: 100%;
 }
 
-/* Panel Styles */
-.panel {
-  background: transparent;
-  border-radius: 1.5rem;
+/* Unified Panel Styles */
+.unified-panel {
+  width: 100%;
+  max-width: 1200px;
+  background: linear-gradient(135deg, hsl(var(--bg-secondary) / 0.1), hsl(var(--bg-panel) / 0.15));
+  border-radius: 2rem;
   border: 1px solid hsl(var(--border-color) / 0.2);
-  box-shadow: none;
-  overflow: visible;
-  backdrop-filter: none;
-  position: relative;
+  backdrop-filter: blur(10px);
+  padding: 3rem;
   transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.panel > * {
+/* Workflow Steps */
+.workflow-steps {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 3rem;
+  padding: 2rem;
+  background: linear-gradient(135deg, hsl(var(--bg-panel) / 0.3), hsl(var(--bg-secondary) / 0.3));
+  border-radius: 1.5rem;
+  border: 1px solid hsl(var(--border-color) / 0.3);
+}
+
+.step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
   position: relative;
-  z-index: 2;
+  transition: all 0.3s ease;
 }
 
-.panel:hover {
-  transform: translateY(-2px);
-  border-color: hsl(var(--accent-primary) / 0.3);
+.step-number {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: hsl(var(--bg-secondary));
+  border: 2px solid hsl(var(--border-color));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 1.2rem;
+  color: hsl(var(--text-secondary));
+  transition: all 0.3s ease;
 }
 
-
-
-.panel-header {
-  background: linear-gradient(135deg, hsl(var(--accent-primary)) 0%, hsl(var(--accent-secondary)) 100%);
+.step.active .step-number {
+  background: linear-gradient(135deg, hsl(var(--accent-primary)), hsl(var(--accent-secondary)));
+  border-color: hsl(var(--accent-primary));
   color: white;
-  padding: 1.5rem 2rem;
-  border-bottom: 1px solid hsl(var(--border-color));
+  box-shadow: 0 8px 25px hsl(var(--accent-primary) / 0.3);
+  animation: step-pulse 2s infinite ease-in-out;
 }
 
-.panel-header h2 {
-  font-size: 1.25rem;
+.step-title {
+  font-size: 0.9rem;
   font-weight: 600;
+  color: hsl(var(--text-secondary));
+  transition: color 0.3s ease;
+}
+
+.step.active .step-title {
+  color: hsl(var(--accent-primary));
+}
+
+.step-connector {
+  width: 60px;
+  height: 2px;
+  background: hsl(var(--border-color));
+  margin: 0 1rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.step-connector::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, hsl(var(--accent-primary)), hsl(var(--accent-secondary)));
+  transition: left 0.5s ease;
+}
+
+.step.active + .step-connector::after {
+  left: 0;
+}
+
+@keyframes step-pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+/* Workflow Sections */
+.workflow-section {
+  margin-bottom: 3rem;
+  opacity: 1;
+  transition: all 0.5s ease;
+}
+
+.workflow-section:not(:last-child) {
+  border-bottom: 1px solid hsl(var(--border-color) / 0.2);
+  padding-bottom: 3rem;
+}
+
+.section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+  padding: 1.5rem 2rem;
+  background: linear-gradient(135deg, hsl(var(--accent-primary) / 0.1), hsl(var(--accent-secondary) / 0.1));
+  border-radius: 1.25rem;
+  border: 1px solid hsl(var(--accent-primary) / 0.2);
+}
+
+.section-header h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
   display: flex;
   align-items: center;
   gap: 0.75rem;
+  color: hsl(var(--text-primary));
 }
 
-.panel-content {
+.section-badge {
+  background: linear-gradient(135deg, hsl(var(--accent-primary)), hsl(var(--accent-secondary)));
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+/* Configuration Grid */
+.config-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.config-column {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* Integration Tabs */
+.integrations-tabs {
+  margin-top: 1rem;
+}
+
+.tab-buttons {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.tab-button {
+  flex: 1;
+  padding: 0.75rem 1rem;
+  background: hsl(var(--bg-secondary));
+  border: 1px solid hsl(var(--border-color));
+  border-radius: 0.5rem;
+  color: hsl(var(--text-secondary));
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.tab-button.active {
+  background: linear-gradient(135deg, hsl(var(--accent-primary)), hsl(var(--accent-secondary)));
+  color: white;
+  border-color: hsl(var(--accent-primary));
+}
+
+.tab-content {
+  display: none;
+  gap: 0.75rem;
+  flex-direction: column;
+}
+
+.tab-content.active {
+  display: flex;
+}
+
+/* Action Section */
+.action-section {
+  text-align: center;
+  padding: 2rem 0;
+}
+
+/* Progress Container */
+.progress-container {
+  background: linear-gradient(135deg, hsl(var(--bg-panel) / 0.5), hsl(var(--bg-secondary) / 0.5));
+  border-radius: 1.25rem;
   padding: 2rem;
+  border: 1px solid hsl(var(--border-color) / 0.3);
+}
+
+/* Results Grid */
+.results-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 2rem;
+}
+
+.results-preview {
+  background: hsl(var(--bg-panel) / 0.3);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  border: 1px solid hsl(var(--border-color) / 0.3);
+}
+
+.results-preview h3 {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+  color: hsl(var(--text-primary));
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.export-panel {
+  background: hsl(var(--bg-panel) / 0.3);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  border: 1px solid hsl(var(--border-color) / 0.3);
+}
+
+.export-panel h3 {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+  color: hsl(var(--text-primary));
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+/* Export Grid */
+.export-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.export-card {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.25rem;
+  background: hsl(var(--bg-secondary) / 0.5);
+  border: 1px solid hsl(var(--border-color) / 0.5);
+  border-radius: 0.75rem;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  text-align: left;
+  color: hsl(var(--text-primary));
+  text-decoration: none;
+}
+
+.export-card:hover {
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+.export-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 1.2rem;
+  flex-shrink: 0;
+}
+
+.export-card.csv .export-icon {
+  background: hsl(var(--accent-secondary));
+}
+
+.export-card.json .export-icon {
+  background: hsl(var(--accent-warning));
+}
+
+.export-card.sheets .export-icon {
+  background: #0F9D58;
+}
+
+.export-card.notion .export-icon {
+  background: #000000;
+}
+
+.export-info {
+  flex: 1;
+}
+
+.export-title {
+  font-weight: 600;
+  font-size: 0.95rem;
+  margin-bottom: 0.25rem;
+}
+
+.export-desc {
+  font-size: 0.8rem;
+  color: hsl(var(--text-muted));
+}
+
+.results-stats {
+  background: linear-gradient(135deg, hsl(var(--accent-secondary) / 0.2), hsl(var(--accent-primary) / 0.2));
+  color: hsl(var(--accent-primary));
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  border: 1px solid hsl(var(--accent-primary) / 0.3);
 }
 
 /* Input Styles */
@@ -1383,13 +1669,22 @@ body {
 
 /* Responsive Design */
 @media (max-width: 1024px) {
-  .main-container {
+  .config-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .results-grid {
     grid-template-columns: 1fr;
     gap: 1.5rem;
   }
   
   .field-grid {
     grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  }
+
+  .export-grid {
+    grid-template-columns: 1fr;
   }
 }
 
@@ -1407,16 +1702,45 @@ body {
     padding: 1rem;
   }
   
-  .panel-content {
+  .unified-panel {
     padding: 1.5rem;
   }
   
-  .export-buttons {
+  .workflow-steps {
     flex-direction: column;
+    gap: 1rem;
+  }
+
+  .step-connector {
+    width: 2px;
+    height: 30px;
+    margin: 0;
+  }
+
+  .step-connector::after {
+    left: 0;
+    top: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(180deg, hsl(var(--accent-primary)), hsl(var(--accent-secondary)));
+  }
+
+  .step.active + .step-connector::after {
+    top: 0;
   }
   
   .field-grid {
     grid-template-columns: 1fr;
+  }
+
+  .section-header {
+    flex-direction: column;
+    gap: 1rem;
+    text-align: center;
+  }
+
+  .tab-buttons {
+    flex-direction: column;
   }
 }
 

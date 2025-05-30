@@ -78,6 +78,40 @@ class ApolloScraper {
 
         // URL validation
         document.getElementById('urlInput').addEventListener('input', this.validateUrls.bind(this));
+
+        // Tab functionality
+        this.setupTabs();
+    }
+
+    setupTabs() {
+        const tabButtons = document.querySelectorAll('.tab-button');
+        const tabContents = document.querySelectorAll('.tab-content');
+
+        tabButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const tabId = button.getAttribute('data-tab');
+                
+                // Update button states
+                tabButtons.forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+                
+                // Update content states
+                tabContents.forEach(content => content.classList.remove('active'));
+                document.getElementById(`${tabId}-tab`).classList.add('active');
+            });
+        });
+    }
+
+    updateWorkflowStep(stepNumber) {
+        const steps = document.querySelectorAll('.step');
+        
+        steps.forEach((step, index) => {
+            if (index + 1 <= stepNumber) {
+                step.classList.add('active');
+            } else {
+                step.classList.remove('active');
+            }
+        });
     }
 
     async getCsrfToken() {
@@ -248,6 +282,9 @@ class ApolloScraper {
         const progressSection = document.getElementById('progressSection');
         progressSection.style.display = 'block';
         
+        // Update step indicator
+        this.updateWorkflowStep(2);
+        
         gsap.fromTo(progressSection, 
             { opacity: 0, y: 20 }, 
             { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }
@@ -329,6 +366,9 @@ class ApolloScraper {
             return;
         }
 
+        // Update workflow step
+        this.updateWorkflowStep(3);
+
         // Update results count
         document.getElementById('resultsCount').textContent = `${totalCount} leads found`;
 
@@ -336,17 +376,13 @@ class ApolloScraper {
         const resultsSection = document.getElementById('resultsSection');
         resultsSection.style.display = 'block';
 
-        // Show export section
-        const exportSection = document.getElementById('exportSection');
-        exportSection.style.display = 'block';
-
         // Populate table
         this.populateResultsTable(data.slice(0, 5)); // Show first 5 results
 
-        // Animate sections
-        gsap.fromTo([resultsSection, exportSection], 
+        // Animate section
+        gsap.fromTo(resultsSection, 
             { opacity: 0, y: 20 }, 
-            { opacity: 1, y: 0, duration: 0.5, stagger: 0.2, ease: "power2.out" }
+            { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }
         );
     }
 
