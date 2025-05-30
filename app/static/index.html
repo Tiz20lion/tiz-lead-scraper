@@ -53,17 +53,17 @@
         <!-- Dashboard Sidebar -->
         <aside class="dashboard-sidebar">
             <div class="sidebar-menu">
-                <div class="menu-item active" data-page="configure">
-                    <span class="material-symbols-outlined">settings</span>
-                    <span class="menu-text">Configure</span>
+                <div class="menu-item active" data-page="home">
+                    <span class="material-symbols-outlined">home</span>
+                    <span class="menu-text">Home</span>
                 </div>
                 <div class="menu-item" data-page="settings">
                     <span class="material-symbols-outlined">tune</span>
                     <span class="menu-text">Settings</span>
                 </div>
-                <div class="menu-item" data-page="execute">
-                    <span class="material-symbols-outlined">play_arrow</span>
-                    <span class="menu-text">Execute</span>
+                <div class="menu-item" data-page="configure">
+                    <span class="material-symbols-outlined">settings</span>
+                    <span class="menu-text">Configure</span>
                 </div>
                 <div class="menu-item" data-page="results">
                     <span class="material-symbols-outlined">table_view</span>
@@ -78,12 +78,12 @@
             <div class="workflow-steps">
                 <div class="step active" data-step="1">
                     <div class="step-number">1</div>
-                    <div class="step-title">Configure</div>
+                    <div class="step-title">Settings</div>
                 </div>
                 <div class="step-connector"></div>
                 <div class="step" data-step="2">
                     <div class="step-number">2</div>
-                    <div class="step-title">Execute</div>
+                    <div class="step-title">Configure</div>
                 </div>
                 <div class="step-connector"></div>
                 <div class="step" data-step="3">
@@ -92,8 +92,89 @@
                 </div>
             </div>
 
+            <!-- Homepage -->
+            <div class="dashboard-page" id="homePage">
+                <div class="section-header">
+                    <h2><span class="material-symbols-outlined">home</span> Welcome to Tiz Lead Scraper</h2>
+                </div>
+
+                <div class="homepage-content">
+                    <div class="hero-section">
+                        <div class="hero-text">
+                            <h1>Powerful Apollo.io Lead Extraction</h1>
+                            <p class="hero-description">
+                                Extract up to 50,000 high-quality leads from Apollo.io with advanced filtering and seamless integration with Google Sheets and Notion. Built for businesses who need reliable, scalable lead generation automation.
+                            </p>
+                            
+                            <div class="feature-highlights">
+                                <div class="feature-item">
+                                    <span class="material-symbols-outlined">speed</span>
+                                    <div>
+                                        <h3>Lightning Fast</h3>
+                                        <p>Extract thousands of leads in minutes with our optimized scraping engine</p>
+                                    </div>
+                                </div>
+                                <div class="feature-item">
+                                    <span class="material-symbols-outlined">shield</span>
+                                    <div>
+                                        <h3>Enterprise Ready</h3>
+                                        <p>Built-in security, rate limiting, and error handling for production use</p>
+                                    </div>
+                                </div>
+                                <div class="feature-item">
+                                    <span class="material-symbols-outlined">integration_instructions</span>
+                                    <div>
+                                        <h3>Seamless Integration</h3>
+                                        <p>Export directly to Google Sheets, Notion, or download as CSV/JSON</p>
+                                    </div>
+                                </div>
+                                <div class="feature-item">
+                                    <span class="material-symbols-outlined">tune</span>
+                                    <div>
+                                        <h3>Flexible Configuration</h3>
+                                        <p>Choose from 10+ data fields and customize extraction parameters</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="action-section">
+                                <button id="startAutomationBtn" class="start-button">
+                                    <span class="material-symbols-outlined">rocket_launch</span>
+                                    <span class="button-text">Start Lead Automation</span>
+                                </button>
+                                <p class="start-note">
+                                    <span class="material-symbols-outlined">info</span>
+                                    First time? We'll guide you through the setup process
+                                </p>
+                            </div>
+                        </div>
+                        
+                        <div class="hero-visual">
+                            <div class="stats-grid">
+                                <div class="stat-card">
+                                    <div class="stat-number">50K+</div>
+                                    <div class="stat-label">Max Leads Per Run</div>
+                                </div>
+                                <div class="stat-card">
+                                    <div class="stat-number">10+</div>
+                                    <div class="stat-label">Data Fields</div>
+                                </div>
+                                <div class="stat-card">
+                                    <div class="stat-number">4</div>
+                                    <div class="stat-label">Export Formats</div>
+                                </div>
+                                <div class="stat-card">
+                                    <div class="stat-number">99%</div>
+                                    <div class="stat-label">Success Rate</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <!-- Configuration Section -->
-            <div class="workflow-section" id="configurationSection">
+            <div class="dashboard-page" id="configurationSection" style="display: none;">
                 <div class="section-header">
                     <h2><span class="material-symbols-outlined">settings</span> Scraping Configuration</h2>
                     <div class="section-badge">Step 1</div>
@@ -299,7 +380,7 @@
                          
 
             <!-- Progress Section -->
-            <div class="workflow-section" id="progressSection" style="display: none;">
+            <div class="dashboard-page" id="progressSection" style="display: none;">
                 <div class="section-header">
                     <h2><span class="material-symbols-outlined">analytics</span> Scraping in Progress</h2>
                     <div class="section-badge">Step 2</div>
@@ -433,7 +514,7 @@
             </div>
 
             <!-- Results Section -->
-            <div class="workflow-section" id="resultsSection" style="display: none;">
+            <div class="dashboard-page" id="resultsSection" style="display: none;">
                 <div class="section-header">
                     <h2><span class="material-symbols-outlined">table_view</span> Results & Export</h2>
                     <div class="section-badge">Step 3</div>

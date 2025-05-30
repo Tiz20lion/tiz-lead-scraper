@@ -76,6 +76,9 @@ class ApolloScraper {
         // Start scraping button
         document.getElementById('startScraping').addEventListener('click', this.startScraping.bind(this));
 
+        // Start automation button on homepage
+        document.getElementById('startAutomationBtn').addEventListener('click', this.startAutomation.bind(this));
+
         // Export buttons
         document.getElementById('exportCsv').addEventListener('click', this.exportCsv.bind(this));
         document.getElementById('exportJson').addEventListener('click', this.exportJson.bind(this));
@@ -111,9 +114,9 @@ class ApolloScraper {
     setupDashboardNavigation() {
         const menuItems = document.querySelectorAll('.menu-item');
         const pages = {
+            'home': 'homePage',
             'configure': 'configurationSection',
             'settings': 'settingsPage',
-            'execute': 'progressSection',
             'results': 'resultsSection'
         };
 
@@ -165,33 +168,61 @@ class ApolloScraper {
             return;
         }
 
-        // Show configuration section
-        this.showConfigurationSection();
+        // Redirect to configuration page
+        this.navigateToPage('configure');
         this.updateWorkflowStep(2);
         toastr.success('Settings saved! Now configure your scraping parameters.');
     }
 
-    showConfigurationSection() {
-        const settingsSection = document.getElementById('settingsSection');
-        const configurationSection = document.getElementById('configurationSection');
+    startAutomation() {
+        const apifyToken = document.getElementById('apifyToken').value.trim();
         
-        // Hide settings section
-        gsap.to(settingsSection, {
-            opacity: 0,
-            y: -20,
-            duration: 0.3,
-            ease: "power2.out",
-            onComplete: () => {
-                settingsSection.style.display = 'none';
+        if (!apifyToken) {
+            toastr.warning('Please configure your Apify API token first');
+            this.navigateToPage('settings');
+            this.updateWorkflowStep(1);
+            return;
+        }
+        
+        // If API key is set, go to configuration
+        this.navigateToPage('configure');
+        this.updateWorkflowStep(2);
+        toastr.success('Ready to configure your scraping parameters!');
+    }
+
+    navigateToPage(pageName) {
+        const menuItems = document.querySelectorAll('.menu-item');
+        const pages = {
+            'home': 'homePage',
+            'configure': 'configurationSection',
+            'settings': 'settingsPage',
+            'results': 'resultsSection'
+        };
+
+        // Update menu states
+        menuItems.forEach(menuItem => {
+            menuItem.classList.remove('active');
+            if (menuItem.getAttribute('data-page') === pageName) {
+                menuItem.classList.add('active');
             }
         });
 
-        // Show configuration section
-        configurationSection.style.display = 'block';
-        gsap.fromTo(configurationSection, 
-            { opacity: 0, y: 20 }, 
-            { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }
-        );
+        // Hide all pages
+        Object.values(pages).forEach(pageId => {
+            const pageElement = document.getElementById(pageId);
+            if (pageElement) {
+                pageElement.style.display = 'none';
+            }
+        });
+
+        // Show selected page
+        const targetPageId = pages[pageName];
+        if (targetPageId) {
+            const targetPage = document.getElementById(targetPageId);
+            if (targetPage) {
+                targetPage.style.display = 'block';
+            }
+        }
     }
 
     async getCsrfToken() {
@@ -281,6 +312,14 @@ class ApolloScraper {
         const startButton = document.getElementById('startScraping');
         const apifyToken = document.getElementById('apifyToken').value.trim();
         
+        // Validate API key first
+        if (!apifyToken) {
+            toastr.error('Please configure your Apify API token first');
+            this.navigateToPage('settings');
+            this.updateWorkflowStep(1);
+            return;
+        }
+
         // Validate inputs
         const urls = this.validateUrls();
         const fields = this.getSelectedFields();
@@ -297,11 +336,6 @@ class ApolloScraper {
 
         if (fields.length === 0) {
             toastr.error('Please select at least one field to extract');
-            return;
-        }
-
-        if (!apifyToken) {
-            toastr.error('Please enter your Apify API token to start scraping');
             return;
         }
 
@@ -359,6 +393,9 @@ class ApolloScraper {
     }
 
     showProgressSection() {
+        // Navigate to progress page
+        this.navigateToPage('results');
+        
         const progressSection = document.getElementById('progressSection');
         progressSection.style.display = 'block';
         
@@ -446,8 +483,11 @@ class ApolloScraper {
             return;
         }
 
+        // Hide progress section
+        this.hideProgressSection();
+
         // Update workflow step
-        this.updateWorkflowStep(4);
+        this.updateWorkflowStep(3);
 
         // Update results count
         document.getElementById('resultsCount').textContent = `${totalCount} leads found`;
