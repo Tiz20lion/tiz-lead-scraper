@@ -661,14 +661,14 @@ window.addEventListener('load', () => {
             { y: -50, opacity: 0 }, 
             { y: 0, opacity: 1, duration: 0.6, ease: "power2.out" }
         )
-        .fromTo('.left-panel', 
-            { x: -50, opacity: 0 }, 
-            { x: 0, opacity: 1, duration: 0.6, ease: "power2.out" }, 
+        .fromTo('.unified-panel', 
+            { y: 30, opacity: 0 }, 
+            { y: 0, opacity: 1, duration: 0.8, ease: "power2.out" }, 
             "-=0.3"
         )
-        .fromTo('.right-panel', 
-            { x: 50, opacity: 0 }, 
-            { x: 0, opacity: 1, duration: 0.6, ease: "power2.out" }, 
-            "-=0.3"
+        .fromTo('.animated-card', 
+            { y: 20, opacity: 0 }, 
+            { y: 0, opacity: 1, duration: 0.6, ease: "power2.out", stagger: 0.1 }, 
+            "-=0.4"
         );
 });
