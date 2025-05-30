@@ -35,14 +35,6 @@ class ApolloScraper {
     }
 
     setupEventListeners() {
-        // Theme toggle
-        const themeToggle = document.getElementById('themeToggle');
-        if (themeToggle) {
-            themeToggle.addEventListener('click', () => {
-                this.toggleTheme();
-            });
-        }
-
         // Setup dropdown functionality after DOM is ready
         setTimeout(() => {
             this.setupDropdownMenu();
@@ -50,6 +42,9 @@ class ApolloScraper {
 
         // Setup tabs
         this.setupTabs();
+
+        // Setup other button handlers
+        this.setupButtonHandlers();
     }
 
     setupDropdownMenu() {
@@ -100,6 +95,59 @@ class ApolloScraper {
                 document.getElementById(`${tabId}-tab`).classList.add('active');
             });
         });
+    }
+
+    setupButtonHandlers() {
+        // Start scraping button
+        const startScrapingBtn = document.getElementById('startScraping');
+        if (startScrapingBtn) {
+            startScrapingBtn.addEventListener('click', () => {
+                this.startScraping();
+            });
+        }
+
+        // Export buttons
+        const exportCsvBtn = document.getElementById('exportCsv');
+        if (exportCsvBtn) {
+            exportCsvBtn.addEventListener('click', () => {
+                this.exportCsv();
+            });
+        }
+
+        const exportJsonBtn = document.getElementById('exportJson');
+        if (exportJsonBtn) {
+            exportJsonBtn.addEventListener('click', () => {
+                this.exportJson();
+            });
+        }
+
+        const exportSheetsBtn = document.getElementById('exportSheets');
+        if (exportSheetsBtn) {
+            exportSheetsBtn.addEventListener('click', () => {
+                this.exportToSheets();
+            });
+        }
+
+        const exportNotionBtn = document.getElementById('exportNotion');
+        if (exportNotionBtn) {
+            exportNotionBtn.addEventListener('click', () => {
+                this.exportToNotion();
+            });
+        }
+
+        // Lead count slider sync
+        const leadCountSlider = document.getElementById('leadCount');
+        const leadCountInput = document.getElementById('leadCountInput');
+        
+        if (leadCountSlider && leadCountInput) {
+            leadCountSlider.addEventListener('input', () => {
+                leadCountInput.value = leadCountSlider.value;
+            });
+            
+            leadCountInput.addEventListener('input', () => {
+                leadCountSlider.value = leadCountInput.value;
+            });
+        }
     }
 
     setupDashboardNavigation() {
