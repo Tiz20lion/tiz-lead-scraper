@@ -50,9 +50,17 @@
 
     <!-- Main Container -->
     <main class="main-container">
-        <!-- Dashboard Sidebar -->
-        <aside class="dashboard-sidebar">
-            <div class="sidebar-menu">
+        <!-- Modern Navigation Sidebar -->
+        <input type="checkbox" id="nav-toggle">
+        <aside class="dashboard-sidebar" id="nav-bar">
+            <header id="nav-header">
+                <span id="nav-title">Tiz Lead Scraper</span>
+                <label for="nav-toggle">
+                    <span id="nav-toggle-burger"></span>
+                </label>
+                <hr>
+            </header>
+            <nav class="sidebar-menu" id="nav-content">
                 <div class="menu-item active" data-page="home">
                     <span class="material-symbols-outlined">home</span>
                     <span class="menu-text">Home</span>
@@ -69,7 +77,19 @@
                     <span class="material-symbols-outlined">table_view</span>
                     <span class="menu-text">Results</span>
                 </div>
-            </div>
+                <div id="nav-content-highlight"></div>
+            </nav>
+            <footer id="nav-footer">
+                <div id="nav-footer-heading">
+                    <div id="nav-footer-avatar">
+                        <span class="material-symbols-outlined">person</span>
+                    </div>
+                    <div id="nav-footer-titlebox">
+                        <span id="nav-footer-title">Tiz</span>
+                        <span id="nav-footer-subtitle">Developer</span>
+                    </div>
+                </div>
+            </footer>
         </aside>
 
         <!-- Main Content Area -->
