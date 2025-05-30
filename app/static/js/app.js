@@ -38,9 +38,6 @@ class ApolloScraper {
         // Theme toggle
         document.getElementById('themeToggle').addEventListener('click', this.toggleTheme.bind(this));
         
-        // Dashboard navigation
-        this.setupDashboardNavigation();
-        
         // Lead count slider and input synchronization
         const leadSlider = document.getElementById('leadCount');
         const leadCountInput = document.getElementById('leadCountInput');
@@ -104,40 +101,6 @@ class ApolloScraper {
                 // Update content states
                 tabContents.forEach(content => content.classList.remove('active'));
                 document.getElementById(`${tabId}-tab`).classList.add('active');
-            });
-        });
-    }
-
-    setupDashboardNavigation() {
-        const sidebarIcons = document.querySelectorAll('.sidebar__icon');
-        const pageContents = document.querySelectorAll('.page-content');
-
-        sidebarIcons.forEach(icon => {
-            icon.addEventListener('click', () => {
-                const page = icon.getAttribute('data-page');
-                
-                // Update sidebar states
-                sidebarIcons.forEach(sIcon => sIcon.classList.remove('active'));
-                icon.classList.add('active');
-                
-                // Update page content states
-                pageContents.forEach(content => content.classList.remove('active'));
-                
-                // Show the appropriate page or section
-                if (page === 'welcome') {
-                    document.getElementById('welcome-page').classList.add('active');
-                } else if (page === 'configure') {
-                    document.getElementById('configurationSection').style.display = 'block';
-                    this.showConfigurationSection();
-                } else if (page === 'settings') {
-                    document.getElementById('settings-page').classList.add('active');
-                } else if (page === 'execute') {
-                    // Show execute/progress section when implemented
-                    document.getElementById('progressSection')?.style.display = 'block';
-                } else if (page === 'results') {
-                    // Show results section when implemented
-                    document.getElementById('resultsSection')?.style.display = 'block';
-                }
             });
         });
     }
