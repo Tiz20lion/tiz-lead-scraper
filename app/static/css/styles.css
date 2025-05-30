@@ -86,13 +86,14 @@ body {
 
 /* Header Styles */
 .header {
-  background: hsl(var(--bg-panel));
+  background: linear-gradient(135deg, hsl(var(--bg-panel) / 0.95), hsl(var(--bg-secondary) / 0.95));
   border-bottom: 1px solid hsl(var(--border-color));
   padding: 0.5rem 1rem;
   box-shadow: var(--shadow-lg);
   position: sticky;
   top: 0;
   z-index: 100;
+  backdrop-filter: blur(20px);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -320,11 +321,12 @@ body {
 /* Enhanced Input Section Animations */
 .animated-card {
   position: relative;
-  background: hsl(var(--bg-secondary));
-  border: 1px solid hsl(var(--border-color));
+  background: linear-gradient(135deg, hsl(var(--bg-secondary) / 0.1), hsl(var(--bg-panel) / 0.15));
+  border: 1px solid hsl(var(--border-color) / 0.2);
   border-radius: 1.5rem;
   padding: 2rem;
   margin-bottom: 2rem;
+  backdrop-filter: blur(10px);
   animation: slideInBounce 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
   opacity: 0;
   transform: translateY(50px) scale(0.8);
@@ -630,9 +632,10 @@ body {
 /* Dashboard Sidebar */
 .dashboard-sidebar {
   width: 240px;
-  background: hsl(var(--bg-panel));
+  background: linear-gradient(135deg, hsl(var(--bg-secondary) / 0.1), hsl(var(--bg-panel) / 0.15));
   border-radius: 1.5rem;
-  border: 1px solid hsl(var(--border-color));
+  border: 1px solid hsl(var(--border-color) / 0.2);
+  backdrop-filter: blur(10px);
   padding: 1.5rem;
   height: fit-content;
   position: sticky;
@@ -681,9 +684,10 @@ body {
 /* Dashboard Content */
 .dashboard-content {
   flex: 1;
-  background: hsl(var(--bg-panel));
+  background: linear-gradient(135deg, hsl(var(--bg-secondary) / 0.1), hsl(var(--bg-panel) / 0.15));
   border-radius: 2rem;
-  border: 1px solid hsl(var(--border-color));
+  border: 1px solid hsl(var(--border-color) / 0.2);
+  backdrop-filter: blur(10px);
   padding: 3rem;
   transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -700,9 +704,10 @@ body {
 .unified-panel {
   width: 100%;
   max-width: 1200px;
-  background: hsl(var(--bg-panel));
+  background: linear-gradient(135deg, hsl(var(--bg-secondary) / 0.1), hsl(var(--bg-panel) / 0.15));
   border-radius: 2rem;
-  border: 1px solid hsl(var(--border-color));
+  border: 1px solid hsl(var(--border-color) / 0.2);
+  backdrop-filter: blur(10px);
   padding: 3rem;
   transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -714,9 +719,9 @@ body {
   justify-content: center;
   margin-bottom: 2rem;
   padding: 1rem;
-  background: hsl(var(--bg-secondary));
+  background: linear-gradient(135deg, hsl(var(--bg-panel) / 0.3), hsl(var(--bg-secondary) / 0.3));
   border-radius: 1rem;
-  border: 1px solid hsl(var(--border-color));
+  border: 1px solid hsl(var(--border-color) / 0.3);
 }
 
 .step {
@@ -854,8 +859,7 @@ body {
   color: hsl(var(--text-secondary));
   font-weight: 600;
   cursor: pointer;
-  ```text
-transition: all 0.3s ease;
+  transition: all 0.3s ease;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1036,6 +1040,7 @@ transition: all 0.3s ease;
   border: 2px solid hsl(var(--border-color));
   border-radius: 0.75rem;
   background: linear-gradient(135deg, hsl(var(--bg-secondary) / 0.8), hsl(var(--bg-panel) / 0.9));
+  backdrop-filter: blur(10px);
   color: hsl(var(--text-primary));
   font-family: inherit;
   font-size: 0.8rem;
@@ -1126,6 +1131,7 @@ transition: all 0.3s ease;
   border-radius: 0.5rem;
   background: linear-gradient(135deg, hsl(var(--bg-secondary) / 0.7), hsl(var(--bg-panel) / 0.8));
   border: 1px solid hsl(var(--border-color) / 0.5);
+  backdrop-filter: blur(10px);
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   font-size: 0.8rem;
   font-weight: 500;
@@ -1265,6 +1271,7 @@ transition: all 0.3s ease;
 /* Progress Styles */
 .progress-section {
   background: linear-gradient(135deg, hsl(var(--bg-secondary) / 0.1), hsl(var(--bg-panel) / 0.15));
+  backdrop-filter: blur(8px);
   border-radius: 1.25rem;
   padding: 2rem;
   margin-bottom: 2.5rem;
@@ -2822,52 +2829,4 @@ input[type="range"] {
     bottom: -50px;
   }
 }
-}
-
-.dropdown-trigger {
-  background: linear-gradient(135deg, hsl(var(--bg-secondary) / 0.8), hsl(var(--bg-panel) / 0.9));
-  border: 1px solid hsl(var(--border-color));
-  border-radius: 0.75rem;
-  padding: 0.75rem 1rem;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.dropdown-trigger {
-  background: linear-gradient(135deg, hsl(var(--bg-secondary) / 0.8), hsl(var(--bg-panel) / 0.9));
-  border: 1px solid hsl(var(--border-color));
-  border-radius: 0.75rem;
-  padding: 0.75rem 1rem;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.dropdown-trigger {
-  background: linear-gradient(135deg, hsl(var(--bg-secondary) / 0.8), hsl(var(--bg-panel) / 0.9));
-  border: 1px solid hsl(var(--border-color));
-  border-radius: 0.75rem;
-  padding: 0.75rem 1rem;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.dropdown-trigger {
-  background: linear-gradient(135deg, hsl(var(--bg-secondary) / 0.8), hsl(var(--bg-panel) / 0.9));
-  border: 1px solid hsl(var(--border-color));
-  border-radius: 0.75rem;
-  padding: 0.75rem 1rem;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }

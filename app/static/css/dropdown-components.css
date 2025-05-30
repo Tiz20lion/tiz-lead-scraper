@@ -33,6 +33,7 @@
   background: linear-gradient(135deg, hsl(var(--bg-panel) / 0.95), hsl(var(--bg-secondary) / 0.98));
   border: 1px solid hsl(var(--border-color) / 0.4);
   border-radius: 1rem;
+  backdrop-filter: blur(25px);
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
   margin-top: 0.5rem;
   z-index: 100;
