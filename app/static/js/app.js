@@ -225,6 +225,7 @@ class ApolloScraper {
 
     navigateToPage(pageName) {
         const menuItems = document.querySelectorAll('.menu-item');
+        const dropdownItems = document.querySelectorAll('.dropdown-item');
         const pages = {
             'home': 'homePage',
             'configure': 'configurationSection',
@@ -232,11 +233,19 @@ class ApolloScraper {
             'results': 'resultsSection'
         };
 
-        // Update menu states
+        // Update menu states (if sidebar exists)
         menuItems.forEach(menuItem => {
             menuItem.classList.remove('active');
             if (menuItem.getAttribute('data-page') === pageName) {
                 menuItem.classList.add('active');
+            }
+        });
+
+        // Update dropdown states across all pages
+        dropdownItems.forEach(dropdownItem => {
+            dropdownItem.classList.remove('active');
+            if (dropdownItem.getAttribute('data-page') === pageName) {
+                dropdownItem.classList.add('active');
             }
         });
 
