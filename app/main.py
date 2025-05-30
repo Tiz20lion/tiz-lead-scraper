@@ -40,7 +40,7 @@ app.add_middleware(
 )
 
 # Mount static files
-app.mount("/static", StaticFiles(directory="static"), name="static")
+app.mount("/static", StaticFiles(directory="app/static"), name="static")
 
 # Include API routes
 app.include_router(api_router, prefix="/api/v1")
@@ -48,7 +48,7 @@ app.include_router(api_router, prefix="/api/v1")
 @app.get("/")
 async def serve_frontend():
     """Serve the main frontend application"""
-    return FileResponse("static/index.html")
+    return FileResponse("app/static/index.html")
 
 @app.get("/health")
 async def health_check():
