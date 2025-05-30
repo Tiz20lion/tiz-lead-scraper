@@ -50,17 +50,9 @@
 
     <!-- Main Container -->
     <main class="main-container">
-        <!-- Modern Navigation Sidebar -->
-        <input type="checkbox" id="nav-toggle">
-        <aside class="dashboard-sidebar" id="nav-bar">
-            <header id="nav-header">
-                <span id="nav-title">Tiz Lead Scraper</span>
-                <label for="nav-toggle">
-                    <span id="nav-toggle-burger"></span>
-                </label>
-                <hr>
-            </header>
-            <nav class="sidebar-menu" id="nav-content">
+        <!-- Dashboard Sidebar -->
+        <aside class="dashboard-sidebar">
+            <div class="sidebar-menu">
                 <div class="menu-item active" data-page="home">
                     <span class="material-symbols-outlined">home</span>
                     <span class="menu-text">Home</span>
@@ -77,19 +69,7 @@
                     <span class="material-symbols-outlined">table_view</span>
                     <span class="menu-text">Results</span>
                 </div>
-                <div id="nav-content-highlight"></div>
-            </nav>
-            <footer id="nav-footer">
-                <div id="nav-footer-heading">
-                    <div id="nav-footer-avatar">
-                        <span class="material-symbols-outlined">person</span>
-                    </div>
-                    <div id="nav-footer-titlebox">
-                        <span id="nav-footer-title">Tiz</span>
-                        <span id="nav-footer-subtitle">Developer</span>
-                    </div>
-                </div>
-            </footer>
+            </div>
         </aside>
 
         <!-- Main Content Area -->
@@ -489,77 +469,45 @@
                                         Google Sheets
                                     </button>
                                     <button class="tab-button" data-tab="notion">
-                                        <span class="material-symbols-outlined">article</span>
+                                        <i class="fab fa-notion"></i>
                                         Notion
                                     </button>
                                 </div>
 
                                 <div class="tab-content active" id="sheets-tab">
-                                    <div class="integration-group">
-                                        <label class="integration-label">
-                                            <span class="material-symbols-outlined">vpn_key</span>
-                                            Service Account Credentials (JSON)
-                                        </label>
-                                        <textarea 
-                                            id="googleCredentials" 
-                                            placeholder='{"type": "service_account", "project_id": "your-project", ...}'
-                                            class="credentials-input"
-                                            rows="4"
-                                        ></textarea>
-                                        <div class="input-help">
-                                            <span class="material-symbols-outlined">info</span>
-                                            Get credentials from <a href="https://console.cloud.google.com/" target="_blank">Google Cloud Console</a>
-                                        </div>
-                                    </div>
-                                    <div class="integration-group">
-                                        <label class="integration-label">
-                                            <span class="material-symbols-outlined">link</span>
-                                            Spreadsheet Configuration
-                                        </label>
-                                        <input 
-                                            type="text" 
-                                            id="spreadsheetId" 
-                                            placeholder="Google Sheets Spreadsheet ID"
-                                            class="api-input"
-                                        >
-                                        <input 
-                                            type="text" 
-                                            id="sheetName" 
-                                            placeholder="Sheet Name (default: Leads)"
-                                            class="api-input"
-                                        >
-                                    </div>
+                                    <textarea 
+                                        id="googleCredentials" 
+                                        placeholder="Paste Google Service Account JSON credentials (optional)"
+                                        class="credentials-input"
+                                        rows="3"
+                                    ></textarea>
+                                    <input 
+                                        type="text" 
+                                        id="spreadsheetId" 
+                                        placeholder="Spreadsheet ID (optional)"
+                                        class="api-input"
+                                    >
+                                    <input 
+                                        type="text" 
+                                        id="sheetName" 
+                                        placeholder="Sheet Name (default: Leads)"
+                                        class="api-input"
+                                    >
                                 </div>
 
                                 <div class="tab-content" id="notion-tab">
-                                    <div class="integration-group">
-                                        <label class="integration-label">
-                                            <span class="material-symbols-outlined">vpn_key</span>
-                                            Integration Token
-                                        </label>
-                                        <input 
-                                            type="password" 
-                                            id="notionToken" 
-                                            placeholder="secret_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
-                                            class="api-input"
-                                        >
-                                        <div class="input-help">
-                                            <span class="material-symbols-outlined">info</span>
-                                            Create integration at <a href="https://www.notion.so/my-integrations" target="_blank">Notion Integrations</a>
-                                        </div>
-                                    </div>
-                                    <div class="integration-group">
-                                        <label class="integration-label">
-                                            <span class="material-symbols-outlined">storage</span>
-                                            Database Configuration
-                                        </label>
-                                        <input 
-                                            type="text" 
-                                            id="notionDatabaseId" 
-                                            placeholder="Database ID from Notion URL"
-                                            class="api-input"
-                                        >
-                                    </div>
+                                    <input 
+                                        type="password" 
+                                        id="notionToken" 
+                                        placeholder="Notion Integration Token (optional)"
+                                        class="api-input"
+                                    >
+                                    <input 
+                                        type="text" 
+                                        id="notionDatabaseId" 
+                                        placeholder="Notion Database ID (optional)"
+                                        class="api-input"
+                                    >
                                 </div>
                             </div>
                         </div>

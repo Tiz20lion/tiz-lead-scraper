@@ -776,33 +776,19 @@ gsap.registerPlugin();
 
 // Animate page load
 window.addEventListener('load', () => {
-    // Check if elements exist before animating
-    const header = document.querySelector('.header');
-    const dashboardContent = document.querySelector('.dashboard-content');
-    const animatedCards = document.querySelectorAll('.animated-card');
-    
-    const timeline = gsap.timeline();
-    
-    if (header) {
-        timeline.fromTo(header, 
+    gsap.timeline()
+        .fromTo('.header', 
             { y: -50, opacity: 0 }, 
             { y: 0, opacity: 1, duration: 0.6, ease: "power2.out" }
-        );
-    }
-    
-    if (dashboardContent) {
-        timeline.fromTo(dashboardContent, 
+        )
+        .fromTo('.dashboard-content', 
             { y: 30, opacity: 0 }, 
             { y: 0, opacity: 1, duration: 0.8, ease: "power2.out" }, 
-            header ? "-=0.3" : 0
-        );
-    }
-    
-    if (animatedCards.length > 0) {
-        timeline.fromTo(animatedCards, 
+            "-=0.3"
+        )
+        .fromTo('.animated-card', 
             { y: 20, opacity: 0 }, 
             { y: 0, opacity: 1, duration: 0.6, ease: "power2.out", stagger: 0.1 }, 
-            (header || dashboardContent) ? "-=0.4" : 0
+            "-=0.4"
         );
-    }
 });
