@@ -11,7 +11,7 @@ import os
 import secrets
 from datetime import datetime
 
-from models.schemas import ScrapeRequest, ExportSheetsRequest, ExportNotionRequest
+from models.schemas import ScrapeRequest, SheetsRequest, NotionRequest
 from clients.apify_client import ApifyClient
 from clients.sheets_client import GoogleSheetsClient  
 from clients.notion_client import NotionClient
