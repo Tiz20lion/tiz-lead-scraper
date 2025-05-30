@@ -36,44 +36,60 @@ class ApolloScraper {
 
     setupEventListeners() {
         // Theme toggle
-        const themeToggle = document.getElementById('themeToggle');
-        if (themeToggle) {
-            themeToggle.addEventListener('click', () => {
-                this.toggleTheme();
-            });
-        }
+        document.getElementById('themeToggle').addEventListener('click', this.toggleTheme.bind(this));
 
-        // Dropdown menu functionality
-        const dropdownTrigger = document.querySelector('.menu-dropdown-trigger');
-        const dropdown = document.querySelector('.menu-dropdown-container');
+        // Dashboard navigation
+        this.setupDashboardNavigation();
 
-        if (dropdownTrigger && dropdown) {
-            dropdownTrigger.addEventListener('click', (e) => {
-                e.stopPropagation();
-                dropdown.classList.toggle('show');
-            });
+        // Lead count slider and input synchronization
+        const leadSlider = document.getElementById('leadCount');
+        const leadCountInput = document.getElementById('leadCountInput');
 
-            // Close dropdown when clicking outside
-            document.addEventListener('click', (e) => {
-                if (!dropdown.contains(e.target)) {
-                    dropdown.classList.remove('show');
-                }
-            });
-        }
-
-        // Navigation
-        const menuItems = document.querySelectorAll('.menu-item');
-        menuItems.forEach(item => {
-            item.addEventListener('click', (e) => {
-                const page = e.currentTarget.getAttribute('data-page');
-                this.navigateToPage(page);
-                // Close dropdown after navigation
-                const dropdown = document.querySelector('.menu-dropdown-container');
-                if (dropdown) {
-                    dropdown.classList.remove('show');
-                }
-            });
+        // Update input when slider changes
+        leadSlider.addEventListener('input', (e) => {
+            leadCountInput.value = e.target.value;
         });
+
+        // Update slider when input changes
+        leadCountInput.addEventListener('input', (e) => {
+            let value = parseInt(e.target.value) || 1;
+            if (value < 1) value = 1;
+            if (value > 50000) value = 50000;
+
+            leadSlider.value = value;
+            leadCountInput.value = value;
+        });
+
+        // Validate input on blur
+        leadCountInput.addEventListener('blur', (e) => {
+            let value = parseInt(e.target.value) || 100;
+            if (value < 1) value = 1;
+            if (value > 50000) value = 50000;
+
+            leadSlider.value = value;
+            leadCountInput.value = value;
+        });
+
+        // Save settings button
+        document.getElementById('saveSettings').addEventListener('click', this.saveSettings.bind(this));
+
+        // Start scraping button
+        document.getElementById('startScraping').addEventListener('click', this.startScraping.bind(this));
+
+        // Start automation button on homepage
+        document.getElementById('startAutomationBtn').addEventListener('click', this.startAutomation.bind(this));
+
+        // Export buttons
+        document.getElementById('exportCsv').addEventListener('click', this.exportCsv.bind(this));
+        document.getElementById('exportJson').addEventListener('click', this.exportJson.bind(this));
+        document.getElementById('exportSheets').addEventListener('click', this.exportToSheets.bind(this));
+        document.getElementById('exportNotion').addEventListener('click', this.exportToNotion.bind(this));
+
+        // URL validation
+        document.getElementById('urlInput').addEventListener('input', this.validateUrls.bind(this));
+
+        // Tab functionality
+        this.setupTabs();
     }
 
     setupTabs() {
@@ -132,7 +148,7 @@ class ApolloScraper {
         });
     }
 
-
+    
 
     saveSettings() {
         const apifyToken = document.getElementById('apifyToken').value.trim();
@@ -804,7 +820,7 @@ function showSection(sectionId) {
             element.style.display = (id === sectionId) ? 'block' : 'none';
         }
     });
-
+    
     // Update active menu item
     updateActiveMenuItem(sectionId);
 }
@@ -817,7 +833,7 @@ function updateActiveMenuItem(sectionId) {
             item.classList.add('active');
         }
     });
-
+    
     // Update dropdown trigger text
     const activeItem = document.querySelector(`.menu-item[data-page="${sectionId}"]`);
     if (activeItem) {
@@ -827,7 +843,7 @@ function updateActiveMenuItem(sectionId) {
             menuLabel.textContent = menuText.textContent;
         }
     }
-
+    
     // Close dropdown after selection
     const dropdown = document.querySelector('.dropdown');
     if (dropdown) {
@@ -846,22 +862,22 @@ function setupNavigation() {
             }
         });
     });
-
+    
     // Initialize dropdown functionality
     const dropdown = document.querySelector('.dropdown');
     const trigger = document.querySelector('.dropdown-trigger');
-
+    
     if (trigger && dropdown) {
         trigger.addEventListener('click', (e) => {
             e.stopPropagation();
             dropdown.classList.toggle('active');
         });
-
+        
         // Close dropdown when clicking outside
         document.addEventListener('click', () => {
             dropdown.classList.remove('active');
         });
-
+        
         // Prevent dropdown from closing when clicking inside
         dropdown.addEventListener('click', (e) => {
             e.stopPropagation();
