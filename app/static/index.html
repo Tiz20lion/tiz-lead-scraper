@@ -48,30 +48,39 @@
         </div>
     </header>
 
-    <!-- Main Container -->
-    <main class="main-container">
-        <!-- Dashboard Sidebar -->
-        <aside class="dashboard-sidebar">
-            <div class="sidebar-menu">
-                <div class="menu-item active" data-page="home">
-                    <span class="material-symbols-outlined">home</span>
-                    <span class="menu-text">Home</span>
-                </div>
-                <div class="menu-item" data-page="settings">
-                    <span class="material-symbols-outlined">tune</span>
-                    <span class="menu-text">Settings</span>
-                </div>
-                <div class="menu-item" data-page="configure">
-                    <span class="material-symbols-outlined">settings</span>
-                    <span class="menu-text">Configure</span>
-                </div>
-                <div class="menu-item" data-page="results">
-                    <span class="material-symbols-outlined">table_view</span>
-                    <span class="menu-text">Results</span>
+    <!-- Navigation Menu Bar -->
+    <nav class="menu-bar">
+        <div class="menu-bar-content">
+            <div class="dropdown">
+                <button class="dropdown-trigger menu-dropdown-trigger">
+                    <span class="material-symbols-outlined">menu</span>
+                    <span class="menu-label">Navigation</span>
+                    <span class="material-symbols-outlined dropdown-arrow">expand_more</span>
+                </button>
+                <div class="dropdown-menu menu-dropdown">
+                    <div class="dropdown-item menu-item active" data-page="home">
+                        <span class="material-symbols-outlined">home</span>
+                        <span class="menu-text">Home</span>
+                    </div>
+                    <div class="dropdown-item menu-item" data-page="settings">
+                        <span class="material-symbols-outlined">tune</span>
+                        <span class="menu-text">Settings</span>
+                    </div>
+                    <div class="dropdown-item menu-item" data-page="configure">
+                        <span class="material-symbols-outlined">settings</span>
+                        <span class="menu-text">Configure</span>
+                    </div>
+                    <div class="dropdown-item menu-item" data-page="results">
+                        <span class="material-symbols-outlined">table_view</span>
+                        <span class="menu-text">Results</span>
+                    </div>
                 </div>
             </div>
-        </aside>
+        </div>
+    </nav>
 
+    <!-- Main Container -->
+    <main class="main-container">
         <!-- Main Content Area -->
         <div class="dashboard-content animate__animated animate__fadeInUp">
             <!-- Step Indicator -->

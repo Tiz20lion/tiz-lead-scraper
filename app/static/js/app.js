@@ -831,6 +831,7 @@ $('#startAutomationBtn').on('click', function() {
 });
 
 // Function to show a section and hide the others
+// Navigation functionality
 function showSection(sectionId) {
     const sections = ['homePage', 'configurationSection', 'settingsPage', 'resultsSection'];
     sections.forEach(id => {
@@ -839,10 +840,73 @@ function showSection(sectionId) {
             element.style.display = (id === sectionId) ? 'block' : 'none';
         }
     });
+    
+    // Update active menu item
+    updateActiveMenuItem(sectionId);
 }
 
-// Show home page by default
-showSection('homePage');
+function updateActiveMenuItem(sectionId) {
+    const menuItems = document.querySelectorAll('.menu-item');
+    menuItems.forEach(item => {
+        item.classList.remove('active');
+        if (item.dataset.page === sectionId) {
+            item.classList.add('active');
+        }
+    });
+    
+    // Update dropdown trigger text
+    const activeItem = document.querySelector(`.menu-item[data-page="${sectionId}"]`);
+    if (activeItem) {
+        const menuLabel = document.querySelector('.menu-label');
+        const menuText = activeItem.querySelector('.menu-text');
+        if (menuLabel && menuText) {
+            menuLabel.textContent = menuText.textContent;
+        }
+    }
+    
+    // Close dropdown after selection
+    const dropdown = document.querySelector('.dropdown');
+    if (dropdown) {
+        dropdown.classList.remove('active');
+    }
+}
 
-// Set up the navigation
-setupNavigation();
+function setupNavigation() {
+    // Menu item click handlers
+    document.querySelectorAll('.menu-item').forEach(item => {
+        item.addEventListener('click', (e) => {
+            e.preventDefault();
+            const page = item.dataset.page;
+            if (page) {
+                showSection(page);
+            }
+        });
+    });
+    
+    // Initialize dropdown functionality
+    const dropdown = document.querySelector('.dropdown');
+    const trigger = document.querySelector('.dropdown-trigger');
+    
+    if (trigger && dropdown) {
+        trigger.addEventListener('click', (e) => {
+            e.stopPropagation();
+            dropdown.classList.toggle('active');
+        });
+        
+        // Close dropdown when clicking outside
+        document.addEventListener('click', () => {
+            dropdown.classList.remove('active');
+        });
+        
+        // Prevent dropdown from closing when clicking inside
+        dropdown.addEventListener('click', (e) => {
+            e.stopPropagation();
+        });
+    }
+}
+
+// Initialize on page load
+document.addEventListener('DOMContentLoaded', () => {
+    setupNavigation();
+    showSection('homePage');
+});

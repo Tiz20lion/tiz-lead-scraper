@@ -619,81 +619,20 @@ body {
 /* Main Container */
 .main-container {
   flex: 1;
-  display: flex;
   max-width: 1400px;
   margin: 0 auto;
   width: 100%;
   padding: 2rem;
-  gap: 2rem;
-}
-
-/* Dashboard Sidebar */
-.dashboard-sidebar {
-  width: 240px;
-  background: linear-gradient(135deg, hsl(var(--bg-secondary) / 0.1), hsl(var(--bg-panel) / 0.15));
-  border-radius: 1.5rem;
-  border: 1px solid hsl(var(--border-color) / 0.2);
-  padding: 1.5rem;
-  height: fit-content;
-  position: sticky;
-  top: 100px;
-}
-
-.sidebar-menu {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
-.menu-item {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  padding: 1rem;
-  border-radius: 0.75rem;
-  color: hsl(var(--text-secondary));
-  cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  font-weight: 500;
-  font-size: 0.9rem;
-}
-
-.menu-item:hover {
-  background: hsl(var(--bg-secondary) / 0.5);
-  color: hsl(var(--text-primary));
-  transform: translateX(4px);
-}
-
-.menu-item.active {
-  background: linear-gradient(135deg, hsl(var(--accent-primary)), hsl(var(--accent-secondary)));
-  color: white;
-  box-shadow: 0 4px 15px hsl(var(--accent-primary) / 0.3);
-}
-
-.menu-item .material-symbols-outlined {
-  font-size: 1.2rem;
-}
-
-.menu-text {
-  font-weight: 600;
 }
 
 /* Dashboard Content */
 .dashboard-content {
-  flex: 1;
+  width: 100%;
   background: linear-gradient(135deg, hsl(var(--bg-secondary) / 0.1), hsl(var(--bg-panel) / 0.15));
   border-radius: 2rem;
   border: 1px solid hsl(var(--border-color) / 0.2);
   padding: 3rem;
   transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.dashboard-page {
-  display: none;
-}
-
-.dashboard-page.active {
-  display: block;
 }
 
 /* Unified Panel Styles */
@@ -1190,7 +1129,6 @@ body {
   position: relative;
   overflow: hidden;
   box-shadow: 0 8px 20px hsl(var(--accent-primary) / 0.4), 0 4px 8px rgba(0, 0, 0, 0.1);
-  animation: button-gradient 3s ease-in-out infinite, button-pulse 3s infinite ease-in-out;
 }
 
 .start-button::before {
@@ -1519,27 +1457,6 @@ body {
 
 .export-button.notion {
   background: #000000;
-}
-
-.export-button:hover {
-  transform: translateY(-4px) scale(1.05);
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
-}
-
-.export-button.csv:hover {
-  box-shadow: 0 8px 25px hsl(var(--accent-secondary) / 0.4);
-}
-
-.export-button.json:hover {
-  box-shadow: 0 8px 25px hsl(var(--accent-warning) / 0.4);
-}
-
-.export-button.sheets:hover {
-  box-shadow: 0 8px 25px rgba(15, 157, 88, 0.4);
-}
-
-.export-button.notion:hover {
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
 }
 
 .export-form {
@@ -1878,8 +1795,7 @@ body {
     flex-direction: column;
     gap: 0.75rem;
     padding: 1rem;
-    margin-bottom: 1.5rem;
-  }
+    margin-bottom: 1.5rem;}
 
   .step {
     flex-direction: row;
