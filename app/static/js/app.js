@@ -3,7 +3,7 @@ class ApolloScraper {
         this.currentTaskId = null;
         this.pollInterval = null;
         this.csrfToken = null;
-        
+
         this.init();
     }
 
@@ -37,35 +37,35 @@ class ApolloScraper {
     setupEventListeners() {
         // Theme toggle
         document.getElementById('themeToggle').addEventListener('click', this.toggleTheme.bind(this));
-        
+
         // Dashboard navigation
         this.setupDashboardNavigation();
-        
+
         // Lead count slider and input synchronization
         const leadSlider = document.getElementById('leadCount');
         const leadCountInput = document.getElementById('leadCountInput');
-        
+
         // Update input when slider changes
         leadSlider.addEventListener('input', (e) => {
             leadCountInput.value = e.target.value;
         });
-        
+
         // Update slider when input changes
         leadCountInput.addEventListener('input', (e) => {
             let value = parseInt(e.target.value) || 1;
             if (value < 1) value = 1;
             if (value > 50000) value = 50000;
-            
+
             leadSlider.value = value;
             leadCountInput.value = value;
         });
-        
+
         // Validate input on blur
         leadCountInput.addEventListener('blur', (e) => {
             let value = parseInt(e.target.value) || 100;
             if (value < 1) value = 1;
             if (value > 50000) value = 50000;
-            
+
             leadSlider.value = value;
             leadCountInput.value = value;
         });
@@ -99,11 +99,11 @@ class ApolloScraper {
         tabButtons.forEach(button => {
             button.addEventListener('click', () => {
                 const tabId = button.getAttribute('data-tab');
-                
+
                 // Update button states
                 tabButtons.forEach(btn => btn.classList.remove('active'));
                 button.classList.add('active');
-                
+
                 // Update content states
                 tabContents.forEach(content => content.classList.remove('active'));
                 document.getElementById(`${tabId}-tab`).classList.add('active');
@@ -123,11 +123,11 @@ class ApolloScraper {
         menuItems.forEach(item => {
             item.addEventListener('click', () => {
                 const page = item.getAttribute('data-page');
-                
+
                 // Update menu states
                 menuItems.forEach(menuItem => menuItem.classList.remove('active'));
                 item.classList.add('active');
-                
+
                 // Hide all pages
                 Object.values(pages).forEach(pageId => {
                     const pageElement = document.getElementById(pageId);
@@ -135,7 +135,7 @@ class ApolloScraper {
                         pageElement.style.display = 'none';
                     }
                 });
-                
+
                 // Show selected page
                 const targetPageId = pages[page];
                 if (targetPageId) {
@@ -150,7 +150,7 @@ class ApolloScraper {
 
     updateWorkflowStep(stepNumber) {
         const steps = document.querySelectorAll('.step');
-        
+
         steps.forEach((step, index) => {
             if (index + 1 <= stepNumber) {
                 step.classList.add('active');
@@ -162,7 +162,7 @@ class ApolloScraper {
 
     saveSettings() {
         const apifyToken = document.getElementById('apifyToken').value.trim();
-        
+
         if (!apifyToken) {
             toastr.error('Please enter your Apify API token');
             return;
@@ -176,14 +176,14 @@ class ApolloScraper {
 
     startAutomation() {
         const apifyToken = document.getElementById('apifyToken').value.trim();
-        
+
         if (!apifyToken) {
             toastr.warning('Please configure your Apify API token first');
             this.navigateToPage('settings');
             this.updateWorkflowStep(1);
             return;
         }
-        
+
         // If API key is set, go to configuration
         this.navigateToPage('configure');
         this.updateWorkflowStep(2);
@@ -228,10 +228,13 @@ class ApolloScraper {
     async getCsrfToken() {
         try {
             const response = await fetch('/api/v1/csrf-token');
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
             const data = await response.json();
             this.csrfToken = data.csrf_token;
         } catch (error) {
-            console.error('Failed to get CSRF token:', error);
+            console.warn('Failed to get CSRF token:', error.message);
         }
     }
 
@@ -239,7 +242,7 @@ class ApolloScraper {
         try {
             const response = await fetch('/health');
             const data = await response.json();
-            
+
             if (data.status === 'healthy') {
                 this.updateStatusIndicator('Ready', 'success');
             } else {
@@ -253,9 +256,9 @@ class ApolloScraper {
     updateStatusIndicator(text, status) {
         const statusText = document.querySelector('.status-text');
         const statusDot = document.querySelector('.status-dot');
-        
+
         statusText.textContent = text;
-        
+
         statusDot.style.background = {
             'success': 'hsl(var(--accent-secondary))',
             'warning': 'hsl(var(--accent-warning))',
@@ -266,7 +269,7 @@ class ApolloScraper {
     toggleTheme() {
         const body = document.body;
         const themeIcon = document.querySelector('#themeToggle i');
-        
+
         if (body.classList.contains('dark-theme')) {
             body.classList.remove('dark-theme');
             themeIcon.className = 'fas fa-moon';
@@ -287,7 +290,7 @@ class ApolloScraper {
     validateUrls() {
         const urlInput = document.getElementById('urlInput');
         const urls = urlInput.value.split('\n').filter(url => url.trim());
-        
+
         const validUrls = urls.filter(url => 
             url.trim().startsWith('http://') || url.trim().startsWith('https://')
         );
@@ -311,7 +314,7 @@ class ApolloScraper {
         const leadCount = parseInt(document.getElementById('leadCountInput').value);
         const startButton = document.getElementById('startScraping');
         const apifyToken = document.getElementById('apifyToken').value.trim();
-        
+
         // Validate API key first
         if (!apifyToken) {
             toastr.error('Please configure your Apify API token first');
@@ -395,13 +398,13 @@ class ApolloScraper {
     showProgressSection() {
         // Navigate to progress page
         this.navigateToPage('results');
-        
+
         const progressSection = document.getElementById('progressSection');
         progressSection.style.display = 'block';
-        
+
         // Update step indicator
         this.updateWorkflowStep(3);
-        
+
         gsap.fromTo(progressSection, 
             { opacity: 0, y: 20 }, 
             { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }
@@ -410,7 +413,7 @@ class ApolloScraper {
 
     hideProgressSection() {
         const progressSection = document.getElementById('progressSection');
-        
+
         gsap.to(progressSection, {
             opacity: 0,
             y: -20,
@@ -547,7 +550,7 @@ class ApolloScraper {
 
         try {
             const response = await fetch(`/api/v1/export/csv/${this.currentTaskId}`);
-            
+
             if (response.ok) {
                 const blob = await response.blob();
                 const url = window.URL.createObjectURL(blob);
@@ -558,7 +561,7 @@ class ApolloScraper {
                 a.click();
                 document.body.removeChild(a);
                 window.URL.revokeObjectURL(url);
-                
+
                 toastr.success('CSV downloaded successfully!');
             } else {
                 throw new Error('Failed to export CSV');
@@ -577,7 +580,7 @@ class ApolloScraper {
 
         try {
             const response = await fetch(`/api/v1/export/json/${this.currentTaskId}`);
-            
+
             if (response.ok) {
                 const blob = await response.blob();
                 const url = window.URL.createObjectURL(blob);
@@ -588,7 +591,7 @@ class ApolloScraper {
                 a.click();
                 document.body.removeChild(a);
                 window.URL.revokeObjectURL(url);
-                
+
                 toastr.success('JSON downloaded successfully!');
             } else {
                 throw new Error('Failed to export JSON');
@@ -716,7 +719,7 @@ class ApolloScraper {
 
             if (response.ok && (result.status === 'success' || result.status === 'partial_success')) {
                 toastr.success(`Successfully exported ${result.created_count} entries to Notion!`);
-                
+
                 if (result.errors && result.errors.length > 0) {
                     toastr.warning(`Some entries failed: ${result.errors.length} errors`);
                 }
@@ -734,10 +737,10 @@ class ApolloScraper {
     showLoadingOverlay(text = 'Processing...') {
         const overlay = document.getElementById('loadingOverlay');
         const loadingText = overlay.querySelector('.loading-text');
-        
+
         loadingText.textContent = text;
         overlay.style.display = 'flex';
-        
+
         gsap.fromTo(overlay, 
             { opacity: 0 }, 
             { opacity: 1, duration: 0.3, ease: "power2.out" }
@@ -746,7 +749,7 @@ class ApolloScraper {
 
     hideLoadingOverlay() {
         const overlay = document.getElementById('loadingOverlay');
-        
+
         gsap.to(overlay, {
             opacity: 0,
             duration: 0.3,
@@ -766,7 +769,7 @@ document.addEventListener('DOMContentLoaded', () => {
         document.body.classList.remove('dark-theme');
         document.querySelector('#themeToggle i').className = 'fas fa-moon';
     }
-    
+
     // Initialize the application
     new ApolloScraper();
 });
