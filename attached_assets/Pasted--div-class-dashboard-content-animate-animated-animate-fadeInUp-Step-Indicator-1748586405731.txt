@@ -1,0 +1,398 @@
+<div class="dashboard-content animate__animated animate__fadeInUp">
+            <!-- Step Indicator -->
+            <div class="workflow-steps">
+                <div class="step active" data-step="1">
+                    <div class="step-number">1</div>
+                    <div class="step-title">Configure</div>
+                </div>
+                <div class="step-connector"></div>
+                <div class="step" data-step="2">
+                    <div class="step-number">2</div>
+                    <div class="step-title">Execute</div>
+                </div>
+                <div class="step-connector"></div>
+                <div class="step" data-step="3">
+                    <div class="step-number">3</div>
+                    <div class="step-title">Results</div>
+                </div>
+            </div>
+
+            <!-- Configuration Section -->
+            <div class="workflow-section" id="configurationSection" style="display: block;">
+                <div class="section-header">
+                    <h2><span class="material-symbols-outlined">settings</span> Scraping Configuration</h2>
+                    <div class="section-badge">Step 1</div>
+                </div>
+
+                <div class="config-grid">
+                    <!-- Left Column - Core Settings -->
+                    <div class="config-column">
+                        <!-- URL Input -->
+                        <div class="input-section animated-card" style="translate: none; rotate: none; scale: none; opacity: 1; transform: scale(0.80552, 0.80552);">
+                            <label for="urlInput" class="input-label">
+                                <div class="label-icon-wrapper">
+                                    <div class="label-icon">
+                                        <span class="material-symbols-outlined">language</span>
+                                    </div>
+                                    <div class="icon-pulse"></div>
+                                </div>
+                                Apollo.io URLs (up to 10)
+                                <div class="label-badge">
+                                    <span class="material-symbols-outlined">star</span>
+                                    Required
+                                </div>
+                            </label>
+                            <div class="input-wrapper">
+                                <textarea id="urlInput" class="url-textarea" placeholder="🌐 Enter Apollo.io URLs, one per line...
+💡 Example: https://app.apollo.io/..." rows="6"></textarea>
+                                <div class="input-decorator">
+                                    <span class="material-symbols-outlined">open_in_new</span>
+                                </div>
+                            </div>
+                            <div class="input-help">
+                                <span class="material-symbols-outlined">info</span>
+                                Enter up to 10 Apollo.io URLs to scrape leads from
+                            </div>
+                        </div>
+
+                        <!-- Lead Count -->
+                        <div class="input-section animated-card" style="translate: none; rotate: none; scale: none; opacity: 1; transform: scale(0.78215, 0.78215);">
+                            <label for="leadCount" class="input-label">
+                                <div class="label-icon-wrapper">
+                                    <div class="label-icon">
+                                        <span class="material-symbols-outlined">trending_up</span>
+                                    </div>
+                                    <div class="icon-pulse"></div>
+                                </div>
+                                Lead Count: <input type="number" id="leadCountInput" class="count-input" value="100" min="1" max="50000">
+                                <div class="label-badge">
+                                    <span class="material-symbols-outlined">all_inclusive</span>
+                                    Up to 50K
+                                </div>
+                            </label>
+                            <div class="slider-container">
+                                <input type="range" id="leadCount" class="lead-slider" min="1" max="50000" value="100">
+                                <div class="slider-labels">
+                                    <span><span class="material-symbols-outlined">person</span> 1</span>
+                                    <span><span class="material-symbols-outlined">groups</span> 50,000</span>
+                                </div>
+                                <div class="slider-progress"></div>
+                            </div>
+                        </div>
+
+                       
+                    </div>
+
+                    <!-- Right Column - Field Selection & Integrations -->
+                    <div class="config-column">
+                        <!-- Field Selection -->
+                        <div class="input-section animated-card" style="translate: none; rotate: none; scale: none; opacity: 1; transform: scale(0.80552, 0.80552);">
+                            <label class="input-label">
+                                <div class="label-icon-wrapper">
+                                    <div class="label-icon">
+                                        <span class="material-symbols-outlined">storage</span>
+                                    </div>
+                                    <div class="icon-pulse"></div>
+                                </div>
+                                Fields to Extract
+                                <div class="label-badge">
+                                    <span class="material-symbols-outlined">auto_awesome</span>
+                                    10 Options
+                                </div>
+                            </label>
+                            <div class="field-grid" id="fieldSelection">
+                                <label class="field-checkbox animated-field">
+                                    <input type="checkbox" value="name" checked="">
+                                    <span class="checkmark"></span>
+                                    <div class="field-icon">
+                                        <span class="material-symbols-outlined">person</span>
+                                    </div>
+                                    <span class="field-text">Name</span>
+                                    <div class="field-glow"></div>
+                                </label>
+                                <label class="field-checkbox animated-field">
+                                    <input type="checkbox" value="email" checked="">
+                                    <span class="checkmark"></span>
+                                    <div class="field-icon">
+                                        <span class="material-symbols-outlined">mail</span>
+                                    </div>
+                                    <span class="field-text">Email</span>
+                                    <div class="field-glow"></div>
+                                </label>
+                                <label class="field-checkbox animated-field">
+                                    <input type="checkbox" value="phone">
+                                    <span class="checkmark"></span>
+                                    <div class="field-icon">
+                                        <span class="material-symbols-outlined">phone</span>
+                                    </div>
+                                    <span class="field-text">Phone</span>
+                                    <div class="field-glow"></div>
+                                </label>
+                                <label class="field-checkbox animated-field">
+                                    <input type="checkbox" value="company">
+                                    <span class="checkmark"></span>
+                                    <div class="field-icon">
+                                        <span class="material-symbols-outlined">business</span>
+                                    </div>
+                                    <span class="field-text">Company</span>
+                                    <div class="field-glow"></div>
+                                </label>
+                                <label class="field-checkbox animated-field">
+                                    <input type="checkbox" value="title">
+                                    <span class="checkmark"></span>
+                                    <div class="field-icon">
+                                        <span class="material-symbols-outlined">badge</span>
+                                    </div>
+                                    <span class="field-text">Title</span>
+                                    <div class="field-glow"></div>
+                                </label>
+                                <label class="field-checkbox animated-field">
+                                    <input type="checkbox" value="location">
+                                    <span class="checkmark"></span>
+                                    <div class="field-icon">
+                                        <span class="material-symbols-outlined">location_on</span>
+                                    </div>
+                                    <span class="field-text">Location</span>
+                                    <div class="field-glow"></div>
+                                </label>
+                                <label class="field-checkbox animated-field">
+                                    <input type="checkbox" value="industry">
+                                    <span class="checkmark"></span>
+                                    <div class="field-icon">
+                                        <span class="material-symbols-outlined">factory</span>
+                                    </div>
+                                    <span class="field-text">Industry</span>
+                                    <div class="field-glow"></div>
+                                </label>
+                                <label class="field-checkbox animated-field">
+                                    <input type="checkbox" value="linkedin">
+                                    <span class="checkmark"></span>
+                                    <div class="field-icon">
+                                        <span class="material-symbols-outlined">work</span>
+                                    </div>
+                                    <span class="field-text">LinkedIn</span>
+                                    <div class="field-glow"></div>
+                                </label>
+                                <label class="field-checkbox animated-field">
+                                    <input type="checkbox" value="twitter">
+                                    <span class="checkmark"></span>
+                                    <div class="field-icon">
+                                        <span class="material-symbols-outlined">chat</span>
+                                    </div>
+                                    <span class="field-text">Twitter</span>
+                                    <div class="field-glow"></div>
+                                </label>
+                                <label class="field-checkbox animated-field">
+                                    <input type="checkbox" value="website">
+                                    <span class="checkmark"></span>
+                                    <div class="field-icon">
+                                        <span class="material-symbols-outlined">public</span>
+                                    </div>
+                                    <span class="field-text">Website</span>
+                                    <div class="field-glow"></div>
+                                </label>
+                            </div>
+                        </div>
+
+                        
+                    </div>
+                </div>
+
+                <!-- Action Button -->
+                <div class="action-section">
+                    <button id="startScraping" class="start-button">
+                        <span class="material-symbols-outlined">play_arrow</span>
+                        <span class="button-text">Start Scraping Journey</span>
+                        <div class="loading-spinner" style="display: none;">
+                            <span class="material-symbols-outlined spinning">refresh</span>
+                        </div>
+                    </button>
+                </div>
+            </div>
+            
+                         
+
+            <!-- Progress Section -->
+            <div class="workflow-section" id="progressSection" style="display: none;">
+                <div class="section-header">
+                    <h2><span class="material-symbols-outlined">analytics</span> Scraping in Progress</h2>
+                    <div class="section-badge">Step 2</div>
+                </div>
+
+                <div class="progress-container">
+                    <div class="progress-header">
+                        <span class="progress-label">Scraping Progress</span>
+                        <span class="progress-percentage" id="progressPercentage">0%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progressFill"></div>
+                    </div>
+                    <div class="progress-message" id="progressMessage">Ready to start...</div>
+                </div>
+            </div>
+
+            <!-- Settings Page -->
+            <div class="dashboard-page" id="settingsPage" style="display: none;">
+                <div class="section-header">
+                    <h2><span class="material-symbols-outlined">tune</span> Settings &amp; Configuration</h2>
+                </div>
+
+                <div class="config-grid">
+                    <!-- Left Column - API Key Settings -->
+                    <div class="config-column">
+                        <!-- API Configuration -->
+                        
+                    <div class="input-section animated-card" style="translate: none; rotate: none; scale: none; opacity: 1; transform: scale(0.8, 0.8);">
+                            <label for="apifyToken" class="input-label">
+                                <div class="label-icon-wrapper">
+                                    <div class="label-icon">
+                                        <span class="material-symbols-outlined">key</span>
+                                    </div>
+                                    <div class="icon-pulse"></div>
+                                </div>
+                                Apify API Token
+                                <div class="label-badge">
+                                    <span class="material-symbols-outlined">star</span>
+                                    Required
+                                </div>
+                            </label>
+                            <input type="password" id="apifyToken" placeholder="Enter your Apify API token..." class="api-input">
+                            <div class="input-help">
+                                <span class="material-symbols-outlined">info</span>
+                                Get your token from <a href="https://apify.com/" target="_blank">Apify.com</a> → Settings → Integrations
+                            </div>
+                        </div></div>
+
+                    <!-- Right Column - Integration Settings -->
+                    <div class="config-column">
+                        <!-- Export Integrations -->
+                        
+                    <div class="input-section animated-card" style="translate: none; rotate: none; scale: none; opacity: 1; transform: scale(0.8, 0.8);">
+                            <label class="input-label">
+                                <div class="label-icon-wrapper">
+                                    <div class="label-icon">
+                                        <span class="material-symbols-outlined">cloud_upload</span>
+                                    </div>
+                                    <div class="icon-pulse"></div>
+                                </div>
+                                Export Integrations
+                                <div class="label-badge">
+                                    <span class="material-symbols-outlined">tips_and_updates</span>
+                                    Optional
+                                </div>
+                            </label>
+
+                            <div class="integrations-tabs">
+                                <div class="tab-buttons">
+                                    <button class="tab-button active" data-tab="sheets">
+                                        <span class="material-symbols-outlined">table_chart</span>
+                                        Google Sheets
+                                    </button>
+                                    <button class="tab-button" data-tab="notion">
+                                        <i class="fab fa-notion"></i>
+                                        Notion
+                                    </button>
+                                </div>
+
+                                <div class="tab-content active" id="sheets-tab">
+                                    <textarea id="googleCredentials" placeholder="Paste Google Service Account JSON credentials (optional)" class="credentials-input" rows="3"></textarea>
+                                    <input type="text" id="spreadsheetId" placeholder="Spreadsheet ID (optional)" class="api-input">
+                                    <input type="text" id="sheetName" placeholder="Sheet Name (default: Leads)" class="api-input">
+                                </div>
+
+                                <div class="tab-content" id="notion-tab">
+                                    <input type="password" id="notionToken" placeholder="Notion Integration Token (optional)" class="api-input">
+                                    <input type="text" id="notionDatabaseId" placeholder="Notion Database ID (optional)" class="api-input">
+                                </div>
+                            </div>
+                        </div></div>
+                </div>
+
+                <div class="action-section">
+                    <button id="saveSettings" class="start-button">
+                        <span class="material-symbols-outlined">save</span>
+                        <span class="button-text">Save Settings</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Results Section -->
+            <div class="workflow-section" id="resultsSection" style="display: none;">
+                <div class="section-header">
+                    <h2><span class="material-symbols-outlined">table_view</span> Results &amp; Export</h2>
+                    <div class="section-badge">Step 3</div>
+                    <div class="results-stats">
+                        <span id="resultsCount">0 leads found</span>
+                    </div>
+                </div>
+
+                <div class="results-grid">
+                    <!-- Results Preview -->
+                    <div class="results-preview">
+                        <h3><span class="material-symbols-outlined">preview</span> Preview</h3>
+                        <div class="table-container">
+                            <table class="results-table" id="resultsTable">
+                                <thead id="resultsTableHead">
+                                    <!-- Dynamic headers -->
+                                </thead>
+                                <tbody id="resultsTableBody">
+                                    <!-- Dynamic rows -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Export Actions -->
+                    <div class="export-panel">
+                        <h3><span class="material-symbols-outlined">file_download</span> Export Your Data</h3>
+
+                        <div class="export-grid">
+                            <button id="exportCsv" class="export-card csv">
+                                <div class="export-icon">
+                                    <span class="material-symbols-outlined">download</span>
+                                </div>
+                                <div class="export-info">
+                                    <div class="export-title">Download CSV</div>
+                                    <div class="export-desc">Standard spreadsheet format</div>
+                                </div>
+                            </button>
+
+                            <button id="exportJson" class="export-card json">
+                                <div class="export-icon">
+                                    <span class="material-symbols-outlined">code</span>
+                                </div>
+                                <div class="export-info">
+                                    <div class="export-title">Download JSON</div>
+                                    <div class="export-desc">Structured data format</div>
+                                </div>
+                            </button>
+
+                            <button id="exportSheets" class="export-card sheets">
+                                <div class="export-icon">
+                                    <span class="material-symbols-outlined">table_chart</span>
+                                </div>
+                                <div class="export-info">
+                                    <div class="export-title">Google Sheets</div>
+                                    <div class="export-desc">Direct cloud export</div>
+                                </div>
+                            </button>
+
+                            <button id="exportNotion" class="export-card notion">
+                                <div class="export-icon">
+                                    <span class="material-symbols-outlined">article</span>
+                                </div>
+                                <div class="export-info">
+                                    <div class="export-title">Notion Database</div>
+                                    <div class="export-desc">Sync to workspace</div>
+                                </div>
+                            </button>
+                        </div>
+
+                        <div class="export-note">
+                            <span class="material-symbols-outlined">info</span>
+                            Configure integration credentials above to enable cloud exports
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
