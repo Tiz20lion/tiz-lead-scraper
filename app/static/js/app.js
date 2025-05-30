@@ -43,7 +43,16 @@ class ApolloScraper {
             });
         }
 
-        // Dropdown menu functionality
+        // Setup dropdown functionality after DOM is ready
+        setTimeout(() => {
+            this.setupDropdownMenu();
+        }, 100);
+
+        // Setup tabs
+        this.setupTabs();
+    }
+
+    setupDropdownMenu() {
         const dropdownTrigger = document.querySelector('.menu-dropdown-trigger');
         const dropdownContainer = document.querySelector('.menu-dropdown-container');
 
@@ -59,21 +68,19 @@ class ApolloScraper {
                     dropdownContainer.classList.remove('show');
                 }
             });
-        }
 
-        // Navigation
-        const menuItems = document.querySelectorAll('.menu-item');
-        menuItems.forEach(item => {
-            item.addEventListener('click', (e) => {
-                const page = e.currentTarget.getAttribute('data-page');
-                this.navigateToPage(page);
-                // Close dropdown after navigation
-                const dropdown = document.querySelector('.menu-dropdown-container');
-                if (dropdown) {
-                    dropdown.classList.remove('show');
-                }
+            // Navigation
+            const menuItems = document.querySelectorAll('.menu-item');
+            menuItems.forEach(item => {
+                item.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const page = e.currentTarget.getAttribute('data-page');
+                    this.navigateToPage(page);
+                    // Close dropdown after navigation
+                    dropdownContainer.classList.remove('show');
+                });
             });
-        });
+        }
     }
 
     setupTabs() {
@@ -745,21 +752,42 @@ gsap.registerPlugin();
 
 // Animate page load
 window.addEventListener('load', () => {
-    gsap.timeline()
-        .fromTo('.header', 
-            { y: -50, opacity: 0 }, 
-            { y: 0, opacity: 1, duration: 0.6, ease: "power2.out" }
-        )
-        .fromTo('.dashboard-content', 
-            { y: 30, opacity: 0 }, 
-            { y: 0, opacity: 1, duration: 0.8, ease: "power2.out" }, 
-            "-=0.3"
-        )
-        .fromTo('.animated-card', 
-            { y: 20, opacity: 0 }, 
-            { y: 0, opacity: 1, duration: 0.6, ease: "power2.out", stagger: 0.1 }, 
-            "-=0.4"
-        );
+    // Simple fade-in animations without GSAP errors
+    const header = document.querySelector('.header');
+    const dashboardContent = document.querySelector('.dashboard-content');
+    const animatedCards = document.querySelectorAll('.animated-card');
+    
+    if (header) {
+        header.style.opacity = '0';
+        header.style.transform = 'translateY(-20px)';
+        setTimeout(() => {
+            header.style.transition = 'all 0.6s ease';
+            header.style.opacity = '1';
+            header.style.transform = 'translateY(0)';
+        }, 100);
+    }
+    
+    if (dashboardContent) {
+        dashboardContent.style.opacity = '0';
+        dashboardContent.style.transform = 'translateY(20px)';
+        setTimeout(() => {
+            dashboardContent.style.transition = 'all 0.8s ease';
+            dashboardContent.style.opacity = '1';
+            dashboardContent.style.transform = 'translateY(0)';
+        }, 300);
+    }
+    
+    animatedCards.forEach((card, index) => {
+        if (card) {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(20px)';
+            setTimeout(() => {
+                card.style.transition = 'all 0.6s ease';
+                card.style.opacity = '1';
+                card.style.transform = 'translateY(0)';
+            }, 600 + (index * 100));
+        }
+    });
 });
 
 // Start automation button click handler
