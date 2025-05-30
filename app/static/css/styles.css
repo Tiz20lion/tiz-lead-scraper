@@ -42,14 +42,22 @@
 }
 
 /* Reset and Base Styles */
-* {
+*,
+*::before,
+*::after {
   margin: 0;
   padding: 0;
+  box-sizing: inherit;
+}
+
+html {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 10px;
   box-sizing: border-box;
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+  font-family: 'DM Sans', sans-serif;
   background: rgba(15, 23, 42, 0.95); /* Semi-transparent dark background to show particles */
   color: hsl(var(--text-primary));
   line-height: 1.6;
@@ -2204,8 +2212,11 @@ body {
 /* Feature Accordion Section */
 .features-section {
   width: 100%;
-  padding: 3rem 0;
-  background: linear-gradient(135deg, hsl(var(--bg-primary)), hsl(var(--bg-secondary)));
+  height: 100vh;
+  background-color: #000000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   margin: 2rem 0;
 }
 
@@ -2217,9 +2228,8 @@ body {
 }
 
 .accordion-item {
-  background: linear-gradient(135deg, hsl(var(--bg-secondary) / 0.1), hsl(var(--bg-panel) / 0.15));
-  border-radius: 1rem;
-  border: 1px solid hsl(var(--border-color) / 0.2);
+  background-color: #000000;
+  border-radius: .4rem;
   margin-bottom: 1rem;
   transition: all 0.3s ease;
 }
@@ -2230,20 +2240,20 @@ body {
 }
 
 .accordion-item hr {
-  border: 1px solid hsl(var(--border-color) / 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.5);
   margin: 0;
 }
 
 .accordion-link {
   font-size: 1.6rem;
-  color: hsl(var(--text-primary));
+  color: rgba(255, 255, 255, .8);
   text-decoration: none;
-  background: transparent;
+  background-color: #000000;
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 1.5rem 2rem;
+  padding: 1rem 0;
   transition: all 0.3s ease;
 }
 
@@ -2252,33 +2262,31 @@ body {
 }
 
 .accordion-link h3 {
-  font-weight: 600;
-  font-size: 1.25rem;
-  color: hsl(var(--text-primary));
+  font-weight: 500;
+  font-size: 20px;
+  color: rgba(255, 255, 255, .8);
   margin: 0;
 }
 
 .accordion-link .feature-icon {
-  color: hsl(var(--accent-primary));
+  color: #e7d5ff;
+  padding: .5rem;
   font-size: 1.5rem;
   margin-right: 1rem;
 }
 
 .accordion-link ul {
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   list-style-type: none;
-  margin-left: 2rem;
-  gap: 1rem;
+  margin-left: 25px;
+  gap: 0;
 }
 
 .accordion-link li {
-  font-size: 0.8rem;
-  color: hsl(var(--text-muted));
-  padding: 0.25rem 0.75rem;
-  background: linear-gradient(135deg, hsl(var(--accent-primary) / 0.1), hsl(var(--accent-secondary) / 0.1));
-  border-radius: 12px;
-  border: 1px solid hsl(var(--accent-primary) / 0.2);
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.4);
+  padding: 0 0 1px 5px;
 }
 
 .accordion-link .feature-header {
@@ -2287,7 +2295,8 @@ body {
 }
 
 .accordion-link .expand-icon {
-  color: hsl(var(--accent-primary));
+  color: #e7d5ff;
+  padding: .5rem;
   font-size: 1.5rem;
   transition: transform 0.3s ease;
 }
@@ -2300,14 +2309,14 @@ body {
   max-height: 0;
   overflow: hidden;
   position: relative;
-  background: linear-gradient(135deg, hsl(var(--bg-panel) / 0.5), hsl(var(--bg-secondary) / 0.3));
-  transition: max-height 0.65s cubic-bezier(0.4, 0, 0.2, 1);
-  border-radius: 0 0 1rem 1rem;
+  background-color: #000;
+  transition: max-height 650ms;
+  border-radius: 0 0 .4rem .4rem;
 }
 
 .answer p {
-  color: hsl(var(--text-secondary));
-  font-size: 1rem;
+  color: #fff;
+  font-size: 15px;
   padding: 2rem;
   line-height: 1.6;
   margin: 0;
