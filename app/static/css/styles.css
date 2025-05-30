@@ -93,7 +93,6 @@ body {
   position: sticky;
   top: 0;
   z-index: 100;
-  backdrop-filter: blur(20px);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -326,7 +325,6 @@ body {
   border-radius: 1.5rem;
   padding: 2rem;
   margin-bottom: 2rem;
-  backdrop-filter: blur(10px);
   animation: slideInBounce 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
   opacity: 0;
   transform: translateY(50px) scale(0.8);
@@ -635,7 +633,6 @@ body {
   background: linear-gradient(135deg, hsl(var(--bg-secondary) / 0.1), hsl(var(--bg-panel) / 0.15));
   border-radius: 1.5rem;
   border: 1px solid hsl(var(--border-color) / 0.2);
-  backdrop-filter: blur(10px);
   padding: 1.5rem;
   height: fit-content;
   position: sticky;
@@ -687,7 +684,6 @@ body {
   background: linear-gradient(135deg, hsl(var(--bg-secondary) / 0.1), hsl(var(--bg-panel) / 0.15));
   border-radius: 2rem;
   border: 1px solid hsl(var(--border-color) / 0.2);
-  backdrop-filter: blur(10px);
   padding: 3rem;
   transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -707,7 +703,6 @@ body {
   background: linear-gradient(135deg, hsl(var(--bg-secondary) / 0.1), hsl(var(--bg-panel) / 0.15));
   border-radius: 2rem;
   border: 1px solid hsl(var(--border-color) / 0.2);
-  backdrop-filter: blur(10px);
   padding: 3rem;
   transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -1131,7 +1126,6 @@ body {
   border-radius: 0.5rem;
   background: linear-gradient(135deg, hsl(var(--bg-secondary) / 0.7), hsl(var(--bg-panel) / 0.8));
   border: 1px solid hsl(var(--border-color) / 0.5);
-  backdrop-filter: blur(10px);
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   font-size: 0.8rem;
   font-weight: 500;
@@ -2455,7 +2449,6 @@ input[type="range"] {
   margin-top: 2rem;
   padding: 1.5rem 1rem;
   background: linear-gradient(135deg, hsl(var(--bg-primary) / 0.95), hsl(var(--bg-secondary) / 0.98));
-  backdrop-filter: blur(20px);
   border-top: 1px solid hsl(var(--border-color) / 0.3);
   position: relative;
   overflow: hidden;
@@ -2482,7 +2475,6 @@ input[type="range"] {
   position: relative;
   border-radius: 12px;
   border: 1px solid hsl(var(--border-color) / 0.4);
-  backdrop-filter: blur(15px);
 }
 
 .developer-picture {
