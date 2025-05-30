@@ -1,0 +1,102 @@
+
+/* Card Components */
+.card {
+  background: linear-gradient(135deg, hsl(var(--bg-panel) / 0.8), hsl(var(--bg-secondary) / 0.85));
+  border-radius: 1.5rem;
+  border: 1px solid hsl(var(--border-color) / 0.4);
+  backdrop-filter: blur(25px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
+  position: relative;
+}
+
+.card:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 20px 40px hsl(var(--accent-primary) / 0.15);
+  border-color: hsl(var(--accent-primary) / 0.6);
+}
+
+.card-header {
+  padding: 1.5rem 2rem 1rem;
+  border-bottom: 1px solid hsl(var(--border-color) / 0.3);
+}
+
+.card-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: hsl(var(--text-primary));
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.card-subtitle {
+  color: hsl(var(--text-secondary));
+  font-size: 0.9rem;
+}
+
+.card-body {
+  padding: 2rem;
+}
+
+.card-footer {
+  padding: 1rem 2rem 1.5rem;
+  border-top: 1px solid hsl(var(--border-color) / 0.3);
+  background: linear-gradient(135deg, hsl(var(--bg-secondary) / 0.3), hsl(var(--bg-panel) / 0.5));
+}
+
+/* Card Variants */
+.card-stats {
+  text-align: center;
+  padding: 2rem 1.5rem;
+}
+
+.card-stats .stat-number {
+  font-size: 2.5rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, hsl(var(--accent-primary)), hsl(var(--accent-secondary)));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 0.5rem;
+}
+
+.card-stats .stat-label {
+  color: hsl(var(--text-secondary));
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-size: 0.85rem;
+}
+
+.card-feature {
+  padding: 2rem;
+  text-align: center;
+}
+
+.card-feature .feature-icon {
+  width: 64px;
+  height: 64px;
+  background: linear-gradient(135deg, hsl(var(--accent-primary)), hsl(var(--accent-secondary)));
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1.5rem;
+  color: white;
+  font-size: 1.5rem;
+  animation: feature-pulse 3s infinite ease-in-out;
+}
+
+@keyframes feature-pulse {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 8px 25px hsl(var(--accent-primary) / 0.3);
+  }
+  50% {
+    transform: scale(1.05);
+    box-shadow: 0 12px 35px hsl(var(--accent-primary) / 0.5);
+  }
+}
