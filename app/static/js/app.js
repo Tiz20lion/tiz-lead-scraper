@@ -781,7 +781,7 @@ window.addEventListener('load', () => {
             { y: -50, opacity: 0 }, 
             { y: 0, opacity: 1, duration: 0.6, ease: "power2.out" }
         )
-        .fromTo('.unified-panel', 
+        .fromTo('.dashboard-content', 
             { y: 30, opacity: 0 }, 
             { y: 0, opacity: 1, duration: 0.8, ease: "power2.out" }, 
             "-=0.3"

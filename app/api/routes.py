@@ -4,7 +4,7 @@ import json
 import csv
 import io
 import uuid
-from typing import Dict, Any
+from typing import Dict, Any, List
 import structlog
 
 from models.schemas import (
@@ -42,7 +42,7 @@ async def scrape_apollo_leads(
     try:
         # Generate task ID
         task_id = str(uuid.uuid4())
-        
+
         # Initialize task in storage
         tasks_storage[task_id] = {
             "status": "pending",
@@ -51,7 +51,7 @@ async def scrape_apollo_leads(
             "data": None,
             "total_count": 0
         }
-        
+
         # Start background scraping task
         background_tasks.add_task(
             scrape_leads_background,
@@ -61,15 +61,15 @@ async def scrape_apollo_leads(
             [field.value for field in request.fields],
             request.apify_token
         )
-        
+
         logger.info("Scraping task started", task_id=task_id, urls=request.urls)
-        
+
         return ScrapeResponse(
             task_id=task_id,
             status="started",
             message="Scraping task initiated successfully"
         )
-        
+
     except Exception as e:
         logger.error("Failed to start scraping task", error=str(e))
         raise HTTPException(status_code=500, detail=f"Failed to start scraping: {str(e)}")
@@ -79,9 +79,9 @@ async def get_scrape_status(task_id: str):
     """Get scraping task status and results"""
     if task_id not in tasks_storage:
         raise HTTPException(status_code=404, detail="Task not found")
-    
+
     task = tasks_storage[task_id]
-    
+
     return {
         "task_id": task_id,
         "status": task["status"],
@@ -98,29 +98,29 @@ async def export_to_sheets(request: SheetsRequest):
         logger.info("Exporting to Google Sheets", 
                    spreadsheet_id=request.spreadsheet_id,
                    sheet_name=request.sheet_name)
-        
+
         # Create Google Sheets client with user's credentials
         from clients.sheets_client import GoogleSheetsClient
         user_sheets_client = GoogleSheetsClient()
-        
+
         # Override credentials with user-provided ones
         from googleapiclient.discovery import build
         from google.oauth2.service_account import Credentials
-        
+
         credentials = Credentials.from_service_account_info(
             request.google_credentials,
             scopes=['https://www.googleapis.com/auth/spreadsheets']
         )
         user_sheets_client.service = build('sheets', 'v4', credentials=credentials)
-        
+
         result = await user_sheets_client.append_to_sheet(
             spreadsheet_id=request.spreadsheet_id,
             sheet_name=request.sheet_name,
             data=request.data
         )
-        
+
         return result
-        
+
     except Exception as e:
         logger.error("Failed to export to Google Sheets", error=str(e))
         raise HTTPException(status_code=500, detail=f"Export failed: {str(e)}")
@@ -132,21 +132,21 @@ async def export_to_notion(request: NotionRequest):
         logger.info("Exporting to Notion", 
                    database_id=request.database_id,
                    entries=len(request.data))
-        
+
         # Create Notion client with user's token
         from clients.notion_client import NotionClient
         from notion_client import AsyncClient
-        
+
         user_notion_client = NotionClient()
         user_notion_client.client = AsyncClient(auth=request.notion_token)
-        
+
         result = await user_notion_client.create_database_entries(
             data=request.data,
             database_id=request.database_id
         )
-        
+
         return result
-        
+
     except Exception as e:
         logger.error("Failed to export to Notion", error=str(e))
         raise HTTPException(status_code=500, detail=f"Export failed: {str(e)}")
@@ -156,11 +156,11 @@ async def export_csv(task_id: str):
     """Export task results as CSV with proper formatting"""
     if task_id not in tasks_storage:
         raise HTTPException(status_code=404, detail="Task not found")
-    
+
     task = tasks_storage[task_id]
     if not task["data"]:
         raise HTTPException(status_code=400, detail="No data available for export")
-    
+
     try:
         # Create CSV content with cleaned data
         output = io.StringIO()
@@ -171,20 +171,20 @@ async def export_csv(task_id: str):
                 writer = csv.DictWriter(output, fieldnames=cleaned_data[0].keys())
                 writer.writeheader()
                 writer.writerows(cleaned_data)
-        
+
         csv_content = output.getvalue()
         output.close()
-        
+
         # Return as streaming response
         def generate():
             yield csv_content
-        
+
         return StreamingResponse(
             generate(),
             media_type="text/csv",
             headers={"Content-Disposition": f"attachment; filename=leads_{task_id}.csv"}
         )
-        
+
     except Exception as e:
         logger.error("Failed to export CSV", error=str(e))
         raise HTTPException(status_code=500, detail=f"CSV export failed: {str(e)}")
@@ -194,22 +194,22 @@ async def export_json(task_id: str):
     """Export task results as JSON"""
     if task_id not in tasks_storage:
         raise HTTPException(status_code=404, detail="Task not found")
-    
+
     task = tasks_storage[task_id]
     if not task["data"]:
         raise HTTPException(status_code=400, detail="No data available for export")
-    
+
     try:
         # Return as streaming response
         def generate():
             yield json.dumps(task["data"], indent=2)
-        
+
         return StreamingResponse(
             generate(),
             media_type="application/json",
             headers={"Content-Disposition": f"attachment; filename=leads_{task_id}.json"}
         )
-        
+
     except Exception as e:
         logger.error("Failed to export JSON", error=str(e))
         raise HTTPException(status_code=500, detail=f"JSON export failed: {str(e)}")
@@ -220,7 +220,7 @@ async def get_notion_database_info(database_id: str = None):
     try:
         result = await notion_client.get_database_info(database_id)
         return result
-        
+
     except Exception as e:
         logger.error("Failed to get Notion database info", error=str(e))
         raise HTTPException(status_code=500, detail=f"Failed to get database info: {str(e)}")
@@ -228,7 +228,7 @@ async def get_notion_database_info(database_id: str = None):
 def _clean_export_data(data: List[Dict]) -> List[Dict]:
     """Clean and validate data before export"""
     cleaned_data = []
-    
+
     for item in data:
         cleaned_item = {}
         for key, value in item.items():
@@ -242,11 +242,11 @@ def _clean_export_data(data: List[Dict]) -> List[Dict]:
                 cleaned_item[key] = cleaned_value
             else:
                 cleaned_item[key] = str(value)
-        
+
         # Only include items with at least one non-empty field
         if any(val.strip() for val in cleaned_item.values() if isinstance(val, str)):
             cleaned_data.append(cleaned_item)
-    
+
     return cleaned_data
 
 async def scrape_leads_background(
@@ -262,26 +262,26 @@ async def scrape_leads_background(
         tasks_storage[task_id]["status"] = "running"
         tasks_storage[task_id]["progress"] = 10
         tasks_storage[task_id]["message"] = "Initializing scraper..."
-        
+
         # Create client with user's token
         from clients.apify_client import ApifyApolloClient
         from apify_client import ApifyClient
-        
+
         user_apify_client = ApifyApolloClient()
         user_apify_client.client = ApifyClient(apify_token)
-        
+
         # Perform scraping
         result = await user_apify_client.scrape_apollo_leads(
             urls=urls,
             lead_count=lead_count,
             fields=fields
         )
-        
+
         # Update task with results
         if result["status"] == "success":
             # Clean the data before storing
             cleaned_data = _clean_export_data(result["data"]) if result["data"] else []
-            
+
             tasks_storage[task_id]["status"] = "completed"
             tasks_storage[task_id]["progress"] = 100
             tasks_storage[task_id]["message"] = result["message"]
@@ -291,16 +291,16 @@ async def scrape_leads_background(
             tasks_storage[task_id]["status"] = "failed"
             tasks_storage[task_id]["progress"] = 0
             tasks_storage[task_id]["message"] = result["message"]
-            
+
         logger.info("Background scraping task completed", 
                    task_id=task_id, 
                    status=result["status"])
-        
+
     except Exception as e:
         logger.error("Background scraping task failed", 
                     task_id=task_id, 
                     error=str(e))
-        
+
         tasks_storage[task_id]["status"] = "failed"
         tasks_storage[task_id]["progress"] = 0
         tasks_storage[task_id]["message"] = f"Scraping failed: {str(e)}"

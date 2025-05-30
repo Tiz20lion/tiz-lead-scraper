@@ -340,7 +340,7 @@ body {
 .animated-card:nth-child(4) { animation-delay: 0.4s; }
 
 .animated-card:hover {
-  transform: translateY(-2px) scale(1.01);
+  transform: translateY(-2px);
   background: linear-gradient(135deg, hsl(var(--bg-secondary) / 0.2), hsl(var(--bg-panel) / 0.25));
   border-color: hsl(var(--accent-primary) / 0.4);
   box-shadow: 0 8px 20px hsl(var(--accent-primary) / 0.1);
@@ -555,7 +555,7 @@ body {
 }
 
 .animated-field:hover {
-  transform: translateY(-2px) scale(1.02);
+  transform: translateY(-2px);
   box-shadow: 0 8px 25px hsl(var(--accent-primary) / 0.15);
 }
 
@@ -961,7 +961,7 @@ body {
 }
 
 .export-card:hover {
-  transform: translateY(-3px) scale(1.02);
+  transform: translateY(-3px);
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
 }
 
@@ -1141,7 +1141,7 @@ body {
 .field-checkbox:hover {
   background: linear-gradient(135deg, hsl(var(--accent-primary) / 0.15), hsl(var(--accent-secondary) / 0.1));
   border-color: hsl(var(--accent-primary) / 0.6);
-  transform: translateY(-3px) scale(1.02);
+  transform: translateY(-3px);
   box-shadow: 0 8px 20px hsl(var(--accent-primary) / 0.1), 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
