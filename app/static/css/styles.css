@@ -385,10 +385,10 @@ body {
 }
 
 .label-icon {
-  width: 32px;
-  height: 32px;
+  width: 16px;
+  height: 16px;
   background: linear-gradient(135deg, hsl(var(--accent-primary)), hsl(var(--accent-secondary)));
-  border-radius: 8px;
+  border-radius: 4px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -560,15 +560,15 @@ body {
 }
 
 .field-icon {
-  width: 18px;
-  height: 18px;
+  width: 12px;
+  height: 12px;
   background: linear-gradient(135deg, hsl(var(--accent-primary) / 0.8), hsl(var(--accent-secondary) / 0.8));
-  border-radius: 4px;
+  border-radius: 3px;
   display: flex;
   align-items: center;
   justify-content: center;
   color: white;
-  font-size: 0.7rem;
+  font-size: 0.6rem;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   margin-right: 0.5rem;
 }
@@ -663,8 +663,8 @@ body {
 }
 
 .step-number {
-  width: 32px;
-  height: 32px;
+  width: 20px;
+  height: 20px;
   border-radius: 50%;
   background: hsl(var(--bg-secondary));
   border: 2px solid hsl(var(--border-color));
@@ -672,7 +672,7 @@ body {
   align-items: center;
   justify-content: center;
   font-weight: 700;
-  font-size: 0.9rem;
+  font-size: 0.7rem;
   color: hsl(var(--text-secondary));
   transition: all 0.3s ease;
 }
@@ -895,14 +895,14 @@ body {
 }
 
 .export-icon {
-  width: 40px;
-  height: 40px;
-  border-radius: 8px;
+  width: 20px;
+  height: 20px;
+  border-radius: 6px;
   display: flex;
   align-items: center;
   justify-content: center;
   color: white;
-  font-size: 1.2rem;
+  font-size: 0.8rem;
   flex-shrink: 0;
 }
 
@@ -1079,8 +1079,8 @@ body {
 }
 
 .checkmark {
-  width: 14px;
-  height: 14px;
+  width: 10px;
+  height: 10px;
   border: 2px solid hsl(var(--border-color));
   border-radius: 3px;
   position: relative;
@@ -1818,8 +1818,8 @@ body {
   }
 
   .label-icon {
-    width: 14px;
-    height: 14px;
+    width: 10px;
+    height: 10px;
   }
 
   .label-badge {
@@ -1855,13 +1855,13 @@ body {
   }
 
   .field-icon {
-    width: 11px;
-    height: 11px;
+    width: 8px;
+    height: 8px;
   }
 
   .checkmark {
-    width: 9px;
-    height: 9px;
+    width: 7px;
+    height: 7px;
   }
 
   .tab-buttons {
@@ -1928,9 +1928,9 @@ body {
   }
 
   .export-icon {
-    width: 18px;
-    height: 18px;
-    font-size: 0.6rem;
+    width: 14px;
+    height: 14px;
+    font-size: 0.5rem;
   }
 
   .export-title {
@@ -2085,9 +2085,9 @@ body {
   }
 
   .export-icon {
-    width: 16px;
-    height: 16px;
-    font-size: 0.55rem;
+    width: 12px;
+    height: 12px;
+    font-size: 0.45rem;
   }
 
   .developer-card {
