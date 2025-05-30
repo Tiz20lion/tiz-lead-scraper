@@ -622,11 +622,82 @@ body {
 .main-container {
   flex: 1;
   display: flex;
-  justify-content: center;
-  padding: 2rem;
   max-width: 1400px;
   margin: 0 auto;
   width: 100%;
+  padding: 2rem;
+  gap: 2rem;
+}
+
+/* Dashboard Sidebar */
+.dashboard-sidebar {
+  width: 240px;
+  background: linear-gradient(135deg, hsl(var(--bg-secondary) / 0.1), hsl(var(--bg-panel) / 0.15));
+  border-radius: 1.5rem;
+  border: 1px solid hsl(var(--border-color) / 0.2);
+  backdrop-filter: blur(10px);
+  padding: 1.5rem;
+  height: fit-content;
+  position: sticky;
+  top: 100px;
+}
+
+.sidebar-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.menu-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem;
+  border-radius: 0.75rem;
+  color: hsl(var(--text-secondary));
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+
+.menu-item:hover {
+  background: hsl(var(--bg-secondary) / 0.5);
+  color: hsl(var(--text-primary));
+  transform: translateX(4px);
+}
+
+.menu-item.active {
+  background: linear-gradient(135deg, hsl(var(--accent-primary)), hsl(var(--accent-secondary)));
+  color: white;
+  box-shadow: 0 4px 15px hsl(var(--accent-primary) / 0.3);
+}
+
+.menu-item .material-symbols-outlined {
+  font-size: 1.2rem;
+}
+
+.menu-text {
+  font-weight: 600;
+}
+
+/* Dashboard Content */
+.dashboard-content {
+  flex: 1;
+  background: linear-gradient(135deg, hsl(var(--bg-secondary) / 0.1), hsl(var(--bg-panel) / 0.15));
+  border-radius: 2rem;
+  border: 1px solid hsl(var(--border-color) / 0.2);
+  backdrop-filter: blur(10px);
+  padding: 3rem;
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.dashboard-page {
+  display: none;
+}
+
+.dashboard-page.active {
+  display: block;
 }
 
 /* Unified Panel Styles */
@@ -1631,6 +1702,32 @@ body {
 
 /* Responsive Design */
 @media (max-width: 1200px) {
+  .main-container {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .dashboard-sidebar {
+    width: 100%;
+    position: relative;
+    top: 0;
+  }
+
+  .sidebar-menu {
+    flex-direction: row;
+    overflow-x: auto;
+    gap: 0.5rem;
+  }
+
+  .menu-item {
+    min-width: 120px;
+    justify-content: center;
+  }
+
+  .menu-text {
+    display: none;
+  }
+
   .config-grid {
     grid-template-columns: 1fr;
     gap: 0.8rem;

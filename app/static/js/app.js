@@ -38,6 +38,9 @@ class ApolloScraper {
         // Theme toggle
         document.getElementById('themeToggle').addEventListener('click', this.toggleTheme.bind(this));
         
+        // Dashboard navigation
+        this.setupDashboardNavigation();
+        
         // Lead count slider and input synchronization
         const leadSlider = document.getElementById('leadCount');
         const leadCountInput = document.getElementById('leadCountInput');
@@ -101,6 +104,43 @@ class ApolloScraper {
                 // Update content states
                 tabContents.forEach(content => content.classList.remove('active'));
                 document.getElementById(`${tabId}-tab`).classList.add('active');
+            });
+        });
+    }
+
+    setupDashboardNavigation() {
+        const menuItems = document.querySelectorAll('.menu-item');
+        const pages = {
+            'configure': 'configurationSection',
+            'settings': 'settingsPage',
+            'execute': 'progressSection',
+            'results': 'resultsSection'
+        };
+
+        menuItems.forEach(item => {
+            item.addEventListener('click', () => {
+                const page = item.getAttribute('data-page');
+                
+                // Update menu states
+                menuItems.forEach(menuItem => menuItem.classList.remove('active'));
+                item.classList.add('active');
+                
+                // Hide all pages
+                Object.values(pages).forEach(pageId => {
+                    const pageElement = document.getElementById(pageId);
+                    if (pageElement) {
+                        pageElement.style.display = 'none';
+                    }
+                });
+                
+                // Show selected page
+                const targetPageId = pages[page];
+                if (targetPageId) {
+                    const targetPage = document.getElementById(targetPageId);
+                    if (targetPage) {
+                        targetPage.style.display = 'block';
+                    }
+                }
             });
         });
     }
