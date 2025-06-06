@@ -31,6 +31,10 @@ ENV/
 *.swp
 *.swo
 
+# Cursor IDE
+.cursor/
+*.mdc
+
 # OS
 .DS_Store
 Thumbs.db
@@ -59,6 +63,10 @@ temp/
 .env
 .env.local
 .env.production
+
+# Sensitive scripts with API keys
+start_with_env.bat
+start_with_env.sh
 
 # Replit specific
 .replit

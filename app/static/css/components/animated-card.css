@@ -1,0 +1,58 @@
+/* Enhanced Input Section Animations - now Animated Card Component */
+.animated-card {
+  position: relative;
+  background: linear-gradient(135deg, hsl(var(--bg-secondary) / 0.1), hsl(var(--bg-panel) / 0.15));
+  border: 1px solid hsl(var(--border-color) / 0.2);
+  border-radius: 1.5rem;
+  padding: 2rem;
+  margin-bottom: 2rem;
+  animation: slideInBounce 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+  opacity: 0;
+  transform: translateY(50px) scale(0.8);
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: none; /* Base shadow, hover enhances it */
+}
+
+/* Staggered animation delays if cards are used in a list */
+.animated-card:nth-child(1) { animation-delay: 0.1s; }
+.animated-card:nth-child(2) { animation-delay: 0.2s; }
+.animated-card:nth-child(3) { animation-delay: 0.3s; }
+.animated-card:nth-child(4) { animation-delay: 0.4s; }
+
+.animated-card:hover {
+  transform: translateY(-2px);
+  background: linear-gradient(135deg, hsl(var(--bg-secondary) / 0.2), hsl(var(--bg-panel) / 0.25));
+  border-color: hsl(var(--accent-primary) / 0.4);
+  box-shadow: 0 8px 20px hsl(var(--accent-primary) / 0.1);
+}
+
+.animated-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, hsl(var(--accent-primary)), hsl(var(--accent-secondary)));
+  border-radius: 1rem 1rem 0 0;
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+}
+
+.animated-card:hover::before {
+  transform: scaleX(1);
+}
+
+@keyframes slideInUp { /* Kept if used by other elements, though animated-card uses slideInBounce */
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInBounce {
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+} 

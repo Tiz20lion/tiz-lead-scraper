@@ -1,12 +1,15 @@
-from typing import List, Dict, Any, Optional
+import json
 import asyncio
+from typing import Dict, List, Any, Optional
+import httpx
+from google.oauth2 import service_account
 from googleapiclient.discovery import build
-from google.oauth2.service_account import Credentials
-import structlog
+from googleapiclient.errors import HttpError
+from app.core.config import settings
+import logging
 from tenacity import retry, stop_after_attempt, wait_exponential
-from core.config import settings
 
-logger = structlog.get_logger(__name__)
+logger = logging.getLogger(__name__)
 
 class GoogleSheetsClient:
     def __init__(self):
@@ -20,7 +23,7 @@ class GoogleSheetsClient:
                 logger.warning("Google Sheets credentials not configured")
                 return
             
-            credentials = Credentials.from_service_account_info(
+            credentials = service_account.Credentials.from_service_account_info(
                 settings.google_sheets_credentials,
                 scopes=['https://www.googleapis.com/auth/spreadsheets']
             )
@@ -29,7 +32,7 @@ class GoogleSheetsClient:
             logger.info("Google Sheets service initialized successfully")
             
         except Exception as e:
-            logger.error("Failed to initialize Google Sheets service", error=str(e))
+            logger.error(f"Failed to initialize Google Sheets service: {str(e)}")
             self.service = None
     
     @retry(stop=stop_after_attempt(3), wait=wait_exponential(multiplier=1, min=2, max=10))
@@ -49,10 +52,7 @@ class GoogleSheetsClient:
             }
         
         try:
-            logger.info("Appending data to Google Sheet", 
-                       spreadsheet_id=spreadsheet_id, 
-                       sheet_name=sheet_name, 
-                       rows=len(data))
+            logger.info(f"Appending data to Google Sheet - spreadsheet_id: {spreadsheet_id}, sheet_name: {sheet_name}, rows: {len(data)}")
             
             # Prepare data for sheets
             if not data:
@@ -106,8 +106,7 @@ class GoogleSheetsClient:
                 body=body
             ).execute()
             
-            logger.info("Successfully appended to Google Sheet", 
-                       updates=result.get('updates', {}))
+            logger.info(f"Successfully appended to Google Sheet - updates: {result.get('updates', {})}")
             
             return {
                 "status": "success",
@@ -116,7 +115,7 @@ class GoogleSheetsClient:
             }
             
         except Exception as e:
-            logger.error("Failed to append to Google Sheet", error=str(e))
+            logger.error(f"Failed to append to Google Sheet: {str(e)}")
             return {
                 "status": "error",
                 "message": f"Failed to append to Google Sheet: {str(e)}"
@@ -149,10 +148,10 @@ class GoogleSheetsClient:
                     body=request_body
                 ).execute()
                 
-                logger.info("Created new sheet", sheet_name=sheet_name)
+                logger.info(f"Created new sheet: {sheet_name}")
                 
         except Exception as e:
-            logger.error("Failed to ensure sheet exists", error=str(e))
+            logger.error(f"Failed to ensure sheet exists: {str(e)}")
             raise
 
 # Initialize client

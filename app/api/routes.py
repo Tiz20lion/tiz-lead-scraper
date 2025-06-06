@@ -1,28 +1,39 @@
-from fastapi import APIRouter, HTTPException, BackgroundTasks, Depends
+from fastapi import APIRouter, HTTPException, BackgroundTasks, Depends, Request
 from fastapi.responses import StreamingResponse
+from fastapi.exceptions import RequestValidationError
 import json
 import csv
 import io
 import uuid
+import asyncio
+import time
 from typing import Dict, Any, List
-import structlog
+import logging
 
-from models.schemas import (
+from app.models.schemas import (
     ScrapeRequest, 
     SheetsRequest, 
     NotionRequest, 
     ScrapeResponse,
     HealthResponse
 )
-from clients.apify_client import apify_client
-from clients.sheets_client import sheets_client
-from clients.notion_client import notion_client
-from core.security import generate_csrf_token, verify_csrf_token
-from core.config import settings
+from app.clients.apify_client import apify_client
+from app.clients.sheets_client import sheets_client
+from app.clients.notion_client import notion_client
+from app.core.security import generate_csrf_token, verify_csrf_token
+from app.core.config import settings
+from app.utils.logging_config import setup_logging
 
-logger = structlog.get_logger(__name__)
+# Setup logging
+logger = setup_logging()
 
 router = APIRouter()
+
+# Test route to verify router is working
+@router.get("/test")
+async def test_route():
+    """Test route to verify API router is working"""
+    return {"message": "API router is working", "status": "success"}
 
 # In-memory task storage (in production, use Redis or similar)
 tasks_storage: Dict[str, Dict[str, Any]] = {}
@@ -35,11 +46,14 @@ async def get_csrf_token():
 
 @router.post("/scrape", response_model=ScrapeResponse)
 async def scrape_apollo_leads(
-    request: ScrapeRequest, 
+    request: ScrapeRequest,
     background_tasks: BackgroundTasks
 ):
     """Start Apollo.io lead scraping task"""
     try:
+        # Debug logging to help diagnose 422 error
+        logger.info(f"Successfully received scraping request: urls={request.urls}, lead_count={request.lead_count}, fields={request.fields}, apify_token={'***' if request.apify_token else 'None'}")
+        
         # Generate task ID
         task_id = str(uuid.uuid4())
 
@@ -49,7 +63,16 @@ async def scrape_apollo_leads(
             "progress": 0,
             "message": "Task initiated",
             "data": None,
-            "total_count": 0
+            "total_count": 0,
+            "current_url": None,
+            "scraped_count": 0,
+            "urls_processed": 0,
+            "total_urls": len(request.urls),
+            "start_time": None,
+            "estimated_time": "--:--",
+            "processing_rate": 0,
+            "error_count": 0,
+            "total_attempts": 0
         }
 
         # Start background scraping task
@@ -62,7 +85,7 @@ async def scrape_apollo_leads(
             request.apify_token
         )
 
-        logger.info("Scraping task started", task_id=task_id, urls=request.urls)
+        logger.info(f"Scraping task started - task_id: {task_id}, urls: {request.urls}")
 
         return ScrapeResponse(
             task_id=task_id,
@@ -71,7 +94,7 @@ async def scrape_apollo_leads(
         )
 
     except Exception as e:
-        logger.error("Failed to start scraping task", error=str(e))
+        logger.error(f"Failed to start scraping task: {str(e)}")
         raise HTTPException(status_code=500, detail=f"Failed to start scraping: {str(e)}")
 
 @router.get("/scrape/{task_id}")
@@ -95,12 +118,10 @@ async def get_scrape_status(task_id: str):
 async def export_to_sheets(request: SheetsRequest):
     """Export data to Google Sheets"""
     try:
-        logger.info("Exporting to Google Sheets", 
-                   spreadsheet_id=request.spreadsheet_id,
-                   sheet_name=request.sheet_name)
+        logger.info(f"Exporting to Google Sheets - spreadsheet_id: {request.spreadsheet_id}, sheet_name: {request.sheet_name}")
 
         # Create Google Sheets client with user's credentials
-        from clients.sheets_client import GoogleSheetsClient
+        from app.clients.sheets_client import GoogleSheetsClient
         user_sheets_client = GoogleSheetsClient()
 
         # Override credentials with user-provided ones
@@ -122,33 +143,26 @@ async def export_to_sheets(request: SheetsRequest):
         return result
 
     except Exception as e:
-        logger.error("Failed to export to Google Sheets", error=str(e))
+        logger.error(f"Failed to export to Google Sheets: {str(e)}")
         raise HTTPException(status_code=500, detail=f"Export failed: {str(e)}")
 
 @router.post("/export/notion")
 async def export_to_notion(request: NotionRequest):
     """Export data to Notion database"""
     try:
-        logger.info("Exporting to Notion", 
-                   database_id=request.database_id,
-                   entries=len(request.data))
+        logger.info(f"Exporting to Notion - database_id: {request.database_id}, entries: {len(request.data)}")
 
-        # Create Notion client with user's token
-        from clients.notion_client import NotionClient
-        from notion_client import AsyncClient
-
-        user_notion_client = NotionClient()
-        user_notion_client.client = AsyncClient(auth=request.notion_token)
-
-        result = await user_notion_client.create_database_entries(
+        # Use the updated client method that handles URL extraction and token passing
+        result = await notion_client.create_database_entries(
             data=request.data,
-            database_id=request.database_id
+            database_id=request.database_id,
+            notion_token=request.notion_token
         )
 
         return result
 
     except Exception as e:
-        logger.error("Failed to export to Notion", error=str(e))
+        logger.error(f"Failed to export to Notion: {str(e)}")
         raise HTTPException(status_code=500, detail=f"Export failed: {str(e)}")
 
 @router.get("/export/csv/{task_id}")
@@ -186,7 +200,7 @@ async def export_csv(task_id: str):
         )
 
     except Exception as e:
-        logger.error("Failed to export CSV", error=str(e))
+        logger.error(f"Failed to export CSV: {str(e)}")
         raise HTTPException(status_code=500, detail=f"CSV export failed: {str(e)}")
 
 @router.get("/export/json/{task_id}")
@@ -211,32 +225,148 @@ async def export_json(task_id: str):
         )
 
     except Exception as e:
-        logger.error("Failed to export JSON", error=str(e))
+        logger.error(f"Failed to export JSON: {str(e)}")
         raise HTTPException(status_code=500, detail=f"JSON export failed: {str(e)}")
 
 @router.get("/notion/database-info")
-async def get_notion_database_info(database_id: str = None):
+async def get_notion_database_info(database_id: str = None, notion_token: str = None):
     """Get Notion database information"""
     try:
-        result = await notion_client.get_database_info(database_id)
+        result = await notion_client.get_database_info(database_id, notion_token)
         return result
 
     except Exception as e:
-        logger.error("Failed to get Notion database info", error=str(e))
+        logger.error(f"Failed to get Notion database info: {str(e)}")
         raise HTTPException(status_code=500, detail=f"Failed to get database info: {str(e)}")
 
+@router.get("/notion/validate-schema")
+async def validate_notion_schema(database_id: str = None, notion_token: str = None):
+    """Validate Notion database schema for lead scraping"""
+    try:
+        result = await notion_client.validate_database_schema(database_id, notion_token)
+        return result
+
+    except Exception as e:
+        logger.error(f"Failed to validate Notion schema: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Failed to validate schema: {str(e)}")
+
+@router.get("/debug/last-task/{task_id}")
+async def debug_last_task(task_id: str):
+    """Debug endpoint to get the complete task storage data"""
+    try:
+        if task_id not in tasks_storage:
+            return {
+                "error": f"Task {task_id} not found",
+                "available_tasks": list(tasks_storage.keys())
+            }
+        
+        task_data = tasks_storage[task_id]
+        
+        # Create a safe copy for debugging
+        debug_data = {
+            "task_id": task_id,
+            "status": task_data.get("status"),
+            "progress": task_data.get("progress"),
+            "message": task_data.get("message"),
+            "total_count": task_data.get("total_count"),
+            "scraped_count": task_data.get("scraped_count"),
+            "urls_processed": task_data.get("urls_processed"),
+            "total_urls": task_data.get("total_urls"),
+            "error_count": task_data.get("error_count"),
+            "data_length": len(task_data.get("data", [])),
+            "data_sample": task_data.get("data", [])[:2] if task_data.get("data") else None,  # First 2 items only
+            "raw_data_length": len(task_data.get("raw_data", [])) if task_data.get("raw_data") else 0,
+            "has_data": bool(task_data.get("data")),
+            "data_type": type(task_data.get("data")).__name__ if task_data.get("data") is not None else "None"
+        }
+        
+        return debug_data
+        
+    except Exception as e:
+        logger.error(f"Debug endpoint error: {str(e)}", exc_info=True)
+        return {"error": str(e)}
+
+@router.get("/debug/all-tasks")
+async def debug_all_tasks():
+    """Debug endpoint to see all task IDs and their basic info"""
+    try:
+        tasks_info = {}
+        for task_id, task_data in tasks_storage.items():
+            tasks_info[task_id] = {
+                "status": task_data.get("status"),
+                "progress": task_data.get("progress"),
+                "total_count": task_data.get("total_count", 0),
+                "data_length": len(task_data.get("data", [])),
+                "has_data": bool(task_data.get("data"))
+            }
+        
+        return {
+            "total_tasks": len(tasks_storage),
+            "tasks": tasks_info
+        }
+        
+    except Exception as e:
+        logger.error(f"Debug all tasks endpoint error: {str(e)}", exc_info=True)
+        return {"error": str(e)}
+
+@router.get("/sse/progress/{task_id}")
+async def sse_progress(task_id: str, request: Request):
+    """
+    SSE endpoint that streams { percentage, message } updates for the given task_id.
+    """
+    async def event_generator():
+        last_sent = -1
+        while True:
+            # Stop if client disconnected
+            if await request.is_disconnected():
+                break
+
+            # Get task from storage
+            task = tasks_storage.get(task_id)
+            if not task:
+                # Send an error event and close
+                yield f"data: {json.dumps({'detail': 'Task not found'})}\n\n"
+                break
+
+            pct = task.get("progress", 0)
+            msg = task.get("message", "")
+            status = task.get("status", "")
+            
+            # Only send when progress changes
+            if pct != last_sent:
+                payload = {
+                    "percentage": pct, 
+                    "message": msg,
+                    "status": status
+                }
+                yield f"data: {json.dumps(payload)}\n\n"
+                last_sent = pct
+
+            # If task completed or failed, send final update and close
+            if status in ["completed", "failed"] or pct >= 100:
+                break
+
+            # Shorter interval for more responsive updates
+            await asyncio.sleep(0.2)
+
+    return StreamingResponse(event_generator(), media_type="text/event-stream")
+
 def _clean_export_data(data: List[Dict]) -> List[Dict]:
-    """Clean and validate data before export"""
+    """Clean and validate data before export with proper phone formatting"""
     cleaned_data = []
 
     for item in data:
         cleaned_item = {}
         for key, value in item.items():
-            # Ensure value is string and properly formatted
             if value is None:
                 cleaned_item[key] = ""
+            elif key.lower() == 'phone' and isinstance(value, str):
+                # Format phone numbers to prevent scientific notation
+                # Add apostrophe prefix to force text interpretation in Excel/Google Sheets
+                formatted_phone = _format_phone_for_export(value)
+                cleaned_item[key] = formatted_phone
             elif isinstance(value, str):
-                # Remove any problematic characters for CSV/cloud export
+                # Remove problematic characters for CSV/cloud export
                 cleaned_value = value.replace('\n', ' ').replace('\r', ' ').replace('\t', ' ')
                 cleaned_value = ' '.join(cleaned_value.split())  # Remove extra whitespace
                 cleaned_item[key] = cleaned_value
@@ -249,6 +379,77 @@ def _clean_export_data(data: List[Dict]) -> List[Dict]:
 
     return cleaned_data
 
+def _format_phone_for_export(phone: str) -> str:
+    """Format phone number for CSV/Excel export to prevent scientific notation"""
+    if not phone or not isinstance(phone, str):
+        return ""
+    
+    phone = phone.strip()
+    if not phone:
+        return ""
+    
+    # Validate phone format first
+    if not _validate_phone_format(phone):
+        logger.debug(f"Invalid phone format rejected for export: '{phone}'")
+        return f"'{phone}" if phone else ""  # Still prefix with apostrophe for safety
+    
+    # Format to international standard if possible
+    formatted_phone = _format_international_phone(phone)
+    
+    # Add apostrophe prefix to force text interpretation in Excel/Google Sheets
+    return f"'{formatted_phone}"
+
+def _validate_phone_format(phone: str) -> bool:
+    """Validate phone number format"""
+    if not phone or not isinstance(phone, str):
+        return False
+    
+    # Remove formatting to get digits only
+    import re
+    digits_only = ''.join(filter(str.isdigit, phone))
+    
+    # Should have between 7-15 digits for valid international numbers
+    # 7 digits minimum for local numbers, 15 maximum per ITU-T E.164
+    return 7 <= len(digits_only) <= 15
+
+def _format_international_phone(phone: str, default_country_code: str = "+1") -> str:
+    """Format phone to international standard"""
+    if not phone:
+        return ""
+    
+    import re
+    
+    # Clean the phone number but preserve + sign
+    phone = phone.strip().replace(" ", "").replace("-", "").replace("(", "").replace(")", "").replace(".", "")
+    
+    # Already in international format with +
+    if phone.startswith("+"):
+        return phone
+    
+    # European format with 00 prefix (e.g. 00441625505300)
+    elif phone.startswith("00"):
+        return f"+{phone[2:]}"
+    
+    # US/Canada format with leading 1 (e.g. 14155551234)
+    elif len(phone) == 11 and phone.startswith("1"):
+        return f"+{phone}"
+    
+    # Standard US/Canada format without country code (e.g. 4155551234)
+    elif len(phone) == 10:
+        return f"{default_country_code}{phone}"
+    
+    # For other formats, try to determine if it needs a country code
+    elif len(phone) >= 7:
+        # If it looks like it might need a country code (7-10 digits), add default
+        if len(phone) <= 10:
+            return f"{default_country_code}{phone}"
+        else:
+            # Assume it already includes country code, just add +
+            return f"+{phone}"
+    
+    # Return as-is if we can't determine format
+    return phone
+
 async def scrape_leads_background(
     task_id: str, 
     urls: list, 
@@ -256,51 +457,217 @@ async def scrape_leads_background(
     fields: list,
     apify_token: str
 ):
-    """Background task for scraping leads"""
+    """Enhanced background task for scraping leads with detailed progress tracking"""
+    import time
+    import asyncio
+    
+    start_time = time.time()
+    total_urls = len(urls)
+    
     try:
-        # Update task status
-        tasks_storage[task_id]["status"] = "running"
-        tasks_storage[task_id]["progress"] = 10
-        tasks_storage[task_id]["message"] = "Initializing scraper..."
+        # Initialize task with enhanced progress tracking
+        tasks_storage[task_id].update({
+            "status": "running",
+            "progress": 5,
+            "message": "Initializing Apollo.io scraper...",
+            "current_url": None,
+            "scraped_count": 0,
+            "urls_processed": 0,
+            "total_urls": total_urls,
+            "start_time": start_time,
+            "estimated_time": "--:--",
+            "processing_rate": 0,
+            "error_count": 0,
+            "total_attempts": 0
+        })
+
+        # Brief pause for UI to register the initial state
+        await asyncio.sleep(1)
 
         # Create client with user's token
-        from clients.apify_client import ApifyApolloClient
-        from apify_client import ApifyClient
+        from app.clients.apify_client import ApifyApolloClient
+        
+        # Pass the token directly to the constructor
+        user_apify_client = ApifyApolloClient(apify_token=apify_token)
 
-        user_apify_client = ApifyApolloClient()
-        user_apify_client.client = ApifyClient(apify_token)
+        # Update progress - Starting scraping
+        tasks_storage[task_id].update({
+            "progress": 10,
+            "message": "Connecting to Apollo.io..."
+        })
+        await asyncio.sleep(0.5)
 
-        # Perform scraping
-        result = await user_apify_client.scrape_apollo_leads(
-            urls=urls,
-            lead_count=lead_count,
-            fields=fields
-        )
+        all_scraped_data = []
+        total_scraped = 0
 
-        # Update task with results
-        if result["status"] == "success":
-            # Clean the data before storing
-            cleaned_data = _clean_export_data(result["data"]) if result["data"] else []
+        # Process each URL with detailed progress tracking
+        for url_index, url in enumerate(urls):
+            try:
+                # Update current URL being processed
+                current_progress = 10 + (url_index / total_urls) * 80
+                elapsed_time = time.time() - start_time
+                
+                # Calculate ETA
+                if url_index > 0:
+                    avg_time_per_url = elapsed_time / url_index
+                    remaining_urls = total_urls - url_index
+                    eta_seconds = remaining_urls * avg_time_per_url
+                    eta_minutes = int(eta_seconds // 60)
+                    eta_seconds = int(eta_seconds % 60)
+                    estimated_time = f"{eta_minutes:02d}:{eta_seconds:02d}"
+                else:
+                    estimated_time = "--:--"
 
-            tasks_storage[task_id]["status"] = "completed"
-            tasks_storage[task_id]["progress"] = 100
-            tasks_storage[task_id]["message"] = result["message"]
-            tasks_storage[task_id]["data"] = cleaned_data
-            tasks_storage[task_id]["total_count"] = len(cleaned_data)
-        else:
-            tasks_storage[task_id]["status"] = "failed"
-            tasks_storage[task_id]["progress"] = 0
-            tasks_storage[task_id]["message"] = result["message"]
+                tasks_storage[task_id].update({
+                    "progress": int(current_progress),
+                    "message": f"Scraping URL {url_index + 1} of {total_urls}...",
+                    "current_url": url,
+                    "urls_processed": url_index,
+                    "estimated_time": estimated_time,
+                    "total_attempts": tasks_storage[task_id]["total_attempts"] + 1
+                })
 
-        logger.info("Background scraping task completed", 
-                   task_id=task_id, 
-                   status=result["status"])
+                # Perform scraping for this URL
+                url_lead_count = min(lead_count - total_scraped, lead_count // total_urls + 100)
+                
+                # Update message for active scraping
+                tasks_storage[task_id]["message"] = f"Extracting leads from {url[:50]}..."
+                
+                # DEBUG: Log the scraping attempt
+                logger.info(f"DEBUG: Attempting to scrape URL {url_index + 1}: {url[:100]}...")
+                logger.info(f"DEBUG: Requesting {url_lead_count} leads with fields: {fields}")
+                
+                result = await user_apify_client.scrape_apollo_leads(
+                    urls=[url],
+                    lead_count=url_lead_count,
+                    fields=fields
+                )
+
+                # DEBUG: Log the raw result from Apify
+                logger.info(f"DEBUG: Apify result status: {result.get('status')}")
+                logger.info(f"DEBUG: Apify result data length: {len(result.get('data', []))}")
+                if result.get('data') and len(result['data']) > 0:
+                    logger.info(f"DEBUG: Sample Apify lead: {result['data'][0]}")
+
+                if result["status"] == "success" and result["data"]:
+                    # Clean and add data
+                    cleaned_data = _clean_export_data(result["data"])
+                    
+                    # DEBUG: Log the cleaning process
+                    logger.info(f"DEBUG: Before cleaning: {len(result['data'])} items")
+                    logger.info(f"DEBUG: After cleaning: {len(cleaned_data)} items")
+                    if cleaned_data:
+                        logger.info(f"DEBUG: Sample cleaned lead: {cleaned_data[0]}")
+                    
+                    all_scraped_data.extend(cleaned_data)
+                    total_scraped += len(cleaned_data)
+                    
+                    # Update scraped count with current totals
+                    tasks_storage[task_id].update({
+                        "scraped_count": total_scraped,
+                        "urls_processed": url_index + 1,
+                        "message": f"Found {len(cleaned_data)} leads from URL {url_index + 1}. Total: {total_scraped} leads"
+                    })
+                    
+                    # Calculate processing rate
+                    if elapsed_time > 0:
+                        processing_rate = round((total_scraped / elapsed_time) * 60)  # leads per minute
+                        tasks_storage[task_id]["processing_rate"] = processing_rate
+                else:
+                    # Handle URL with no results
+                    logger.warning(f"DEBUG: No results from URL {url_index + 1}: {result.get('message', 'Unknown error')}")
+                    tasks_storage[task_id].update({
+                        "urls_processed": url_index + 1,
+                        "error_count": tasks_storage[task_id]["error_count"] + 1,
+                        "message": f"No leads found from URL {url_index + 1}. Total: {total_scraped} leads"
+                    })
+
+                # Brief pause to allow UI updates
+                await asyncio.sleep(0.3)
+
+                # Check if we've reached our target
+                if total_scraped >= lead_count:
+                    break
+
+            except Exception as url_error:
+                logger.error(f"Error processing URL {url}: {str(url_error)}", exc_info=True)
+                tasks_storage[task_id].update({
+                    "error_count": tasks_storage[task_id]["error_count"] + 1,
+                    "message": f"Error with URL {url_index + 1}, continuing with next..."
+                })
+                await asyncio.sleep(0.5)
+
+        # Final processing and completion
+        tasks_storage[task_id].update({
+            "progress": 95,
+            "message": "Finalizing results and cleaning data..."
+        })
+        await asyncio.sleep(1)
+
+        # Final data processing
+        final_data = all_scraped_data[:lead_count]  # Limit to requested count
+        final_count = len(final_data)
+        
+        # DEBUG: Log the final data before storing
+        logger.info(f"DEBUG: Final processing complete")
+        logger.info(f"DEBUG: Total scraped data: {len(all_scraped_data)} items")
+        logger.info(f"DEBUG: Final data (after limit): {final_count} items")
+        logger.info(f"DEBUG: Final data sample: {final_data[0] if final_data else 'No data'}")
+        
+        # Calculate final metrics
+        total_elapsed = time.time() - start_time
+        final_rate = round((final_count / total_elapsed) * 60) if total_elapsed > 0 else 0
+
+        # Complete the task
+        tasks_storage[task_id].update({
+            "status": "completed",
+            "progress": 100,
+            "message": f"Scraping completed! Successfully extracted {final_count} leads",
+            "data": final_data,
+            "total_count": final_count,
+            "scraped_count": final_count,
+            "urls_processed": total_urls,
+            "processing_rate": final_rate,
+            "estimated_time": "00:00"
+        })
+
+        # FINAL DEBUG: Log the complete task storage entry
+        logger.info(f"DEBUG: Task {task_id} completed successfully")
+        logger.info(f"DEBUG: Stored data length: {len(tasks_storage[task_id].get('data', []))}")
+        logger.info(f"DEBUG: Task status: {tasks_storage[task_id]['status']}")
+
+        logger.info(f"Enhanced background scraping task completed - task_id: {task_id}, total_scraped: {final_count}, elapsed_time: {total_elapsed}")
 
     except Exception as e:
-        logger.error("Background scraping task failed", 
-                    task_id=task_id, 
-                    error=str(e))
+        logger.error(f"Enhanced background scraping task failed - task_id: {task_id}, error: {str(e)}", exc_info=True)
 
-        tasks_storage[task_id]["status"] = "failed"
-        tasks_storage[task_id]["progress"] = 0
-        tasks_storage[task_id]["message"] = f"Scraping failed: {str(e)}"
+        tasks_storage[task_id].update({
+            "status": "failed",
+            "progress": 0,
+            "message": f"Scraping failed: {str(e)}",
+            "error_count": tasks_storage[task_id].get("error_count", 0) + 1
+        })
+
+@router.post("/debug/test-request")
+async def test_request(request: Request):
+    """Debug endpoint to test request handling"""
+    try:
+        raw_body = await request.body()
+        raw_data = json.loads(raw_body.decode())
+        logger.info(f"Debug endpoint received: {raw_data}")
+        return {"status": "success", "received": raw_data}
+    except Exception as e:
+        logger.error(f"Debug endpoint error: {e}")
+        return {"status": "error", "error": str(e)}
+
+@router.post("/scrape-test")
+async def scrape_test(request: Request):
+    """Test endpoint with no validation"""
+    try:
+        raw_body = await request.body()
+        raw_data = json.loads(raw_body.decode())
+        logger.info(f"SCRAPE TEST - Received data: {raw_data}")
+        return {"status": "success", "message": "Test endpoint reached", "data": raw_data}
+    except Exception as e:
+        logger.error(f"SCRAPE TEST - Error: {e}")
+        return {"status": "error", "error": str(e)}

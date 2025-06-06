@@ -1,114 +1,115 @@
-# Tiz Lead Scraper
+# 🤖 Tiz AI Lead Scraper
 
-🚀 **A powerful, production-ready web scraper for extracting leads from Apollo.io**
+[![Docker Pulls](https://img.shields.io/docker/pulls/tiz20lion/tiz-lead-scraper)](https://hub.docker.com/r/tiz20lion/tiz-lead-scraper)
+[![Docker Image Size](https://img.shields.io/docker/image-size/tiz20lion/tiz-lead-scraper/latest)](https://hub.docker.com/r/tiz20lion/tiz-lead-scraper)
 
-Extract up to 50,000 leads with beautiful animations and seamless integrations!
-
-## 🎯 Features
-
-- **Apollo.io Integration**: Extract leads with 10+ data fields
-- **Multiple Export Options**: CSV, JSON, Google Sheets, Notion
-- **Beautiful UI**: Glass-morphism design with smooth animations
-- **Production Ready**: Built-in security, rate limiting, health checks
-- **Easy Deployment**: One-command Docker setup
+**AI-Powered Lead Generation Agent - Intelligent automation for high-quality leads**
 
 ## 🚀 Quick Start
 
 ```bash
-# Pull and run the latest version
-docker run -d -p 5000:5000 --name tiz-lead-scraper tiz20lion/tiz-lead-scraper:latest
+# Start AI agent instantly
+docker run -d -p 5000:5000 tiz20lion/tiz-lead-scraper:latest
 
-# Access the application
-open http://localhost:5000
+# With your OpenRouter AI key
+docker run -d -p 5000:5000 -e OPENROUTER_API_KEY=your_key tiz20lion/tiz-lead-scraper:latest
+
+# Production AI setup with persistent data
+docker run -d \
+  --name tiz-ai-scraper \
+  --restart unless-stopped \
+  -p 5000:5000 \
+  -e OPENROUTER_API_KEY=your_key \
+  -v tiz-data:/app/data \
+  tiz20lion/tiz-lead-scraper:latest
+
+# Open http://localhost:5000
 ```
 
-## 📋 What You Need
-
-1. **Apify API Token** - Sign up at [apify.com](https://apify.com) for Apollo.io scraping
-2. **Google Sheets API** (Optional) - For exporting to Google Sheets
-3. **Notion Integration** (Optional) - For Notion database sync
-
-## 🎮 How to Use
-
-1. Enter Apollo.io search URLs
-2. Set lead count (1-50,000)
-3. Choose data fields to extract
-4. Add your Apify API token
-5. Click start and watch the magic happen!
-
-## 📊 Export Options
-
-- **CSV Download**: Instant CSV file download
-- **JSON Download**: Structured JSON data export
-- **Google Sheets**: Direct export to spreadsheets
-- **Notion Database**: Sync with your Notion workspace
-
-## 🔧 Advanced Usage
-
-### With Docker Compose
+## 🐳 Docker Compose
 
 ```yaml
 version: '3.8'
 services:
-  tiz-lead-scraper:
+  tiz-ai-scraper:
     image: tiz20lion/tiz-lead-scraper:latest
+    container_name: tiz-ai-scraper
+    restart: unless-stopped
     ports:
       - "5000:5000"
     environment:
-      - LOG_LEVEL=INFO
-    restart: unless-stopped
+      - OPENROUTER_API_KEY=your_openrouter_key
+    volumes:
+      - tiz-data:/app/data
+
+volumes:
+  tiz-data:
 ```
 
-### Environment Variables
+## 🤖 AI Features
 
-- `LOG_LEVEL`: Set logging level (INFO, DEBUG, WARNING, ERROR)
-- `RATE_LIMIT_REQUESTS`: API rate limit (default: 10)
-- `RATE_LIMIT_WINDOW`: Rate limit window in seconds (default: 60)
+- 🧠 **AI-Enhanced Prompts** - Smart optimization for better targeting
+- 🔍 **AI Search Queries** - Intelligent query generation and refinement
+- ⭐ **High-Quality Leads** - AI filtering for premium results
+- 📊 **Smart Export** - AI-organized CSV, Google Sheets, Notion exports
+- 🎯 **Learning Agent** - Continuously improves lead quality
+- 📱 **Intelligent UI** - AI-guided interface with real-time suggestions
 
-## 🛠️ Development
+## 🔮 Coming Soon
 
-Want to contribute? Check out the [GitHub repository](https://github.com/tiz20lion/tiz-lead-scraper) for the full source code and development setup.
+- 🕵️ **AI Lead Insights Agent** - Deep research on each lead's website, LinkedIn, Twitter profiles
+- ✍️ **AI Email Writer Agent** - Personalized email crafting based on lead insights
+- 📧 **Smart Email Sender** - Automated outreach with AI-generated personalized messages
+- 📋 **Custom Prompts** - Define your outreach goals and key points for AI email generation
 
-## 📞 Support
+## 🔧 Environment Variables
 
-- **GitHub Issues**: Report bugs and request features
-- **Documentation**: Full setup guide in the repository
-- **Community**: Join discussions and get help
+| Variable | Description | Required |
+|----------|-------------|----------|
+| `OPENROUTER_API_KEY` | Your OpenRouter API key for AI automation | Yes |
+| `GOOGLE_SHEETS_CREDENTIALS` | Path to Google service account JSON | No |
+| `NOTION_TOKEN` | Notion integration token for AI database sync | No |
+| `LOG_LEVEL` | Logging level (INFO, DEBUG) | No |
 
-## 📈 Tags
+## 📋 How to Use
 
-- `latest`: Most recent stable version
-- `v1.x.x`: Specific version releases
-- `main`: Latest development build
+1. **Get OpenRouter API Key** - Sign up at [openrouter.ai](https://openrouter.ai) for AI-powered automation
+2. **Start Container** - Use one of the commands above
+3. **Open Browser** - Navigate to http://localhost:5000
+4. **Add Target URLs** - Input your lead source URLs
+5. **AI Enhancement** - Let the agent optimize your prompts and queries
+6. **Smart Extraction** - AI extracts up to 50,000 high-quality leads
+7. **Export Data** - AI-organized export to your preferred format
 
-## 👨‍💻 Meet the Developer
+## 📊 AI-Enhanced Data
 
-**Built with ❤️ by Tiz**
+**Smart Contact**: AI-verified Name, Email, Phone
+**Professional Intelligence**: Company, Job Title, Industry, Location  
+**Social Graph**: LinkedIn, Twitter, Instagram, Website
+**AI Quality Score**: Lead relevance and engagement potential
 
-Full-Stack Developer & Lead Generation Expert who created this powerful tool to help businesses scale their outreach efforts. With expertise in Python, FastAPI, Docker, and modern web technologies, I specialize in building automation solutions that drive real business results.
+## 🛠️ AI Agent API
 
-### 🚀 Why This Tool Stands Out
+- `GET /health` - Health check
+- `POST /api/v1/scrape` - Start intelligent extraction
+- `GET /api/v1/export/{format}/{task_id}` - AI-organized data export
+- `GET /docs` - Interactive AI API documentation
 
-- **Production-Ready**: Built with enterprise-grade security and scalability
-- **Modern Architecture**: FastAPI backend with beautiful glass-morphism UI
-- **Developer Experience**: Clean code, comprehensive documentation, easy deployment
-- **Business Focus**: Designed to solve real lead generation challenges
+## 🤖 AI Capabilities
 
-### 🤝 Need Custom Development?
+**Prompt Enhancement**: Analyzes and improves your search prompts automatically
+**Query Intelligence**: Generates optimal search queries based on your criteria
+**Quality Filtering**: AI evaluates and scores leads for maximum relevance
+**Learning System**: Agent learns from patterns to improve future results
 
-Looking for tailored automation solutions or custom web applications? I'd love to help bring your ideas to life!
+## 🔗 Links
 
-**Connect with me:**
-- 💼 **LinkedIn**: [Olajide Azeez](https://www.linkedin.com/in/olajide-azeez-a2133a258) - Let's discuss your project
-- 📸 **Instagram**: [@tizkiya](https://www.instagram.com/tizkiya?igsh=MXFseXhlMGNvaGZwMQ==) - See my latest work
+- **📖 GitHub**: [Tiz20lion/tiz-lead-scraper](https://github.com/Tiz20lion/tiz-lead-scraper)
+- **🐛 Issues**: [Report bugs](https://github.com/Tiz20lion/tiz-lead-scraper/issues)
 
-**Services I offer:**
-- Custom Web Application Development
-- API Development & Integration  
-- Automation & Web Scraping Solutions
-- Lead Generation Tools
-- DevOps & Deployment
+## 👨‍💻 Built by Tiz
 
----
+- **LinkedIn**: [Olajide Azeez](https://www.linkedin.com/in/olajide-azeez-a2133a258)
+- **Instagram**: [@tizkiya](https://www.instagram.com/tizkiya)
 
-Built with ❤️ for the lead generation community!
+⭐ **Star the [GitHub repo](https://github.com/Tiz20lion/tiz-lead-scraper) if this AI agent helps you!**

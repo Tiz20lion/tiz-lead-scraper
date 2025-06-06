@@ -1,4 +1,3 @@
-
 /**
  * Animated Particle Background System
  * @author Alex Andrix <alex@alexandrix.com>
@@ -7,8 +6,10 @@
 
 var App = {};
 App.setup = function() {
-  var canvas = document.createElement('canvas');
+  // Use existing canvas or create new one with blur effects
+  var canvas = document.getElementById('particle-canvas') || document.createElement('canvas');
   this.filename = "spipa";
+  canvas.id = 'particle-canvas';
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
   canvas.style.position = 'fixed';
@@ -16,8 +17,21 @@ App.setup = function() {
   canvas.style.left = '0';
   canvas.style.zIndex = '-1';
   canvas.style.pointerEvents = 'none';
+  canvas.style.filter = 'blur(4px)';
+  canvas.style.opacity = '1';
+  canvas.style.mixBlendMode = 'screen';
   this.canvas = canvas;
-  document.getElementsByTagName('body')[0].appendChild(canvas);
+  
+  // Only append if it's not already in the DOM
+  if (!document.getElementById('particle-canvas')) {
+    var animatedBg = document.querySelector('.animated-background');
+    if (animatedBg) {
+      animatedBg.appendChild(canvas);
+    } else {
+      document.getElementsByTagName('body')[0].appendChild(canvas);
+    }
+  }
+  
   this.ctx = this.canvas.getContext('2d');
   this.width = this.canvas.width;
   this.height = this.canvas.height;
@@ -30,10 +44,10 @@ App.setup = function() {
   
   this.stepCount = 0;
   this.particles = [];
-  this.lifespan = 1000;
+  this.lifespan = 2500; // Increased lifespan even more for ultra-slow movement
   this.popPerBirth = 1;
-  this.maxPop = 300;
-  this.birthFreq = 2;
+  this.maxPop = 150; // Further reduced max population
+  this.birthFreq = 8; // Much slower birth frequency (was 4, now 8)
 
   // Build grid
   this.gridSize = 8;// Motion coords
@@ -183,7 +197,7 @@ App.move = function() {
     }
     
     // Spring attractor to center with viscosity
-    var k = 8, visc = 0.4;
+    var k = 4, visc = 0.8; // Reduced spring constant and increased viscosity for slower movement
     var dx = p.x - gridSpot.x,
         dy = p.y - gridSpot.y,
         dist = Math.sqrt(dx*dx + dy*dy);
@@ -202,7 +216,7 @@ App.move = function() {
     p.dist = dist;
     
     // Update position
-    p.x += 0.1 * p.xSpeed; p.y += 0.1 * p.ySpeed;
+    p.x += 0.001 * p.xSpeed; p.y += 0.001 * p.ySpeed;
     
     // Get older
     p.age++;
@@ -239,7 +253,7 @@ App.draw = function() {
     
     var h, s, l, a;
     
-    h = p.hue + this.stepCount/30;
+    h = p.hue + this.stepCount/300;
     s = p.sat;
     l = p.lum;
     a = 1;
@@ -291,14 +305,27 @@ App.dataXYtoCanvasXY = function(x, y) {
   return {x: xx, y: yy};
 };
 
-// Initialize the background animation
+// Initialize the ultra-blur particle background system
 document.addEventListener('DOMContentLoaded', function() {
-  App.setup();
-  App.draw();
+  // Apply ultra-blur mode for maximum effect
+  document.body.classList.add('ultra-blur-mode');
   
-  var frame = function() {
+  // Initialize the particle system
+  App.setup();
+  
+  // Start the animation loop with heavy blur
+  function animate() {
     App.evolve();
-    requestAnimationFrame(frame);
-  };
-  frame();
+    requestAnimationFrame(animate);
+  }
+  animate();
+  
+  // Add additional blur effects on window events
+  window.addEventListener('load', function() {
+    var canvas = document.getElementById('particle-canvas');
+    if (canvas) {
+      canvas.style.filter = 'blur(4px)';
+      canvas.style.opacity = '1';
+    }
+  });
 });

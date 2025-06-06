@@ -6,7 +6,7 @@ import time
 from collections import defaultdict
 import hmac
 import hashlib
-from core.config import settings
+from app.core.config import settings
 
 # Rate Limiting
 class RateLimitMiddleware(BaseHTTPMiddleware):
@@ -72,11 +72,18 @@ class SecurityHeadersMiddleware(BaseHTTPMiddleware):
         response.headers["Strict-Transport-Security"] = "max-age=31536000; includeSubDomains"
         response.headers["Content-Security-Policy"] = (
             "default-src 'self'; "
-            "script-src 'self' 'unsafe-inline' cdnjs.cloudflare.com; "
-            "style-src 'self' 'unsafe-inline' fonts.googleapis.com cdnjs.cloudflare.com; "
-            "font-src 'self' fonts.gstatic.com; "
-            "img-src 'self' data: https:; "
-            "connect-src 'self'"
+            "script-src 'self' 'unsafe-inline' 'unsafe-eval' cdnjs.cloudflare.com *.cloudflare.com; "
+            "style-src 'self' 'unsafe-inline' fonts.googleapis.com cdnjs.cloudflare.com *.cloudflare.com; "
+            "font-src 'self' fonts.googleapis.com fonts.gstatic.com data:; "
+            "img-src 'self' data: https: blob:; "
+            "connect-src 'self' https: wss: ws:; "
+            "object-src 'none'; "
+            "media-src 'self' data: https:; "
+            "frame-src 'self' https:; "
+            "worker-src 'self' blob:; "
+            "child-src 'self' https:; "
+            "form-action 'self'; "
+            "base-uri 'self'"
         )
 
         return response

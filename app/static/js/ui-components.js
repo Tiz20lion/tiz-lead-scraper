@@ -1,4 +1,3 @@
-
 // UI Component Helper Functions
 
 class UIComponents {
@@ -62,24 +61,31 @@ class UIComponents {
 
     // Dropdown Management
     static initDropdowns() {
-        document.querySelectorAll('.dropdown').forEach(dropdown => {
+        // Only handle generic dropdowns, exclude navigation dropdown
+        document.querySelectorAll('.dropdown:not(.nav-dropdown)').forEach(dropdown => {
             const trigger = dropdown.querySelector('.dropdown-trigger');
+            
+            if (!trigger) return; // Skip if no trigger found
             
             trigger.addEventListener('click', (e) => {
                 e.stopPropagation();
                 
-                // Close other dropdowns
-                document.querySelectorAll('.dropdown.active').forEach(other => {
+                // Close other generic dropdowns (but not navigation)
+                document.querySelectorAll('.dropdown.active:not(.nav-dropdown)').forEach(other => {
                     if (other !== dropdown) other.classList.remove('active');
                 });
+                
+                // Close navigation dropdown if open
+                const navDropdown = document.querySelector('.nav-dropdown.active');
+                if (navDropdown) navDropdown.classList.remove('active');
                 
                 dropdown.classList.toggle('active');
             });
         });
 
-        // Close dropdowns when clicking outside
+        // Close dropdowns when clicking outside (exclude navigation dropdown)
         document.addEventListener('click', () => {
-            document.querySelectorAll('.dropdown.active').forEach(dropdown => {
+            document.querySelectorAll('.dropdown.active:not(.nav-dropdown)').forEach(dropdown => {
                 dropdown.classList.remove('active');
             });
         });

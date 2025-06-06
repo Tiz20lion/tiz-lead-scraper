@@ -1,14 +1,13 @@
-
 /* Card Components */
 .card {
-  background: linear-gradient(135deg, hsl(var(--bg-panel) / 0.8), hsl(var(--bg-secondary) / 0.85));
-  border-radius: 1.5rem;
+  background: linear-gradient(135deg, hsl(var(--bg-panel) / 0.95), hsl(var(--bg-secondary) / 0.98));
   border: 1px solid hsl(var(--border-color) / 0.4);
-  backdrop-filter: blur(25px);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  overflow: hidden;
+  border-radius: 1rem;
+  padding: 1.5rem;
+  backdrop-filter: blur(60px);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
+  overflow: hidden;
 }
 
 .card:hover {

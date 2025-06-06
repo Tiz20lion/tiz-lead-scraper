@@ -1,321 +1,111 @@
-# 🚀 Tiz Lead Scraper
+# 🤖 Tiz AI Lead Scraper
 
-[![Docker Build](https://github.com/tiz20lion/tiz-lead-scraper/actions/workflows/docker-publish.yml/badge.svg)](https://github.com/tiz20lion/tiz-lead-scraper/actions/workflows/docker-publish.yml)
 [![Docker Pulls](https://img.shields.io/docker/pulls/tiz20lion/tiz-lead-scraper)](https://hub.docker.com/r/tiz20lion/tiz-lead-scraper)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![GitHub](https://img.shields.io/github/stars/Tiz20lion/tiz-lead-scraper?style=social)](https://github.com/Tiz20lion/tiz-lead-scraper)
 
-A powerful, production-ready web scraper for extracting leads from Apollo.io with seamless Google Sheets and Notion integration. Built with modern web technologies and packaged for easy deployment.
+**AI-Powered Lead Generation Agent - Extract high-quality leads with intelligent automation**
 
-## ✨ Features
+## 🚀 AI Features
 
-- **🎯 Apollo.io Integration**: Extract up to 50,000 leads with 10+ data fields
-- **📊 Multiple Export Options**: CSV, JSON, Google Sheets, and Notion
-- **🎨 Modern UI**: Beautiful glass-morphism design with smooth animations
-- **🔒 Secure**: Built-in CSRF protection and rate limiting
-- **🐳 Docker Ready**: One-click deployment with Docker Compose
-- **📱 Responsive**: Works perfectly on desktop and mobile devices
+- 🤖 **AI-Enhanced Prompts** - Smart prompt optimization for better results
+- 🔍 **AI Search Queries** - Intelligent query generation and refinement
+- ⭐ **High-Quality Leads** - AI filtering for premium lead quality
+- 📊 **Smart Export** - AI-organized data export to CSV, Google Sheets, Notion
+- 🧠 **Learning Agent** - Continuously improves lead targeting
+- 📱 **Intelligent UI** - AI-guided interface with real-time suggestions
 
-## 🚀 Quick Start with Docker
+## 🔮 Coming Soon
 
-### Prerequisites
+- 🕵️ **AI Lead Insights Agent** - Deep research on each lead's website, LinkedIn, Twitter profiles
+- ✍️ **AI Email Writer Agent** - Personalized email crafting based on lead insights
+- 📧 **Smart Email Sender** - Automated outreach with AI-generated personalized messages
+- 📋 **Custom Prompts** - Define your outreach goals and key points for AI email generation
 
-- [Docker](https://docs.docker.com/get-docker/) installed on your system
-- [Docker Compose](https://docs.docker.com/compose/install/) (usually included with Docker Desktop)
+## 🐳 Docker Installation (Recommended)
 
-### Method 1: Docker Hub (Recommended)
-
-Pull and run the pre-built image:
 ```bash
-docker run -d -p 5000:5000 --name tiz-lead-scraper tiz20lion/tiz-lead-scraper:latest
+# Quick start
+docker run -d -p 5000:5000 tiz20lion/tiz-lead-scraper:latest
+
+# With your OpenRouter AI key
+docker run -d -p 5000:5000 -e OPENROUTER_API_KEY=your_key tiz20lion/tiz-lead-scraper:latest
+
+# Open http://localhost:5000
 ```
 
-### Method 2: GitHub Repository
-
-1. **Clone the repository:**
-   ```bash
-   git clone https://github.com/tiz20lion/tiz-lead-scraper.git
-   cd tiz-lead-scraper
-   ```
-
-2. **Quick start (Windows):**
-   ```bash
-   start.bat
-   ```
-
-3. **Quick start (Linux/Mac):**
-   ```bash
-   ./start.sh
-   ```
-
-4. **Manual Docker Compose:**
-   ```bash
-   docker-compose up -d
-   ```
-
-5. **Access the application:**
-   Open your browser and visit: `http://localhost:5000`
-
-That's it! Your Tiz Lead Scraper is now running! 🎉
-
-## 🐍 Python Setup & Installation
-
-### Prerequisites
-
-- **Python 3.11+** installed on your system
-- **Git** for cloning the repository
-
-### Step 1: Clone Repository
+## 🐍 Python Installation
 
 ```bash
-git clone https://github.com/tiz20lion/tiz-lead-scraper.git
+# Clone repository
+git clone https://github.com/Tiz20lion/tiz-lead-scraper.git
 cd tiz-lead-scraper
-```
-
-### Step 2: Install Dependencies
-
-#### Using pip (Recommended)
-
-Then set up your environment:
-```bash
-# Create virtual environment
-python -m venv venv
-
-# Activate virtual environment
-# Windows:
-venv\Scripts\activate
-# Linux/Mac:
-source venv/bin/activate
 
 # Install dependencies
 pip install -r requirements.txt
+
+# Set environment variables (optional - can be set in .env file)
+export OPENROUTER_API_KEY=your_openrouter_key
+
+# Run application with development runner (recommended)
+python run_dev.py
+
+# Alternative: Direct run
+# python app/main.py
+
+# Open http://localhost:5000
 ```
 
+## 🛠️ Development Features
 
-### Step 3: Run the Application
+The `run_dev.py` script provides enhanced development experience:
 
-#### Start the server:
-```bash
-# From the project root directory
-python -m uvicorn app.main:app --host 0.0.0.0 --port 5000 --reload
-```
+- ✅ **Auto Port Management** - Automatically handles port 5000 conflicts
+- 🔍 **Dependency Check** - Validates all required packages are installed
+- 📁 **Directory Setup** - Creates necessary logs and data directories
+- 🔧 **Environment Setup** - Configures default development settings
+- 🔄 **Auto-reload** - Restarts server on code changes
+- 📊 **Debug Logging** - Enhanced logging for development
 
-#### Alternative startup method:
-```bash
-# Navigate to app directory first
-cd app
-python -m uvicorn main:app --host 0.0.0.0 --port 5000 --reload
-```
+## 🎯 Quick Setup
 
-### Step 4: Access Your Application
+1. **Get OpenRouter API Key** - Sign up at [openrouter.ai](https://openrouter.ai) for AI-powered automation
+2. **Add Target URLs** - Input your lead source URLs
+3. **AI Prompt Enhancement** - Let AI optimize your search criteria
+4. **Smart Extraction** - AI agent extracts up to 50,000 high-quality leads
+5. **Export Data** - AI-organized export to CSV, Google Sheets, or Notion
 
-Open your web browser and go to:
-```
-http://localhost:5000
-```
-
-The beautiful Tiz Lead Scraper interface will be ready to use!
-
-
-### 🛠️ Troubleshooting Python Setup
-
-#### Common Issues & Solutions:
-
-**1. Module Import Errors:**
-```bash
-# If you get "ModuleNotFoundError", try running from project root:
-python -m uvicorn app.main:app --host 0.0.0.0 --port 5000
-```
-
-**2. Port Already in Use:**
-```bash
-# Use a different port if 5000 is occupied:
-python -m uvicorn app.main:app --host 0.0.0.0 --port 8000
-```
-
-**3. Python Version Issues:**
-```bash
-# Ensure you're using Python 3.11+:
-python --version
-
-# On some systems, use python3:
-python3 -m uvicorn app.main:app --host 0.0.0.0 --port 5000
-```
-
-**4. Virtual Environment Issues:**
-```bash
-# If activation fails, try:
-# Windows (PowerShell):
-venv\Scripts\Activate.ps1
-
-# Windows (Command Prompt):
-venv\Scripts\activate.bat
-```
-
-**5. Dependency Installation Problems:**
-```bash
-# Upgrade pip first:
-python -m pip install --upgrade pip
-
-# Install with verbose output:
-pip install -v fastapi uvicorn pydantic structlog tenacity python-multipart apify-client notion-client google-api-python-client google-auth
-```
-
-
-## 📋 Getting Your API Keys
-
-### For Apollo.io Scraping:
-1. Sign up at [Apify.com](https://apify.com)
-2. Go to Account Settings → Integrations
-3. Copy your API token
-4. Enter it in the web interface when scraping
-
-### For Google Sheets Integration (Optional):
-1. Go to [Google Cloud Console](https://console.cloud.google.com)
-2. Create a project and enable Google Sheets API
-3. Create service account credentials
-4. Download the JSON credentials file
-5. Upload the credentials through the web interface
-
-### For Notion Integration (Optional):
-1. Visit [Notion Integrations](https://www.notion.so/my-integrations)
-2. Create a new integration
-3. Copy the integration secret
-4. Create a database and connect your integration
-5. Enter credentials through the web interface
-
-## 🎮 How to Use
-
-1. **Enter Apollo.io URLs**: Paste the URLs you want to scrape
-2. **Set Lead Count**: Use the slider or type a specific number (1-50,000)
-3. **Choose Data Fields**: Select which information to extract
-4. **Add API Token**: Enter your Apify API token
-5. **Start Scraping**: Click the animated start button
-6. **Export Results**: Download as CSV/JSON or export to Sheets/Notion
-
-## 🐳 Docker Commands
+## 🔧 Environment Variables
 
 ```bash
-# Start the application
-docker-compose up -d
-
-# View logs
-docker-compose logs -f
-
-# Stop the application
-docker-compose down
-
-# Rebuild after changes
-docker-compose up --build -d
-
-# Remove everything (including volumes)
-docker-compose down -v
+OPENROUTER_API_KEY=your_openrouter_key        # Required - AI engine
+GOOGLE_SHEETS_CREDENTIALS=path_to_json        # Optional - Smart export
+NOTION_TOKEN=your_notion_token                # Optional - AI database sync
 ```
 
-## 📁 Project Structure
+## 📊 AI-Enhanced Data Fields
 
-```
-tiz-lead-scraper/
-├── app/                    # Main application code
-│   ├── api/               # API routes and middleware
-│   ├── clients/           # External service clients
-│   ├── core/              # Configuration and security
-│   ├── models/            # Data models
-│   ├── static/            # Frontend assets
-│   └── main.py            # Application entry point
-├── logs/                  # Application logs (auto-created)
-├── data/                  # Data storage (auto-created)
-├── Dockerfile             # Docker configuration
-├── docker-compose.yml     # Docker Compose setup
-└── README.md             # This file
-```
+- **Smart Contact**: AI-verified Name, Email, Phone
+- **Professional Intelligence**: Company, Job Title, Industry, Location  
+- **Social Graph**: LinkedIn, Twitter, Instagram, Website
+- **AI Quality Score**: Lead relevance and engagement potential
 
-## 🔧 Configuration
+## 🛠️ AI Agent API
 
-The application can be customized through environment variables in `docker-compose.yml`:
+- **Health Check**: `GET /health`
+- **AI Scraping**: `POST /api/v1/scrape` - Start intelligent extraction
+- **Smart Export**: `GET /api/v1/export/{format}/{task_id}` - AI-organized data
+- **Agent Docs**: http://localhost:5000/docs - Interactive AI API
 
-- `SECRET_KEY`: Application secret key
-- `LOG_LEVEL`: Logging level (INFO, DEBUG, WARNING, ERROR)
-- `RATE_LIMIT_REQUESTS`: API rate limit (requests per window)
-- `RATE_LIMIT_WINDOW`: Rate limit window in seconds
+## 🤖 AI Capabilities
 
-## 🛠️ Troubleshooting
+**Prompt Enhancement**: AI analyzes and improves your search prompts for better targeting
+**Query Intelligence**: Smart query generation based on your lead criteria  
+**Quality Filtering**: AI evaluates and scores leads for relevance and engagement
+**Learning System**: Agent learns from your preferences to improve results
 
-### Container won't start:
-- Check if port 5000 is available: `lsof -i :5000`
-- View logs: `docker-compose logs`
+## 👨‍💻 Built by Tiz
 
-### Can't access the application:
-- Ensure Docker is running
-- Try `http://localhost:5000` instead of `127.0.0.1`
-- Check firewall settings
+- **LinkedIn**: [Olajide Azeez](https://www.linkedin.com/in/olajide-azeez-a2133a258)
+- **Instagram**: [@tizkiya](https://www.instagram.com/tizkiya)
 
-### Scraping fails:
-- Verify your Apify API token is valid
-- Check Apollo.io URLs are accessible
-- Review application logs for specific errors
-
-## 📈 Performance
-
-The Docker setup includes:
-- **Memory**: 1GB limit, 512MB reserved
-- **CPU**: 1 core limit, 0.5 core reserved
-- **Health Checks**: Automatic container health monitoring
-- **Auto Restart**: Container restarts automatically on failure
-
-## 🔒 Security Features
-
-- CSRF token protection
-- Rate limiting (10 requests per minute by default)
-- Secure headers middleware
-- Input validation and sanitization
-- No sensitive data in logs
-
-## 📞 Support
-
-If you encounter any issues:
-1. Check the logs: `docker-compose logs -f`
-2. Ensure all API keys are correctly configured
-3. Verify your URLs are valid Apollo.io search pages
-4. Check network connectivity
-
-## 👨‍💻 About the Developer
-
-**Built with ❤️ by Tiz**
-
-Full-Stack Developer & Lead Generation Expert specializing in modern web applications, automation, and scalable solutions. Passionate about creating beautiful, functional tools that help businesses grow and succeed.
-
-### 🚀 Skills & Expertise
-- **Backend Development**: Python, FastAPI, Django, Node.js
-- **Frontend Development**: React, Vue.js, Modern CSS, Responsive Design
-- **DevOps & Deployment**: Docker, CI/CD, Cloud Platforms
-- **Data & Automation**: Web Scraping, API Integrations, Lead Generation
-- **Database Management**: PostgreSQL, MongoDB, Redis
-
-### 🤝 Let's Connect & Collaborate
-
-**Looking for custom development or have a project in mind?**
-
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-0077B5?style=for-the-badge&logo=linkedin)](https://www.linkedin.com/in/olajide-azeez-a2133a258)
-[![Instagram](https://img.shields.io/badge/Instagram-Follow-E4405F?style=for-the-badge&logo=instagram)](https://www.instagram.com/tizkiya?igsh=MXFseXhlMGNvaGZwMQ==)
-
-**Why work with me?**
-- ✅ **Proven Expertise**: Successfully built and deployed multiple production applications
-- ✅ **Modern Stack**: Always using the latest technologies and best practices
-- ✅ **Business Focus**: Understanding your needs and delivering solutions that drive results
-- ✅ **Quality Code**: Clean, scalable, and maintainable code with comprehensive documentation
-- ✅ **Fast Delivery**: Efficient development process with regular updates and communication
-
-**Services I Offer:**
-- 🛠️ Custom Web Application Development
-- 🤖 Automation & Web Scraping Solutions
-- 📊 Lead Generation & CRM Integration
-- 🚀 API Development & Integration
-- 🐳 DevOps & Deployment Solutions
-
-**Ready to bring your ideas to life? Let's discuss your next project!**
-
----
-
-## 🎉 Get Started Today!
-
-Your Tiz Lead Scraper is ready to help you extract valuable leads from Apollo.io with beautiful animations and seamless integrations!
+⭐ **Star this AI-powered tool if it helps you generate better leads!**

@@ -1,864 +1,179 @@
 class ApolloScraper {
     constructor() {
-        this.currentTaskId = null;
-        this.pollInterval = null;
-        this.csrfToken = null;
+        // Cache static DOM elements from index.html shell
+        this.themeToggle = document.getElementById('themeToggle');
+        this.globalNavDropdown = document.getElementById('globalNavDropdown');
+        this.globalNavItems = document.querySelectorAll('#globalNavDropdown .nav-item');
+        this.pages = document.querySelectorAll('.dashboard-page'); // Placeholders for dynamic content
 
-        this.init();
+        // Core State
+        this.currentView = 'home';
+        this.csrfToken = null;
+        this.currentTaskId = null;
+        this.eventSource = null;
+        this.currentExportData = []; // Holds data for current task once fetched
+
+        // AI Workflow State
+        this.originalPrompt = "";
+        this.appliedSuggestionIds = new Set();
+        this.currentParams = {}; 
+        this.isAIPromptInterfaceSetup = false; // To ensure AI listeners aren't re-added unnecessarily
+
+        // User/Session Identifiers
+        this.userId = localStorage.getItem('tls_user_id') || `user_${generateRandomId()}`;
+        localStorage.setItem('tls_user_id', this.userId);
+        this.sessionId = `session_${generateRandomId()}`;
+        console.log(`User ID: ${this.userId}, Session ID: ${this.sessionId}`);
+
+        // Initialize Navigation Manager
+        this.navigationManager = new NavigationManager(this);
     }
 
     async init() {
-        this.setupEventListeners();
-        this.setupToastr();
-        await this.getCsrfToken();
+        console.log("ApolloScraper initializing...");
+        this.setupStaticEventListeners();
+        
+        setupToastr();
+        await this.getCsrfToken(); 
         this.checkServiceStatus();
-    }
-
-    setupToastr() {
-        toastr.options = {
-            closeButton: true,
-            debug: false,
-            newestOnTop: true,
-            progressBar: true,
-            positionClass: "toast-top-right",
-            preventDuplicates: true,
-            onclick: null,
-            showDuration: "300",
-            hideDuration: "1000",
-            timeOut: "5000",
-            extendedTimeOut: "1000",
-            showEasing: "swing",
-            hideEasing: "linear",
-            showMethod: "fadeIn",
-            hideMethod: "fadeOut"
-        };
-    }
-
-    setupEventListeners() {
-        // Setup dropdown functionality after DOM is ready
-        setTimeout(() => {
-            this.setupDropdownMenu();
-        }, 100);
-
-        // Setup tabs
-        this.setupTabs();
-
-        // Setup other button handlers
-        this.setupButtonHandlers();
-    }
-
-    setupDropdownMenu() {
-        // Menu Dropdown Functionality
-        const dropdownTrigger = document.querySelector('.menu-dropdown-trigger');
-        const dropdownContainer = document.querySelector('.menu-dropdown-container');
-        const dropdownItems = document.querySelectorAll('.dropdown-item');
-
-        if (dropdownTrigger && dropdownContainer) {
-            // Toggle dropdown on click
-            dropdownTrigger.addEventListener('click', (e) => {
-                e.stopPropagation();
-                dropdownContainer.classList.toggle('show');
-            });
-
-            // Close dropdown when clicking outside
-            document.addEventListener('click', (e) => {
-                if (!dropdownContainer.contains(e.target)) {
-                    dropdownContainer.classList.remove('show');
-                }
-            });
-
-            // Handle dropdown item clicks
-            dropdownItems.forEach(item => {
-                item.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    const page = item.getAttribute('data-page');
-                    
-                    // Update active state
-                    dropdownItems.forEach(i => i.classList.remove('active'));
-                    item.classList.add('active');
-                    
-                    // Navigate to page
-                    if (page) {
-                        this.navigateToPage(page);
-                    }
-                    
-                    // Close dropdown
-                    dropdownContainer.classList.remove('show');
-                });
-            });
-        }
-    }
-
-    setupTabs() {
-        const tabButtons = document.querySelectorAll('.tab-button');
-        const tabContents = document.querySelectorAll('.tab-content');
-
-        tabButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                const tabId = button.getAttribute('data-tab');
-
-                // Update button states
-                tabButtons.forEach(btn => btn.classList.remove('active'));
-                button.classList.add('active');
-
-                // Update content states
-                tabContents.forEach(content => content.classList.remove('active'));
-                document.getElementById(`${tabId}-tab`).classList.add('active');
-            });
-        });
-    }
-
-    setupButtonHandlers() {
-        // Start scraping button
-        const startScrapingBtn = document.getElementById('startScraping');
-        if (startScrapingBtn) {
-            startScrapingBtn.addEventListener('click', () => {
-                this.startScraping();
-            });
-        }
-
-        // Export buttons
-        const exportCsvBtn = document.getElementById('exportCsv');
-        if (exportCsvBtn) {
-            exportCsvBtn.addEventListener('click', () => {
-                this.exportCsv();
-            });
-        }
-
-        const exportJsonBtn = document.getElementById('exportJson');
-        if (exportJsonBtn) {
-            exportJsonBtn.addEventListener('click', () => {
-                this.exportJson();
-            });
-        }
-
-        const exportSheetsBtn = document.getElementById('exportSheets');
-        if (exportSheetsBtn) {
-            exportSheetsBtn.addEventListener('click', () => {
-                this.exportToSheets();
-            });
-        }
-
-        const exportNotionBtn = document.getElementById('exportNotion');
-        if (exportNotionBtn) {
-            exportNotionBtn.addEventListener('click', () => {
-                this.exportToNotion();
-            });
-        }
-
-        // Lead count slider sync
-        const leadCountSlider = document.getElementById('leadCount');
-        const leadCountInput = document.getElementById('leadCountInput');
-
-        if (leadCountSlider && leadCountInput) {
-            leadCountSlider.addEventListener('input', () => {
-                leadCountInput.value = leadCountSlider.value;
-            });
-
-            leadCountInput.addEventListener('input', () => {
-                leadCountSlider.value = leadCountInput.value;
-            });
-        }
-    }
-
-    setupDashboardNavigation() {
-        const menuItems = document.querySelectorAll('.menu-item');
-        const pages = {
-            'home': 'homePage',
-            'configure': 'configurationSection',
-            'settings': 'settingsPage',
-            'results': 'resultsSection'
-        };
-
-        menuItems.forEach(item => {
-            item.addEventListener('click', () => {
-                const page = item.getAttribute('data-page');
-
-                // Update menu states
-                menuItems.forEach(menuItem => menuItem.classList.remove('active'));
-                item.classList.add('active');
-
-                // Hide all pages
-                Object.values(pages).forEach(pageId => {
-                    const pageElement = document.getElementById(pageId);
-                    if (pageElement) {
-                        pageElement.style.display = 'none';
-                    }
-                });
-
-                // Show selected page
-                const targetPageId = pages[page];
-                if (targetPageId) {
-                    const targetPage = document.getElementById(targetPageId);
-                    if (targetPage) {
-                        targetPage.style.display = 'block';
-                    }
-                }
-            });
-        });
-    }
-
-
-
-    saveSettings() {
-        const apifyToken = document.getElementById('apifyToken').value.trim();
-
-        if (!apifyToken) {
-            toastr.error('Please enter your Apify API token');
-            return;
-        }
-
-        // Redirect to configuration page
-        this.navigateToPage('configure');
-        toastr.success('Settings saved! Now configure your scraping parameters.');
-    }
-
-    startAutomation() {
-        const apifyToken = document.getElementById('apifyToken').value.trim();
-
-        if (!apifyToken) {
-            toastr.warning('Please configure your Apify API token first');
-            this.navigateToPage('settings');
-            return;
-        }
-
-        // If API key is set, go to configuration
-        this.navigateToPage('configure');
-        toastr.success('Ready to configure your scraping parameters!');
-    }
-
-    navigateToPage(pageName) {
-        const menuItems = document.querySelectorAll('.menu-item');
-        const pages = {
-            'home': 'homePage',
-            'configure': 'configurationSection',
-            'settings': 'settingsPage',
-            'results': 'resultsSection'
-        };
-
-        // Update menu states
-        menuItems.forEach(menuItem => {
-            menuItem.classList.remove('active');
-            if (menuItem.getAttribute('data-page') === pageName) {
-                menuItem.classList.add('active');
-            }
-        });
-
-        // Hide all pages
-        document.querySelectorAll('.dashboard-page').forEach(page => {
-            page.style.display = 'none';
-        });
-
-        // Show selected page
-        const targetPageId = pages[pageName];
-        if (targetPageId) {
-            const targetPage = document.getElementById(targetPageId);
-            if (targetPage) {
-                targetPage.style.display = 'block';
-            }
-        }
+        loadTheme();
+        
+        const initialPage = 'home'; 
+        await this.navigationManager.navigateToPage(initialPage, true);
+        console.log("Application initialization completed.");
     }
 
     async getCsrfToken() {
         try {
             const response = await fetch('/api/v1/csrf-token');
+            if (!response.ok) throw new Error(`CSRF token fetch failed: ${response.status}`);
             const data = await response.json();
             this.csrfToken = data.csrf_token;
+            console.log("CSRF token obtained:", this.csrfToken ? "Yes" : "No");
         } catch (error) {
             console.error('Failed to get CSRF token:', error);
+            toastr.error("Could not obtain CSRF token. Some actions might fail.");
         }
     }
 
     async checkServiceStatus() {
         try {
-            const response = await fetch('/health');
-            const data = await response.json();
-
-            if (data.status === 'healthy') {
-                this.updateStatusIndicator('Ready', 'success');
-            } else {
-                this.updateStatusIndicator('Service Issues', 'warning');
-            }
+            await fetch('/health'); // Just check reachability
         } catch (error) {
-            this.updateStatusIndicator('Offline', 'error');
+            console.error("Failed to check service status:", error);
         }
     }
 
-    updateStatusIndicator(text, status) {
-        const statusText = document.querySelector('.status-text');
-        const statusDot = document.querySelector('.status-dot');
+    setupStaticEventListeners() {
+        console.log("Setting up static event listeners for shell elements.");
+        const navTrigger = this.globalNavDropdown?.querySelector('.nav-trigger');
 
-        statusText.textContent = text;
-
-        statusDot.style.background = {
-            'success': 'hsl(var(--accent-secondary))',
-            'warning': 'hsl(var(--accent-warning))',
-            'error': 'hsl(var(--accent-danger))'
-        }[status] || 'hsl(var(--accent-secondary))';
-    }
-
-    toggleTheme() {
-        const body = document.body;
-        const themeIcon = document.querySelector('#themeToggle i');
-
-        if (body.classList.contains('dark-theme')) {
-            body.classList.remove('dark-theme');
-            themeIcon.className = 'fas fa-moon';
-            localStorage.setItem('theme', 'light');
-        } else {
-            body.classList.add('dark-theme');
-            themeIcon.className = 'fas fa-sun';
-            localStorage.setItem('theme', 'dark');
-        }
-
-        // Animate theme transition
-        gsap.fromTo(body, 
-            { opacity: 0.8 }, 
-            { opacity: 1, duration: 0.3, ease: "power2.out" }
-        );
-    }
-
-    validateUrls() {
-        const urlInput = document.getElementById('urlInput');
-        const urls = urlInput.value.split('\n').filter(url => url.trim());
-
-        const validUrls = urls.filter(url => 
-            url.trim().startsWith('http://') || url.trim().startsWith('https://')
-        );
-
-        if (urls.length > validUrls.length) {
-            urlInput.style.borderColor = 'hsl(var(--accent-danger))';
-        } else {
-            urlInput.style.borderColor = 'hsl(var(--border-color))';
-        }
-
-        return validUrls;
-    }
-
-    getSelectedFields() {
-        const checkboxes = document.querySelectorAll('#fieldSelection input[type="checkbox"]:checked');
-        return Array.from(checkboxes).map(cb => cb.value);
-    }
-
-    async startScraping() {
-        const urlInput = document.getElementById('urlInput');
-        const leadCount = parseInt(document.getElementById('leadCountInput').value);
-        const startButton = document.getElementById('startScraping');
-        const apifyToken = document.getElementById('apifyToken').value.trim();
-
-        // Validate API key first
-        if (!apifyToken) {
-            toastr.error('Please configure your Apify API token first');
-            this.navigateToPage('settings');
-            return;
-        }
-
-        // Validate inputs
-        const urls = this.validateUrls();
-        const fields = this.getSelectedFields();
-
-        if (urls.length === 0) {
-            toastr.error('Please enter at least one valid URL');
-            return;
-        }
-
-        if (urls.length > 10) {
-            toastr.error('Maximum 10 URLs allowed');
-            return;
-        }
-
-        if (fields.length === 0) {
-            toastr.error('Please select at least one field to extract');
-            return;
-        }
-
-        // Update UI
-        this.setButtonLoading(startButton, true);
-        this.showProgressSection();
-        this.updateProgress(0, 'Initializing scraper...');
-
-        try {
-            const response = await fetch('/api/v1/scrape', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-Token': this.csrfToken
-                },
-                body: JSON.stringify({
-                    urls: urls,
-                    lead_count: leadCount,
-                    fields: fields,
-                    apify_token: apifyToken
-                })
+        if (navTrigger && this.globalNavDropdown) {
+            navTrigger.addEventListener('click', (e) => {
+                e.stopPropagation();
+                this.globalNavDropdown.classList.toggle('active');
             });
-
-            const data = await response.json();
-
-            if (response.ok) {
-                this.currentTaskId = data.task_id;
-                toastr.success('Scraping started successfully!');
-                this.startPolling();
-            } else {
-                throw new Error(data.detail || 'Failed to start scraping');
-            }
-
-        } catch (error) {
-            toastr.error(`Failed to start scraping: ${error.message}`);
-            this.hideProgressSection();
-        } finally {
-            this.setButtonLoading(startButton, false);
-        }
-    }
-
-    setButtonLoading(button, loading) {
-        const buttonText = button.querySelector('.button-text');
-        const loadingSpinner = button.querySelector('.loading-spinner');
-
-        if (loading) {
-            buttonText.style.display = 'none';
-            loadingSpinner.style.display = 'block';
-            button.disabled = true;
-        } else {
-            buttonText.style.display = 'block';
-            loadingSpinner.style.display = 'none';
-            button.disabled = false;
-        }
-    }
-
-    showProgressSection() {
-        // Navigate to progress page
-        this.navigateToPage('results');
-
-        const progressSection = document.getElementById('progressSection');
-        progressSection.style.display = 'block';
-
-        gsap.fromTo(progressSection, 
-            { opacity: 0, y: 20 }, 
-            { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }
-        );
-    }
-
-    hideProgressSection() {
-        const progressSection = document.getElementById('progressSection');
-
-        gsap.to(progressSection, {
-            opacity: 0,
-            y: -20,
-            duration: 0.3,
-            ease: "power2.out",
-            onComplete: () => {
-                progressSection.style.display = 'none';
-            }
-        });
-    }
-
-    updateProgress(percentage, message) {
-        const progressFill = document.getElementById('progressFill');
-        const progressPercentage = document.getElementById('progressPercentage');
-        const progressMessage = document.getElementById('progressMessage');
-
-        gsap.to(progressFill, {
-            width: `${percentage}%`,
-            duration: 0.5,
-            ease: "power2.out"
-        });
-
-        progressPercentage.textContent = `${percentage}%`;
-        progressMessage.textContent = message;
-    }
-
-    startPolling() {
-        this.pollInterval = setInterval(() => {
-            this.checkTaskStatus();
-        }, 2000);
-    }
-
-    stopPolling() {
-        if (this.pollInterval) {
-            clearInterval(this.pollInterval);
-            this.pollInterval = null;
-        }
-    }
-
-    async checkTaskStatus() {
-        if (!this.currentTaskId) return;
-
-        try {
-            const response = await fetch(`/api/v1/scrape/${this.currentTaskId}`);
-            const data = await response.json();
-
-            if (response.ok) {
-                this.updateProgress(data.progress, data.message);
-
-                if (data.status === 'completed') {
-                    this.stopPolling();
-                    this.showResults(data.data, data.total_count);
-                    toastr.success(`Scraping completed! Found ${data.total_count} leads`);
-                } else if (data.status === 'failed') {
-                    this.stopPolling();
-                    this.hideProgressSection();
-                    toastr.error(`Scraping failed: ${data.message}`);
+            document.addEventListener('click', (e) => {
+                if (this.globalNavDropdown && !this.globalNavDropdown.contains(e.target)) {
+                    this.globalNavDropdown.classList.remove('active');
                 }
-            }
-
-        } catch (error) {
-            console.error('Failed to check task status:', error);
-        }
-    }
-
-    showResults(data, totalCount) {
-        if (!data || data.length === 0) {
-            toastr.warning('No results found');
-            this.hideProgressSection();
-            return;
-        }
-
-        // Hide progress section
-        this.hideProgressSection();
-
-        // Update results count
-        document.getElementById('resultsCount').textContent = `${totalCount} leads found`;
-
-        // Show results section
-        const resultsSection = document.getElementById('resultsSection');
-        resultsSection.style.display = 'block';
-
-        // Populate table
-        this.populateResultsTable(data.slice(0, 5)); // Show first 5 results
-
-        // Animate section
-        gsap.fromTo(resultsSection, 
-            { opacity: 0, y: 20 }, 
-            { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }
-        );
-    }
-
-    populateResultsTable(data) {
-        const tableHead = document.getElementById('resultsTableHead');
-        const tableBody = document.getElementById('resultsTableBody');
-
-        // Clear existing content
-        tableHead.innerHTML = '';
-        tableBody.innerHTML = '';
-
-        if (data.length === 0) return;
-
-        // Create headers
-        const headers = Object.keys(data[0]);
-        const headerRow = document.createElement('tr');
-        headers.forEach(header => {
-            const th = document.createElement('th');
-            th.textContent = header.charAt(0).toUpperCase() + header.slice(1);
-            headerRow.appendChild(th);
-        });
-        tableHead.appendChild(headerRow);
-
-        // Create rows
-        data.forEach(row => {
-            const tr = document.createElement('tr');
-            headers.forEach(header => {
-                const td = document.createElement('td');
-                td.textContent = row[header] || '';
-                td.title = row[header] || ''; // Tooltip for long text
-                tr.appendChild(td);
             });
-            tableBody.appendChild(tr);
-        });
-    }
-
-    async exportCsv() {
-        if (!this.currentTaskId) {
-            toastr.error('No data to export');
-            return;
-        }
-
-        try {
-            const response = await fetch(`/api/v1/export/csv/${this.currentTaskId}`);
-
-            if (response.ok) {
-                const blob = await response.blob();
-                const url = window.URL.createObjectURL(blob);
-                const a = document.createElement('a');
-                a.href = url;
-                a.download = `leads_${this.currentTaskId}.csv`;
-                document.body.appendChild(a);
-                a.click();
-                document.body.removeChild(a);
-                window.URL.revokeObjectURL(url);
-
-                toastr.success('CSV downloaded successfully!');
-            } else {
-                throw new Error('Failed to export CSV');
-            }
-
-        } catch (error) {
-            toastr.error(`CSV export failed: ${error.message}`);
-        }
-    }
-
-    async exportJson() {
-        if (!this.currentTaskId) {
-            toastr.error('No data to export');
-            return;
-        }
-
-        try {
-            const response = await fetch(`/api/v1/export/json/${this.currentTaskId}`);
-
-            if (response.ok) {
-                const blob = await response.blob();
-                const url = window.URL.createObjectURL(blob);
-                const a = document.createElement('a');
-                a.href = url;
-                a.download = `leads_${this.currentTaskId}.json`;
-                document.body.appendChild(a);
-                a.click();
-                document.body.removeChild(a);
-                window.URL.revokeObjectURL(url);
-
-                toastr.success('JSON downloaded successfully!');
-            } else {
-                throw new Error('Failed to export JSON');
-            }
-
-        } catch (error) {
-            toastr.error(`JSON export failed: ${error.message}`);
-        }
-    }
-
-    async exportToSheets() {
-        if (!this.currentTaskId) {
-            toastr.error('No data to export');
-            return;
-        }
-
-        const googleCredentials = document.getElementById('googleCredentials').value.trim();
-        const spreadsheetId = document.getElementById('spreadsheetId').value.trim();
-        const sheetName = document.getElementById('sheetName').value.trim() || 'Leads';
-
-        if (!googleCredentials) {
-            toastr.error('Please enter your Google Service Account credentials');
-            return;
-        }
-
-        if (!spreadsheetId) {
-            toastr.error('Please enter a Google Sheets spreadsheet ID');
-            return;
-        }
-
-        try {
-            // Validate JSON credentials
-            JSON.parse(googleCredentials);
-        } catch (e) {
-            toastr.error('Invalid Google credentials JSON format');
-            return;
-        }
-
-        try {
-            // Get task data
-            const taskResponse = await fetch(`/api/v1/scrape/${this.currentTaskId}`);
-            const taskData = await taskResponse.json();
-
-            if (!taskData.data || taskData.data.length === 0) {
-                toastr.error('No data available to export');
-                return;
-            }
-
-            this.showLoadingOverlay('Exporting to Google Sheets...');
-
-            const response = await fetch('/api/v1/export/sheets', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-Token': this.csrfToken
-                },
-                body: JSON.stringify({
-                    spreadsheet_id: spreadsheetId,
-                    sheet_name: sheetName,
-                    data: taskData.data,
-                    google_credentials: JSON.parse(googleCredentials)
-                })
+            this.globalNavItems.forEach(item => {
+                item.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const pageName = item.getAttribute('data-page');
+                    if (pageName) this.navigationManager.navigateToPage(pageName);
+                    if (this.globalNavDropdown) this.globalNavDropdown.classList.remove('active');
+                });
             });
-
-            const result = await response.json();
-
-            if (response.ok && result.status === 'success') {
-                toastr.success(`Successfully exported ${result.updated_rows} rows to Google Sheets!`);
-            } else {
-                throw new Error(result.message || 'Failed to export to Google Sheets');
-            }
-
-        } catch (error) {
-            toastr.error(`Google Sheets export failed: ${error.message}`);
-        } finally {
-            this.hideLoadingOverlay();
+        }
+        if (this.themeToggle) {
+            this.themeToggle.addEventListener('click', () => toggleTheme());
         }
     }
 
-    async exportToNotion() {
-        if (!this.currentTaskId) {
-            toastr.error('No data to export');
-            return;
-        }
-
-        const notionToken = document.getElementById('notionToken').value.trim();
-        const databaseId = document.getElementById('notionDatabaseId').value.trim();
-
-        if (!notionToken) {
-            toastr.error('Please enter your Notion integration token');
-            return;
-        }
-
-        if (!databaseId) {
-            toastr.error('Please enter your Notion database ID');
-            return;
-        }
-
-        try {
-            // Get task data
-            const taskResponse = await fetch(`/api/v1/scrape/${this.currentTaskId}`);
-            const taskData = await taskResponse.json();
-
-            if (!taskData.data || taskData.data.length === 0) {
-                toastr.error('No data available to export');
-                return;
-            }
-
-            this.showLoadingOverlay('Exporting to Notion...');
-
-            const response = await fetch('/api/v1/export/notion', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-Token': this.csrfToken
-                },
-                body: JSON.stringify({
-                    database_id: databaseId,
-                    data: taskData.data,
-                    notion_token: notionToken
-                })
-            });
-
-            const result = await response.json();
-
-            if (response.ok && (result.status === 'success' || result.status === 'partial_success')) {
-                toastr.success(`Successfully exported ${result.created_count} entries to Notion!`);
-
-                if (result.errors && result.errors.length > 0) {
-                    toastr.warning(`Some entries failed: ${result.errors.length} errors`);
-                }
-            } else {
-                throw new Error(result.message || 'Failed to export to Notion');
-            }
-
-        } catch (error) {
-            toastr.error(`Notion export failed: ${error.message}`);
-        } finally {
-            this.hideLoadingOverlay();
-        }
-    }
-
-    showLoadingOverlay(text = 'Processing...') {
-        const overlay = document.getElementById('loadingOverlay');
-        const loadingText = overlay.querySelector('.loading-text');
-
-        loadingText.textContent = text;
-        overlay.style.display = 'flex';
-
-        gsap.fromTo(overlay, 
-            { opacity: 0 }, 
-            { opacity: 1, duration: 0.3, ease: "power2.out" }
-        );
-    }
-
-    hideLoadingOverlay() {
-        const overlay = document.getElementById('loadingOverlay');
-
-        gsap.to(overlay, {
-            opacity: 0,
-            duration: 0.3,
-            ease: "power2.out",
-            onComplete: () => {
-                overlay.style.display = 'none';
-            }
-        });
-    }
+    // Methods from other files will be attached to ApolloScraper.prototype below
 }
 
-// Initialize application when DOM is loaded
-document.addEventListener('DOMContentLoaded', () => {
-    // Check for saved theme preference
-    const savedTheme = localStorage.getItem('theme');
-    if (savedTheme === 'light') {
-        document.body.classList.remove('dark-theme');
-        document.querySelector('#themeToggle i').className = 'fas fa-moon';
-    }
+// --- Attach methods from other files to ApolloScraper prototype ---
 
-    // Initialize the application and make it globally available
-    window.apolloScraper = new ApolloScraper();
+// From ui_helpers.js (generateRandomId is used in constructor, others might be useful on instance)
+ApolloScraper.prototype.generateRandomId = generateRandomId; // Already in constructor, but good for explicitness
+ApolloScraper.prototype.escapeHtml = escapeHtml;
+ApolloScraper.prototype.formatKey = formatKey;
+ApolloScraper.prototype.formatValue = formatValue;
+ApolloScraper.prototype.showLoadingOverlay = showLoadingOverlay;
+ApolloScraper.prototype.hideLoadingOverlay = hideLoadingOverlay;
 
-    // Setup save settings button
-    const saveSettingsBtn = document.getElementById('saveSettings');
-    if (saveSettingsBtn) {
-        saveSettingsBtn.addEventListener('click', function() {
-            window.apolloScraper.saveSettings();
-        });
-    }
-});
+// From ai_assistant.js - Now handled by AIPromptHandler class
+// ApolloScraper.prototype.setupAIPromptInterface = function() { ... };
+// ApolloScraper.prototype.setAIActionsUIState = function() { ... };
+// ApolloScraper.prototype.handleDirectURLGeneration = handleDirectURLGeneration; // Removed - now in AIPromptHandler
+// ApolloScraper.prototype.updateParsingFeedback = updateParsingFeedback; // Removed - now in AIPromptHandler
 
-// Add some entrance animations
-gsap.registerPlugin();
+// From core_scraping.js
+ApolloScraper.prototype.saveSettings = saveSettings;
+ApolloScraper.prototype.collectSettingsData = collectSettingsData;
+ApolloScraper.prototype.saveToLocalStorage = saveToLocalStorage;
+ApolloScraper.prototype.showSaveStatus = showSaveStatus;
+ApolloScraper.prototype.resetSaveButton = resetSaveButton;
+ApolloScraper.prototype.startScraping = startScraping;
+ApolloScraper.prototype.getSelectedFields = getSelectedFields;
+ApolloScraper.prototype.setupEventSource = setupEventSource;
+ApolloScraper.prototype.fetchFinalResults = fetchFinalResults;
+ApolloScraper.prototype.showResults = showResults;
+ApolloScraper.prototype.displayCurrentResults = displayCurrentResults;
+ApolloScraper.prototype.initializeViewToggle = initializeViewToggle;
+ApolloScraper.prototype.updateViewDisplay = updateViewDisplay;
+ApolloScraper.prototype.showEmptyState = showEmptyState;
+ApolloScraper.prototype.renderCardView = renderCardView;
+ApolloScraper.prototype.populateCardData = populateCardData;
+ApolloScraper.prototype.renderTableView = renderTableView;
+ApolloScraper.prototype.updateProgress = updateProgress;
+ApolloScraper.prototype.exportCsv = exportCsv;
+ApolloScraper.prototype.exportJson = exportJson;
+ApolloScraper.prototype.exportToSheets = exportToSheets;
+ApolloScraper.prototype.exportToNotion = exportToNotion;
 
-// Animate page load
-window.addEventListener('load', () => {
-    // Simple fade-in animations without GSAP errors
-    const header = document.querySelector('.header');
-    const dashboardContent = document.querySelector('.dashboard-content');
-    const animatedCards = document.querySelectorAll('.animated-card');
-
-    if (header) {
-        header.style.opacity = '0';
-        header.style.transform = 'translateY(-20px)';
-        setTimeout(() => {
-            header.style.transition = 'all 0.6s ease';
-            header.style.opacity = '1';
-            header.style.transform = 'translateY(0)';
-        }, 100);
-    }
-
-    if (dashboardContent) {
-        dashboardContent.style.opacity = '0';
-        dashboardContent.style.transform = 'translateY(20px)';
-        setTimeout(() => {
-            dashboardContent.style.transition = 'all 0.8s ease';
-            dashboardContent.style.opacity = '1';
-            dashboardContent.style.transform = 'translateY(0)';
-        }, 300);
-    }
-
-    animatedCards.forEach((card, index) => {
-        if (card) {
-            card.style.opacity = '0';
-            card.style.transform = 'translateY(20px)';
-            setTimeout(() => {
-                card.style.transition = 'all 0.6s ease';
-                card.style.opacity = '1';
-                card.style.transform = 'translateY(0)';
-            }, 600 + (index * 100));
+// Helper for re-binding listeners in page_initializers.js, needs to be on prototype
+ApolloScraper.prototype._rebindListener = function(elementId, eventType, handler) {
+    const element = document.getElementById(elementId);
+    if (element) {
+        // Preserve current state before cloning
+        const wasDisabled = element.disabled;
+        const currentValue = element.value;
+        const currentInnerHTML = element.innerHTML;
+        const currentClasses = element.className;
+        
+        const newElement = element.cloneNode(true);
+        
+        // Restore the current state after cloning
+        // Skip disabled state for AI buttons since we manage that explicitly
+        if (!elementId.includes('enhancePromptBtn') && !elementId.includes('generateSearchQueryBtn')) {
+            newElement.disabled = wasDisabled;
         }
-    });
-});
+        if (currentValue !== undefined) newElement.value = currentValue;
+        if (currentInnerHTML !== undefined) newElement.innerHTML = currentInnerHTML;
+        newElement.className = currentClasses;
+        
+        element.parentNode.replaceChild(newElement, element);
+        newElement.addEventListener(eventType, handler.bind(this)); // Bind to this (ApolloScraper instance)
+        
+        console.log(`🔄 Rebound listener for ${elementId}, preserved disabled: ${elementId.includes('enhancePromptBtn') || elementId.includes('generateSearchQueryBtn') ? 'SKIPPED' : wasDisabled}`);
+        return newElement;
+    }
+    console.warn(`Element ${elementId} not found for rebinding listener.`);
+    return null;
+};
 
-// Start automation button click handler
+
+// Initialize the application
 document.addEventListener('DOMContentLoaded', () => {
-    const startAutomationBtn = document.getElementById('startAutomationBtn');
-    if (startAutomationBtn) {
-        startAutomationBtn.addEventListener('click', function() {
-            // Get the ApolloScraper instance and navigate to settings
-            const scraper = window.apolloScraper;
-            if (scraper) {
-                scraper.navigateToPage('settings');
-            }
-        });
+    console.log("DOM Content Loaded - Initializing application...");
+    if (!window.apolloScraper) { 
+        window.apolloScraper = new ApolloScraper();
+        window.apolloScraper.init(); 
+    } else {
+        console.log("ApolloScraper instance already exists.");
     }
 });
