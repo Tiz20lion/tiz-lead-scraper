@@ -48,7 +48,7 @@ COPY --from=builder /usr/local/bin /usr/local/bin
 # Copy application code and development runner
 COPY app/ ./app/
 COPY run_dev.py ./
-COPY debug_fields.py ./
+#COPY debug_fields.py ./
 
 # Create necessary directories with proper permissions
 RUN mkdir -p /app/logs /app/data /app/attached_assets && \
