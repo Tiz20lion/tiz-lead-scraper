@@ -1,0 +1,133 @@
+<!-- app/static/components/ai_prompt.html -->
+<div class="input-section animated-card">
+  <label class="input-label">
+    <div class="label-icon-wrapper">
+      <div class="label-icon">
+        <span class="material-symbols-outlined">psychology</span>
+      </div>
+      <div class="icon-pulse"></div>
+    </div>
+    AI Prospecting Assistant
+    <div class="label-badge info">
+      Smart URL Generation
+    </div>
+  </label>
+
+  <!-- Search Type Toggles -->
+  <div class="search-type-toggles">
+    <div class="toggles-header">
+      <span class="material-symbols-outlined">tune</span>
+      <span>Search Focus:</span>
+    </div>
+    <div class="toggles-grid">
+      <label for="togglePeople" class="toggle-label">
+        <input id="togglePeople" type="checkbox" class="toggle-input" role="switch" checked="" data-type="people">
+        <span class="toggle-text">People &amp; Contacts</span>
+        <div class="toggle-switch"><div class="toggle-slider"></div></div>
+      </label>
+      <label for="toggleCompanies" class="toggle-label">
+        <input id="toggleCompanies" type="checkbox" class="toggle-input" role="switch" data-type="companies">
+        <span class="toggle-text">Companies</span>
+        <div class="toggle-switch"><div class="toggle-slider"></div></div>
+      </label>
+      <label for="toggleMixed" class="toggle-label">
+        <input id="toggleMixed" type="checkbox" class="toggle-input" role="switch" data-type="mixed">
+        <span class="toggle-text">Mixed Search</span>
+        <div class="toggle-switch"><div class="toggle-slider"></div></div>
+      </label>
+    </div>
+  </div>
+
+  <!-- Modern AI Prompt Component -->
+  <div class="ai-prompt-modern">
+    <!-- Quick Examples -->
+    <div class="quick-examples-container">
+      <div class="quick-examples-header">
+        <span class="material-symbols-outlined quick-examples-header-icon">lightbulb</span>
+        Quick Examples:
+      </div>
+      <ul class="quick-examples-list" id="suggestionsGrid">
+        <li class="quick-example-item">
+          <button class="quick-example-button" data-prompt="Find marketing managers at SaaS companies in San Francisco with 50-200 employees">
+            Find marketing managers at SaaS companies in San Francisco with 50-200 employees
+          </button>
+        </li>
+        <!-- … Other <li> items … -->
+      </ul>
+    </div>
+
+    <!-- Prompt Input -->
+    <div class="prompt-input-container">
+      <label for="prospectingPrompt" class="prompt-input-label">AI prompt</label>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" aria-hidden="true" class="prompt-input-icon">
+        <!-- SVG path … -->
+      </svg>
+      <input id="prospectingPrompt" type="text" class="prompt-input-field" name="prompt" placeholder="Describe who you want to find…">
+      <button type="button" id="generateProspectingUrl" class="prompt-generate-button" disabled="">Generate</button>
+    </div>
+  </div>
+
+  <!-- Parsing Feedback -->
+  <div id="parsingFeedback" class="parsing-feedback" style="display: none;">
+    <div class="feedback-header">
+      <span class="material-symbols-outlined">auto_awesome</span>
+      <span>AI Understands:</span>
+    </div>
+    <div class="parsed-results" id="parsedResults">
+      <!-- Dynamically populated -->
+    </div>
+  </div>
+
+  <!-- AI Suggestions Container -->
+  <div id="aiSuggestionsContainer" class="ai-suggestions-container" style="display: none;">
+    <div class="suggestions-header">
+      <div class="suggestions-header-content">
+        <span class="material-symbols-outlined">psychology</span>
+        <span class="suggestions-title">AI Suggestions to Improve Your Search</span>
+        <span class="suggestions-count" id="suggestionsCount">0</span>
+      </div>
+      <div class="suggestions-subtitle">Review and apply suggestions to get better results</div>
+    </div>
+    <ul class="suggestions-list" id="aiSuggestionsList">
+      <!-- Items injected via JS -->
+    </ul>
+    <div class="suggestions-actions">
+      <button type="button" id="applyAllSuggestions" class="suggestions-action-btn apply-all">
+        <span class="material-symbols-outlined">check_circle</span>
+        Apply Selected
+      </button>
+      <button type="button" id="dismissSuggestions" class="suggestions-action-btn dismiss">
+        <span class="material-symbols-outlined">close</span>
+        Dismiss
+      </button>
+    </div>
+  </div>
+
+  <!-- Generated URL Section -->
+  <div id="generatedUrlSection" class="generated-url-section" style="display: none;">
+    <div class="url-header">
+      <span>Generated Apollo.io URL:</span>
+      <button type="button" id="copyGeneratedUrl" class="copy-url-btn" title="Copy URL">
+        <span class="material-symbols-outlined">content_copy</span>
+      </button>
+    </div>
+    <div class="url-display">
+      <input type="text" id="generatedApolloUrl" class="url-input" readonly="">
+    </div>
+    <div class="url-actions">
+      <button type="button" id="editPrompt" class="action-btn secondary">
+        <span class="material-symbols-outlined">edit</span>
+        Edit Search
+      </button>
+      <button type="button" id="useGeneratedUrl" class="action-btn primary">
+        <span class="material-symbols-outlined">rocket_launch</span>
+        Use This URL
+      </button>
+    </div>
+  </div>
+
+  <div class="input-help">
+    <span class="material-symbols-outlined">info</span>
+    Describe your ideal prospects in natural language – AI will generate the perfect Apollo.io search URL
+  </div>
+</div> 

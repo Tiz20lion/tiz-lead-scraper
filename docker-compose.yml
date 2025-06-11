@@ -1,0 +1,167 @@
+version: '3.8'
+
+services:
+  tiz-lead-scraper:
+    build: .
+    image: tiz20lion/tiz-lead-scraper:latest
+    container_name: tiz-lead-scraper
+    ports:
+      - "5000:5000"
+    environment:
+      # Application Settings
+      - SECRET_KEY=${SECRET_KEY:-tiz-lead-scraper-secret-key-2024}
+      - LOG_LEVEL=${LOG_LEVEL:-INFO}
+      - DEBUG=${DEBUG:-false}
+      
+      # Python Configuration
+      - PYTHONPATH=/app
+      - PYTHONUNBUFFERED=1
+      - PYTHONDONTWRITEBYTECODE=1
+      - TIZ_DOCKER_MODE=1
+      
+      # Rate Limiting
+      - RATE_LIMIT_REQUESTS=${RATE_LIMIT_REQUESTS:-10}
+      - RATE_LIMIT_WINDOW=${RATE_LIMIT_WINDOW:-60}
+      
+      # API Tokens (set these in .env file)
+      - APIFY_API_TOKEN=${APIFY_API_TOKEN:-}
+      - GOOGLE_SHEETS_CREDENTIALS=${GOOGLE_SHEETS_CREDENTIALS:-}
+      - NOTION_TOKEN=${NOTION_TOKEN:-}
+      
+      # AI/ML Configuration
+      - OPENAI_API_KEY=${OPENAI_API_KEY:-}
+      - OPENROUTER_API_KEY=${OPENROUTER_API_KEY:-}
+      
+      # CORS and Security
+      - ALLOWED_ORIGINS=${ALLOWED_ORIGINS:-*}
+      - FORCE_HTTPS=${FORCE_HTTPS:-false}
+    volumes:
+      - ./logs:/app/logs:rw
+      - ./data:/app/data:rw
+      - ./attached_assets:/app/attached_assets:rw
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    deploy:
+      resources:
+        limits:
+          memory: 1G
+          cpus: '1.0'
+        reservations:
+          memory: 512M
+          cpus: '0.5'
+    profiles:
+      - production
+
+  # Development profile with enhanced features
+  tiz-lead-scraper-dev:
+    build: 
+      context: .
+      target: production
+    image: tiz20lion/tiz-lead-scraper:dev
+    container_name: tiz-lead-scraper-dev
+    ports:
+      - "5000:5000"
+      - "8000:8000"  # Additional port for debugging
+    environment:
+      # Application Settings
+      - SECRET_KEY=${SECRET_KEY:-tiz-lead-scraper-dev-key}
+      - LOG_LEVEL=DEBUG
+      - DEBUG=true
+      
+      # Python Configuration
+      - PYTHONPATH=/app
+      - PYTHONUNBUFFERED=1
+      - PYTHONDONTWRITEBYTECODE=1
+      - TIZ_DOCKER_MODE=1
+      - TIZ_DEV_MODE=1
+      
+      # Development Rate Limiting
+      - RATE_LIMIT_REQUESTS=100
+      - RATE_LIMIT_WINDOW=60
+      
+      # API Tokens
+      - APIFY_API_TOKEN=${APIFY_API_TOKEN:-}
+      - GOOGLE_SHEETS_CREDENTIALS=${GOOGLE_SHEETS_CREDENTIALS:-}
+      - NOTION_TOKEN=${NOTION_TOKEN:-}
+      - OPENAI_API_KEY=${OPENAI_API_KEY:-}
+      - OPENROUTER_API_KEY=${OPENROUTER_API_KEY:-}
+      
+      # Development CORS
+      - ALLOWED_ORIGINS=*
+      - FORCE_HTTPS=false
+    volumes:
+      - ./logs:/app/logs:rw
+      - ./data:/app/data:rw
+      - ./attached_assets:/app/attached_assets:rw
+      - ./app:/app/app:rw  # Mount source code for hot reload
+      - ./run_dev.py:/app/run_dev.py:ro  # Mount development runner
+      - ./requirements.txt:/app/requirements.txt:ro  # Mount requirements
+    restart: unless-stopped
+    command: ["python", "run_dev.py"]  # Use development runner
+    profiles:
+      - development
+
+  # Development with manual debugging
+  tiz-lead-scraper-debug:
+    build: 
+      context: .
+      target: production
+    image: tiz20lion/tiz-lead-scraper:debug
+    container_name: tiz-lead-scraper-debug
+    ports:
+      - "5000:5000"
+      - "8000:8000"  # Debug port
+      - "5678:5678"  # Python debugger port
+    environment:
+      - SECRET_KEY=tiz-lead-scraper-debug-key
+      - LOG_LEVEL=DEBUG
+      - DEBUG=true
+      - PYTHONPATH=/app
+      - PYTHONUNBUFFERED=1
+      - PYTHONDONTWRITEBYTECODE=1
+      - TIZ_DOCKER_MODE=1
+      - TIZ_DEBUG_MODE=1
+      - RATE_LIMIT_REQUESTS=1000
+      - RATE_LIMIT_WINDOW=60
+      - APIFY_API_TOKEN=${APIFY_API_TOKEN:-}
+      - GOOGLE_SHEETS_CREDENTIALS=${GOOGLE_SHEETS_CREDENTIALS:-}
+      - NOTION_TOKEN=${NOTION_TOKEN:-}
+      - OPENAI_API_KEY=${OPENAI_API_KEY:-}
+      - OPENROUTER_API_KEY=${OPENROUTER_API_KEY:-}
+      - ALLOWED_ORIGINS=*
+      - FORCE_HTTPS=false
+    volumes:
+      - ./logs:/app/logs:rw
+      - ./data:/app/data:rw
+      - ./attached_assets:/app/attached_assets:rw
+      - ./app:/app/app:rw
+      - ./run_dev.py:/app/run_dev.py:rw
+      - ./requirements.txt:/app/requirements.txt:ro
+    restart: unless-stopped
+    command: ["tail", "-f", "/dev/null"]  # Keep container running for manual debugging
+    profiles:
+      - debug
+
+  # Redis for future caching (optional)
+  redis:
+    image: redis:7-alpine
+    container_name: tiz-redis
+    restart: unless-stopped
+    volumes:
+      - redis_data:/data
+    profiles:
+      - production
+      - redis
+
+volumes:
+  redis_data:
+
+networks:
+  default:
+    name: tiz-lead-scraper-network
+    driver: bridge

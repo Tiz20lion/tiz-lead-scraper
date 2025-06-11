@@ -1,0 +1,291 @@
+                <div class="section-title">
+                    <h2><span class="material-symbols-outlined">tune</span> Settings & Configuration</h2>
+                    <p>Configure your API tokens and export integrations</p>
+                </div>
+
+                <div class="config-grid">
+                    <!-- Left Column - API Key Settings -->
+                    <div class="config-column">
+                        <!-- API Configuration -->
+                        <div class="input-section animated-card">
+                            <label for="apifyToken" class="input-label">
+                                <div class="label-icon-wrapper">
+                                    <div class="label-icon">
+                                        <span class="material-symbols-outlined">key</span>
+                                    </div>
+                                    <div class="icon-pulse"></div>
+                                </div>
+                                Apify API Token
+                                <div class="label-badge required">
+                                    Required
+                                </div>
+                            </label>
+                            
+                            <div class="modern-input-wrapper">
+                                <input 
+                                    type="password" 
+                                    id="apifyToken" 
+                                    placeholder="Enter your Apify API token..."
+                                    class="modern-input"
+                                    autocomplete="off"
+                                    spellcheck="false"
+                                >
+                                <button type="button" class="input-action-btn" id="toggleApifyToken" title="Toggle visibility" aria-label="Toggle password visibility">
+                                    <span class="material-symbols-outlined">visibility</span>
+                                </button>
+                                <button type="button" class="input-action-btn" id="testApifyToken" title="Test connection" aria-label="Test Apify connection">
+                                    <span class="material-symbols-outlined">wifi_tethering</span>
+                                </button>
+                            </div>
+                            
+                            <div class="help-section">
+                                <details class="help-details">
+                                    <summary>
+                                        <span class="material-symbols-outlined">help</span>
+                                        How to get Apify API token
+                                    </summary>
+                                    <div class="help-content">
+                                        <ol>
+                                            <li><strong><a href="https://console.apify.com/settings/integrations?fpr=li6z5&fp_sid=mysite" target="_blank" rel="noopener">Click here</a></strong> to go to Settings → Integrations</li>
+                                            <li><strong>Click on API button</strong> at the top right corner</li>
+                                            <li><strong>Click on "Manage Token"</strong></li>
+                                            <li><strong>Copy your API token</strong></li>
+                                        </ol>
+                                    </div>
+                                </details>
+                            </div>
+                            
+                            <div class="connection-status" id="apifyStatus" style="display: none;" role="alert">
+                                <span class="status-indicator"></span>
+                                <span class="status-text"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Column - Integration Settings -->
+                    <div class="config-column">
+                        <!-- Export Integrations -->
+                        <div class="input-section animated-card">
+                            <div class="input-label">
+                                <div class="label-icon-wrapper">
+                                    <div class="label-icon">
+                                        <span class="material-symbols-outlined">cloud_upload</span>
+                                    </div>
+                                    <div class="icon-pulse"></div>
+                                </div>
+                                Export Integrations
+                                <div class="label-badge optional">
+                                    Optional
+                                </div>
+                            </div>
+
+                            <div class="integrations-container">
+                                <!-- Google Sheets Integration -->
+                                <div class="integration-card" data-integration="sheets">
+                                    <div class="integration-header" role="button" tabindex="0" aria-expanded="false" aria-controls="sheetsContent">
+                                        <div class="integration-icon">
+                                            <span class="material-symbols-outlined">table_chart</span>
+                                        </div>
+                                        <div class="integration-info">
+                                            <h4>Google Sheets</h4>
+                                            <p>Export leads directly to Google Spreadsheets</p>
+                                        </div>
+                                        <div class="integration-toggle">
+                                            <input type="checkbox" id="enableSheets" class="toggle-checkbox" aria-describedby="sheetsDescription">
+                                            <label for="enableSheets" class="toggle-label" aria-label="Enable Google Sheets integration">
+                                                <span class="toggle-switch"></span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="integration-content" id="sheetsContent" style="display: none;" aria-labelledby="enableSheets">
+                                        <div class="form-group">
+                                            <label for="googleCredentials" class="field-label">
+                                                <span class="material-symbols-outlined">key</span>
+                                                Service Account Credentials (JSON)
+                                            </label>
+                                            <div class="textarea-wrapper">
+                                                <textarea 
+                                                    id="googleCredentials" 
+                                                    placeholder="Paste your Google Service Account JSON credentials here..."
+                                                    class="modern-textarea"
+                                                    rows="4"
+                                                    spellcheck="false"
+                                                    autocomplete="off"
+                                                ></textarea>
+                                                <div class="textarea-actions">
+                                                    <button type="button" class="textarea-btn" id="validateCredentials" title="Validate credentials" aria-label="Validate Google credentials">
+                                                        <span class="material-symbols-outlined">verified</span>
+                                                    </button>
+                                                    <button type="button" class="textarea-btn" id="formatJson" title="Format JSON" aria-label="Format JSON">
+                                                        <span class="material-symbols-outlined">code</span>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="form-row">
+                                            <div class="form-group">
+                                                <label for="spreadsheetId" class="field-label">
+                                                    <span class="material-symbols-outlined">description</span>
+                                                    Spreadsheet ID
+                                                </label>
+                                                <div class="modern-input-wrapper">
+                                                    <input 
+                                                        type="text" 
+                                                        id="spreadsheetId" 
+                                                        placeholder="e.g., 1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms"
+                                                        class="modern-input"
+                                                        autocomplete="off"
+                                                        spellcheck="false"
+                                                    >
+                                                    <button type="button" class="input-action-btn" id="testSpreadsheet" title="Test spreadsheet access" aria-label="Test spreadsheet access">
+                                                        <span class="material-symbols-outlined">wifi_tethering</span>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="form-group">
+                                                <label for="sheetName" class="field-label">
+                                                    <span class="material-symbols-outlined">tab</span>
+                                                    Sheet Name
+                                                </label>
+                                                <input 
+                                                    type="text" 
+                                                    id="sheetName" 
+                                                    placeholder="Leads (default)"
+                                                    class="modern-input"
+                                                    autocomplete="off"
+                                                >
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="connection-status" id="sheetsStatus" style="display: none;" role="alert">
+                                            <span class="status-indicator"></span>
+                                            <span class="status-text"></span>
+                                        </div>
+                                        
+                                        <div class="help-section">
+                                            <details class="help-details">
+                                                <summary>
+                                                    <span class="material-symbols-outlined">help</span>
+                                                    How to setup Google Sheets integration
+                                                </summary>
+                                                <div class="help-content">
+                                                    <ol>
+                                                        <li>Go to <a href="https://console.cloud.google.com/" target="_blank" rel="noopener">Google Cloud Console</a></li>
+                                                        <li>Create a new project or select existing one</li>
+                                                        <li>Enable Google Sheets API</li>
+                                                        <li>Create a Service Account and download JSON credentials</li>
+                                                        <li>Share your spreadsheet with the service account email</li>
+                                                        <li>Copy the spreadsheet ID from the URL</li>
+                                                    </ol>
+                                                </div>
+                                            </details>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Notion Integration -->
+                                <div class="integration-card" data-integration="notion">
+                                    <div class="integration-header" role="button" tabindex="0" aria-expanded="false" aria-controls="notionContent">
+                                        <div class="integration-icon notion-icon">
+                                            <span class="material-symbols-outlined">article</span>
+                                        </div>
+                                        <div class="integration-info">
+                                            <h4>Notion Database</h4>
+                                            <p>Sync leads to your Notion workspace</p>
+                                        </div>
+                                        <div class="integration-toggle">
+                                            <input type="checkbox" id="enableNotion" class="toggle-checkbox" aria-describedby="notionDescription">
+                                            <label for="enableNotion" class="toggle-label" aria-label="Enable Notion integration">
+                                                <span class="toggle-switch"></span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="integration-content" id="notionContent" style="display: none;" aria-labelledby="enableNotion">
+                                        <div class="form-group">
+                                            <label for="notionToken" class="field-label">
+                                                <span class="material-symbols-outlined">key</span>
+                                                Integration Token
+                                            </label>
+                                            <div class="modern-input-wrapper">
+                                                <input 
+                                                    type="password" 
+                                                    id="notionToken" 
+                                                    placeholder="secret_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+                                                    class="modern-input"
+                                                    autocomplete="off"
+                                                    spellcheck="false"
+                                                >
+                                                <button type="button" class="input-action-btn" id="toggleNotionToken" title="Toggle visibility" aria-label="Toggle token visibility">
+                                                    <span class="material-symbols-outlined">visibility</span>
+                                                </button>
+                                                <button type="button" class="input-action-btn" id="testNotionToken" title="Test connection" aria-label="Test Notion connection">
+                                                    <span class="material-symbols-outlined">wifi_tethering</span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <label for="notionDatabaseId" class="field-label">
+                                                <span class="material-symbols-outlined">database</span>
+                                                Database ID
+                                            </label>
+                                            <div class="modern-input-wrapper">
+                                                <input 
+                                                    type="text" 
+                                                    id="notionDatabaseId" 
+                                                    placeholder="xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+                                                    class="modern-input"
+                                                    autocomplete="off"
+                                                    spellcheck="false"
+                                                >
+                                                <button type="button" class="input-action-btn" id="testNotionDatabase" title="Test database access" aria-label="Test database access">
+                                                    <span class="material-symbols-outlined">wifi_tethering</span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="connection-status" id="notionStatus" style="display: none;" role="alert">
+                                            <span class="status-indicator"></span>
+                                            <span class="status-text"></span>
+                                        </div>
+                                        
+                                        <div class="help-section">
+                                            <details class="help-details">
+                                                <summary>
+                                                    <span class="material-symbols-outlined">help</span>
+                                                    How to setup Notion integration
+                                                </summary>
+                                                <div class="help-content">
+                                                    <ol>
+                                                        <li>Go to <a href="https://www.notion.so/my-integrations" target="_blank" rel="noopener">Notion Integrations</a></li>
+                                                        <li>Click "New integration" and give it a name</li>
+                                                        <li>Copy the "Internal Integration Token"</li>
+                                                        <li>Create a new database in Notion</li>
+                                                        <li>Share the database with your integration</li>
+                                                        <li>Copy the database ID from the URL</li>
+                                                    </ol>
+                                                </div>
+                                            </details>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="action-section">
+                    <button id="saveSettings" class="save-btn" type="button" aria-describedby="saveStatus">
+                        <span class="btn-icon material-symbols-outlined">save</span>
+                        <span class="btn-text">Save Configuration</span>
+                    </button>
+                    
+                    <div class="save-status" id="saveStatus" style="display: none;" role="alert" aria-live="polite">
+                        <span class="status-indicator"></span>
+                        <span class="status-text"></span>
+                    </div>
+                </div> 

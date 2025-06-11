@@ -1,0 +1,57 @@
+/* Tab Component Styles */
+
+.integrations-tabs { /* Specific container for integration tabs */
+  margin-top: 1rem;
+}
+
+.tab-buttons {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.tab-button {
+  flex: 1; /* Distribute space equally */
+  padding: 0.75rem 1rem;
+  background: hsl(var(--bg-secondary));
+  border: 1px solid hsl(var(--border-color));
+  border-radius: 0.5rem;
+  color: hsl(var(--text-secondary));
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  text-align: center; /* Ensure text is centered if it wraps */
+}
+
+.tab-button:hover {
+    background: hsl(var(--accent-primary) / 0.1);
+    border-color: hsl(var(--accent-primary) / 0.4);
+    color: hsl(var(--accent-primary));
+}
+
+.tab-button.active {
+  background: linear-gradient(135deg, hsl(var(--accent-primary)), hsl(var(--accent-secondary)));
+  color: white;
+  border-color: hsl(var(--accent-primary));
+  box-shadow: 0 4px 12px hsl(var(--accent-primary) / 0.2);
+}
+
+.tab-content {
+  display: none; /* Hidden by default */
+  /* gap: 0.75rem; If content is flex/grid */
+  /* flex-direction: column; If content is flex/grid */
+  padding: 1rem; /* Add some padding to content area */
+  border: 1px solid hsl(var(--border-color) / 0.3);
+  border-radius: 0.5rem;
+  background: hsl(var(--bg-panel) / 0.5);
+}
+
+.tab-content.active {
+  display: flex; /* Or block, depending on content needs */
+  flex-direction: column; /* Assuming form elements stack vertically */
+  gap: 0.75rem; /* If items inside should have a gap */
+} 

@@ -1,0 +1,390 @@
+                <div class="config-grid">
+                    <!-- Left Column - Core Settings -->
+                    <div class="config-column">
+                        <!-- AI Prompt Interface -->
+                        <div class="input-section animated-card">
+                            <label class="input-label">
+                                <div class="label-icon-wrapper">
+                                    <div class="label-icon">
+                                        <span class="material-symbols-outlined">psychology</span>
+                                    </div>
+                                    <div class="icon-pulse"></div>
+                                </div>
+                                AI Prospecting Assistant
+                                <div class="label-badge info">
+                                    Smart URL Generation
+                                </div>
+                            </label>
+                            
+                            <!-- Simple AI Prompt Component -->
+                            <div class="ai-prompt-simple">
+                                <!-- Quick Examples as Pills -->
+                                <div class="ai-examples">
+                                    <span class="examples-label">Quick Examples:</span>
+                                    <div class="examples-pills">
+                                        <button type="button" class="example-pill" data-prompt="Marketing managers at SaaS companies in San Francisco">Marketing @ SaaS</button>
+                                        <button type="button" class="example-pill" data-prompt="Software engineers at AI companies in Seattle">Engineers @ AI</button>
+                                        <button type="button" class="example-pill" data-prompt="Sales directors at fintech startups">Sales @ Fintech</button>
+                                        <button type="button" class="example-pill" data-prompt="Product managers at e-commerce companies">PM @ E-commerce</button>
+                                        <button type="button" class="example-pill" data-prompt="Growth marketers in New York">Growth @ NYC</button>
+                                        <button type="button" class="example-pill" data-prompt="CTOs at healthcare companies">CTOs @ Healthcare</button>
+                                    </div>
+                                </div>
+
+                                <!-- Simple Prompt Input -->
+                                <div class="ai-input-group">
+                                    <div class="ai-input-wrapper">
+                                        <textarea 
+                                            id="aiPromptInput" 
+                                            class="ai-input" 
+                                            placeholder="Describe who you want to find (e.g., marketing managers at SaaS companies in San Francisco)..."
+                                            rows="3"
+                                        ></textarea>
+                                        <div class="ai-input-icon">
+                                            <span class="material-symbols-outlined">auto_awesome</span>
+                                        </div>
+                                        </div>
+                                    
+                                    <!-- Simple Action Buttons -->
+                                    <div class="ai-buttons">
+                                        <button type="button" id="enhanceBtn" class="ai-btn enhance-btn" disabled>
+                                            <span class="material-symbols-outlined">tune</span>
+                                            Enhance
+                                        </button>
+                                        <button type="button" id="generateBtn" class="ai-btn generate-btn" disabled>
+                                            <span class="material-symbols-outlined">search</span>
+                                            Generate Query
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Results Section -->
+                            <div id="aiResults" class="ai-results" style="display: none;">
+                                <div class="ai-result-header">
+                                        <span class="material-symbols-outlined">check_circle</span>
+                                    AI Generated Apollo URL
+                                </div>
+                                <div class="ai-result-content">
+                                    <div class="result-url">
+                                        <input type="text" id="generatedUrl" class="result-input" readonly>
+                                        <button type="button" id="copyUrlBtn" class="copy-btn" title="Copy URL">
+                                        <span class="material-symbols-outlined">content_copy</span>
+                                    </button>
+                                </div>
+                                    <div class="result-actions">
+                                        <button type="button" id="editSearchBtn" class="result-btn secondary">
+                                        <span class="material-symbols-outlined">edit</span>
+                                            Edit
+                                    </button>
+                                        <button type="button" id="useUrlBtn" class="result-btn primary">
+                                        <span class="material-symbols-outlined">rocket_launch</span>
+                                        Use This URL
+                                    </button>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            </div>
+
+                        <!-- Hidden URL Input for Generated URLs (for backend compatibility) -->
+                        <div class="input-wrapper" style="display: none;">
+                            <textarea 
+                                id="urlInput" 
+                                class="url-textarea" 
+                                placeholder="Generated Apollo URLs will appear here..."
+                                rows="3"
+                            ></textarea>
+                        </div>
+                        <!-- Lead Count -->
+                        <div class="input-section animated-card">
+                            <label class="input-label">
+                                <div class="label-icon-wrapper">
+                                    <div class="label-icon">
+                                        <span class="material-symbols-outlined">group</span>
+                                    </div>
+                                    <div class="icon-pulse"></div>
+                                </div>
+                                How many leads do you want?
+                                <div class="label-badge info">
+                                    Min 500 • Max 50K
+                                </div>
+                            </label>
+                            
+                            <!-- Simple Lead Count Input -->
+                            <div class="lead-count-input-wrapper">
+                                <input 
+                                    type="number" 
+                                    id="leadCountInput" 
+                                    class="lead-count-input-simple" 
+                                    min="500" 
+                                    max="50000"
+                                    placeholder="Enter number of leads (minimum 500)"
+                                >
+                                <span class="input-suffix">leads</span>
+                            </div>
+                            
+                            
+                            </div>
+                    </div>
+
+                    <!-- Right Column - Field Selection & Integrations -->
+                    <div class="config-column">
+                        <!-- Field Selection -->
+                        <div class="input-section animated-card">
+                            <label class="input-label">
+                                <div class="label-icon-wrapper">
+                                    <div class="label-icon">
+                                        <span class="material-symbols-outlined">tune</span>
+                                    </div>
+                                    <div class="icon-pulse"></div>
+                                </div>
+                                Choose what data to extract
+                                <div class="label-badge optional">
+                                    11 Fields
+                                </div>
+                            </label>
+                            
+                            <!-- Selection Summary -->
+                            <div class="selection-summary">
+                                <div class="summary-item">
+                                    <span class="summary-count" id="selectedCount">2</span>
+                                    <span class="summary-label">selected</span>
+                                </div>
+                                <button type="button" class="select-all-btn" id="selectAllFields">
+                                    <span class="material-symbols-outlined">select_all</span>
+                                    Select All
+                                </button>
+                                <button type="button" class="clear-all-btn" id="clearAllFields">
+                                    <span class="material-symbols-outlined">clear_all</span>
+                                    Clear All
+                                </button>
+                            </div>
+                            
+                            <!-- Essential Fields -->
+                            <div class="field-category">
+                                <div class="category-header">
+                                    <span class="material-symbols-outlined">star</span>
+                                    <span class="category-title">Essential</span>
+                                </div>
+                                <div class="fields-row">
+                                    <div class="field-toggle-card active" data-field="name">
+                                        <input type="checkbox" value="name" checked hidden>
+                                        <div class="field-card-content">
+                                            <div class="field-card-icon">
+                                        <span class="material-symbols-outlined">person</span>
+                                    </div>
+                                            <div class="field-card-info">
+                                                <span class="field-card-title">Name</span>
+                                                <span class="field-card-desc">Full name</span>
+                                            </div>
+                                            <div class="toggle-switch">
+                                                <div class="toggle-slider"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="field-toggle-card active" data-field="email">
+                                        <input type="checkbox" value="email" checked hidden>
+                                        <div class="field-card-content">
+                                            <div class="field-card-icon">
+                                        <span class="material-symbols-outlined">mail</span>
+                                    </div>
+                                            <div class="field-card-info">
+                                                <span class="field-card-title">Email</span>
+                                                <span class="field-card-desc">Contact email</span>
+                                            </div>
+                                            <div class="toggle-switch">
+                                                <div class="toggle-slider"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Contact Fields -->
+                            <div class="field-category">
+                                <div class="category-header">
+                                    <span class="material-symbols-outlined">contacts</span>
+                                    <span class="category-title">Contact Info</span>
+                                </div>
+                                <div class="fields-row">
+                                    <div class="field-toggle-card" data-field="phone">
+                                        <input type="checkbox" value="phone" hidden>
+                                        <div class="field-card-content">
+                                            <div class="field-card-icon">
+                                        <span class="material-symbols-outlined">phone</span>
+                                    </div>
+                                            <div class="field-card-info">
+                                                <span class="field-card-title">Phone</span>
+                                                <span class="field-card-desc">Phone number</span>
+                                            </div>
+                                            <div class="toggle-switch">
+                                                <div class="toggle-slider"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="field-toggle-card" data-field="location">
+                                        <input type="checkbox" value="location" hidden>
+                                        <div class="field-card-content">
+                                            <div class="field-card-icon">
+                                                <span class="material-symbols-outlined">location_on</span>
+                                            </div>
+                                            <div class="field-card-info">
+                                                <span class="field-card-title">Location</span>
+                                                <span class="field-card-desc">Geographic location</span>
+                                            </div>
+                                            <div class="toggle-switch">
+                                                <div class="toggle-slider"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Professional Fields -->
+                            <div class="field-category">
+                                <div class="category-header">
+                                    <span class="material-symbols-outlined">work</span>
+                                    <span class="category-title">Professional</span>
+                                </div>
+                                <div class="fields-row">
+                                    <div class="field-toggle-card" data-field="company">
+                                        <input type="checkbox" value="company" hidden>
+                                        <div class="field-card-content">
+                                            <div class="field-card-icon">
+                                        <span class="material-symbols-outlined">business</span>
+                                    </div>
+                                            <div class="field-card-info">
+                                                <span class="field-card-title">Company</span>
+                                                <span class="field-card-desc">Company name</span>
+                                            </div>
+                                            <div class="toggle-switch">
+                                                <div class="toggle-slider"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="field-toggle-card" data-field="title">
+                                        <input type="checkbox" value="title" hidden>
+                                        <div class="field-card-content">
+                                            <div class="field-card-icon">
+                                        <span class="material-symbols-outlined">badge</span>
+                                    </div>
+                                            <div class="field-card-info">
+                                                <span class="field-card-title">Title</span>
+                                                <span class="field-card-desc">Job title</span>
+                                    </div>
+                                            <div class="toggle-switch">
+                                                <div class="toggle-slider"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="field-toggle-card" data-field="industry">
+                                        <input type="checkbox" value="industry" hidden>
+                                        <div class="field-card-content">
+                                            <div class="field-card-icon">
+                                        <span class="material-symbols-outlined">factory</span>
+                                    </div>
+                                            <div class="field-card-info">
+                                                <span class="field-card-title">Industry</span>
+                                                <span class="field-card-desc">Business sector</span>
+                                            </div>
+                                            <div class="toggle-switch">
+                                                <div class="toggle-slider"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Social Media Fields -->
+                            <div class="field-category">
+                                <div class="category-header">
+                                    <span class="material-symbols-outlined">share</span>
+                                    <span class="category-title">Social Media</span>
+                                </div>
+                                <div class="fields-row">
+                                    <div class="field-toggle-card" data-field="linkedin">
+                                        <input type="checkbox" value="linkedin" hidden>
+                                        <div class="field-card-content">
+                                            <div class="field-card-icon">
+                                        <span class="material-symbols-outlined">work</span>
+                                    </div>
+                                            <div class="field-card-info">
+                                                <span class="field-card-title">LinkedIn</span>
+                                                <span class="field-card-desc">Professional profile</span>
+                                            </div>
+                                            <div class="toggle-switch">
+                                                <div class="toggle-slider"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="field-toggle-card" data-field="twitter">
+                                        <input type="checkbox" value="twitter" hidden>
+                                        <div class="field-card-content">
+                                            <div class="field-card-icon">
+                                        <span class="material-symbols-outlined">chat</span>
+                                    </div>
+                                            <div class="field-card-info">
+                                                <span class="field-card-title">Twitter</span>
+                                                <span class="field-card-desc">Twitter handle</span>
+                                    </div>
+                                            <div class="toggle-switch">
+                                                <div class="toggle-slider"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="field-toggle-card" data-field="instagram">
+                                        <input type="checkbox" value="instagram" hidden>
+                                        <div class="field-card-content">
+                                            <div class="field-card-icon">
+                                        <span class="material-symbols-outlined">photo_camera</span>
+                                    </div>
+                                            <div class="field-card-info">
+                                                <span class="field-card-title">Instagram</span>
+                                                <span class="field-card-desc">Instagram profile</span>
+                                            </div>
+                                            <div class="toggle-switch">
+                                                <div class="toggle-slider"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="field-toggle-card" data-field="website">
+                                        <input type="checkbox" value="website" hidden>
+                                        <div class="field-card-content">
+                                            <div class="field-card-icon">
+                                                <span class="material-symbols-outlined">public</span>
+                                            </div>
+                                            <div class="field-card-info">
+                                                <span class="field-card-title">Website</span>
+                                                <span class="field-card-desc">Website URL</span>
+                                            </div>
+                                            <div class="toggle-switch">
+                                                <div class="toggle-slider"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+
+                <!-- Action Button -->
+                <div class="action-section">
+                    <button id="startScraping" class="start-button">
+                        <span class="material-symbols-outlined">play_arrow</span>
+                        <span class="button-text">Start Scraping Journey</span>
+                        <div class="loading-spinner" style="display: none;">
+                            <span class="material-symbols-outlined spinning">refresh</span>
+                        </div>
+                    </button>
+                </div> 

@@ -1,0 +1,16 @@
+
+# Uvicorn watch ignore patterns
+logs/
+@logs/
+data/
+attached_assets/
+*.log
+*.tmp
+__pycache__/
+*.pyc
+.git/
+node_modules/
+.env*
+*.db
+*.sqlite
+*.sqlite3

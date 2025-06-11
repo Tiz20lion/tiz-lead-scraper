@@ -1,0 +1,30 @@
+# Core FastAPI and web server dependencies
+fastapi==0.104.1
+uvicorn[standard]==0.24.0
+
+# Pydantic for data validation and settings
+pydantic==2.5.0
+pydantic-settings==2.1.0
+
+# Logging and retry logic
+structlog==23.2.0
+tenacity==8.2.3
+
+# File handling and form data
+python-multipart==0.0.6
+
+# External API clients
+apify-client==1.7.1
+notion-client==2.2.1
+google-api-python-client==2.108.0
+google-auth==2.23.4
+
+# HTTP client for async requests
+httpx==0.25.2
+
+# AI/ML dependencies
+openai>=1.3.0
+langgraph>=0.1.0
+
+# System utilities
+psutil==5.9.6

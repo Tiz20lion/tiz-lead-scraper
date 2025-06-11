@@ -1,0 +1,31 @@
+/* app/static/css/main.css */
+
+/* Core and Theming */
+@import url('theme.css');
+@import url('base.css');
+
+/* Layout Structure */
+@import url('layout.css');
+@import url('navigation.css');
+
+/* Reusable Components */
+@import url('components/animated-card.css');
+@import url('components/badges.css');
+@import url('components/buttons.css');
+@import url('components/forms.css');
+@import url('components/progress_bar.css');
+@import url('components/tables.css');
+@import url('components/tabs.css');
+@import url('components/ai_prompt.css');
+
+/* Page-Specific Styles */
+@import url('pages/landing_page.css');
+@import url('pages/configuration_page.css');
+@import url('pages/results_page.css');
+/* Add imports for settings_page.css and progress_page.css if/when they are created with specific styles */
+
+/* Existing Component Stylesheets (already provided by user) */
+@import url('modal-components.css');
+@import url('toast-components.css');
+@import url('dropdown-components.css'); 
+@import url('card-components.css'); 

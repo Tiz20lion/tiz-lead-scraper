@@ -1,0 +1,153 @@
+<!-- Results Section -->
+<div class="section-header">
+    <h2><span class="material-symbols-outlined">table_view</span> Results & Export</h2>
+    <div class="results-stats">
+        <span id="resultsCount">0 leads found</span>
+    </div>
+</div>
+
+<!-- Results Preview -->
+<div class="results-preview">
+    <h3><span class="material-symbols-outlined">preview</span> Lead Preview (First 20)</h3>
+    
+    <!-- View Toggle -->
+    <div class="view-toggle-compact">
+        <button class="view-btn-compact active" data-view="cards">
+            <span class="material-symbols-outlined">grid_view</span>
+            Cards
+        </button>
+        <button class="view-btn-compact" data-view="table">
+            <span class="material-symbols-outlined">table_view</span>
+            Table
+        </button>
+    </div>
+    
+    <!-- Cards View (Default) -->
+    <div id="cardsView" class="cards-container">
+        <div class="cards-grid-compact" id="cardsGrid">
+            <!-- Lead cards will be dynamically inserted here -->
+        </div>
+        <div class="cards-empty" id="cardsEmpty" style="display: none;">
+            <div class="empty-state-compact">
+                <span class="material-symbols-outlined">person_search</span>
+                <h3>No leads found</h3>
+                <p>Start scraping to see your leads here</p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Table View -->
+    <div id="tableView" class="table-container" style="display: none;">
+        <div class="table-wrapper">
+            <table class="results-table" id="resultsTable">
+                <thead id="resultsTableHead">
+                    <!-- Dynamic headers -->
+                </thead>
+                <tbody id="resultsTableBody">
+                    <!-- Dynamic rows -->
+                </tbody>
+            </table>
+        </div>
+        <div class="table-empty" id="tableEmpty" style="display: none;">
+            <div class="empty-state-compact">
+                <span class="material-symbols-outlined">table_view</span>
+                <h3>No data available</h3>
+                <p>Start scraping to see your leads here</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Export Actions (Moved Below) -->
+<div class="export-section">
+    <h3><span class="material-symbols-outlined">file_download</span> Export Your Data</h3>
+
+    <div class="export-grid-compact">
+        <button id="exportCsv" class="export-btn-compact csv">
+            <div class="export-icon-compact">
+                <span class="material-symbols-outlined">download</span>
+            </div>
+            <div class="export-info-compact">
+                <div class="export-title-compact">CSV</div>
+                <div class="export-desc-compact">Spreadsheet</div>
+            </div>
+        </button>
+
+        <button id="exportJson" class="export-btn-compact json">
+            <div class="export-icon-compact">
+                <span class="material-symbols-outlined">code</span>
+            </div>
+            <div class="export-info-compact">
+                <div class="export-title-compact">JSON</div>
+                <div class="export-desc-compact">Raw data</div>
+            </div>
+        </button>
+
+        <button id="exportSheets" class="export-btn-compact sheets">
+            <div class="export-icon-compact">
+                <span class="material-symbols-outlined">table_chart</span>
+            </div>
+            <div class="export-info-compact">
+                <div class="export-title-compact">Sheets</div>
+                <div class="export-desc-compact">Cloud sync</div>
+            </div>
+        </button>
+
+        <button id="exportNotion" class="export-btn-compact notion">
+            <div class="export-icon-compact">
+                <span class="material-symbols-outlined">article</span>
+            </div>
+            <div class="export-info-compact">
+                <div class="export-title-compact">Notion</div>
+                <div class="export-desc-compact">Database</div>
+            </div>
+        </button>
+    </div>
+
+    <div class="export-note">
+        <span class="material-symbols-outlined">info</span>
+        Configure integration credentials in settings to enable cloud exports
+    </div>
+</div>
+
+<!-- Compact Lead Card Template -->
+<template id="leadCardTemplate">
+    <div class="lead-card-compact">
+        <div class="lead-header-compact">
+            <div class="lead-info-compact">
+                <div class="lead-name-compact">John Doe</div>
+                <div class="lead-title-compact">Chief Technology Officer</div>
+            </div>
+        </div>
+        
+        <div class="lead-details-compact">
+            <div class="company-detail">
+                <span class="material-symbols-outlined">business</span>
+                <span class="company-text">Company Name</span>
+            </div>
+            <div class="location-detail">
+                <span class="material-symbols-outlined">location_on</span>
+                <span class="location-text">Location</span>
+            </div>
+            <div class="industry-detail">
+                <span class="material-symbols-outlined">category</span>
+                <span class="industry-text">Industry</span>
+            </div>
+        </div>
+        
+        <div class="contact-actions-compact">
+            <a href="#" class="contact-btn-compact email-btn" title="Email">
+                <span class="material-symbols-outlined">mail</span>
+            </a>
+            <a href="#" class="contact-btn-compact phone-btn" title="Phone">
+                <span class="material-symbols-outlined">call</span>
+            </a>
+            <a href="#" class="contact-btn-compact linkedin-btn" title="LinkedIn" target="_blank">
+                <span class="material-symbols-outlined">group</span>
+            </a>
+            <a href="#" class="contact-btn-compact website-btn" title="Website" target="_blank">
+                <span class="material-symbols-outlined">language</span>
+            </a>
+        </div>
+    </div>
+</template> 

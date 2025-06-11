@@ -1,0 +1,954 @@
+/* AI Prompt Interface Styles */
+
+/* Modern AI Prompt Component Styles (Main container for AI interaction) */
+.ai-prompt-modern {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    gap: 0.5rem; /* Main gap between elements like quick examples, input, suggestions */
+}
+
+/* Quick Examples section within .ai-prompt-modern */
+.quick-examples-container {
+    background: var(--color-surface-alt);
+    border: 1px solid var(--color-outline);
+    padding: 1rem;
+    border-radius: var(--radius-radius);
+    margin-bottom: 1rem; /* Space below quick examples */
+}
+
+.dark-theme .quick-examples-container {
+    background: var(--color-surface-dark-alt);
+    border-color: var(--color-outline-dark);
+}
+
+.quick-examples-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.75rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--color-on-surface-strong);
+}
+
+.dark-theme .quick-examples-header {
+    color: var(--color-on-surface-dark-strong);
+}
+
+.quick-examples-header-icon {
+    width: 1rem;
+    height: 1rem;
+    color: var(--color-primary); /* Uses modern theme variable */
+}
+
+.dark-theme .quick-examples-header-icon {
+    color: var(--color-primary-dark);
+}
+
+.quick-examples-list {
+    color: var(--color-on-surface);
+    font-size: 0.875rem;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex; /* Allow wrapping for many examples */
+    flex-wrap: wrap; 
+    gap: 0.5rem; 
+}
+
+.dark-theme .quick-examples-list {
+    color: var(--color-on-surface-dark);
+}
+
+.quick-example-button { /* This is the actual clickable item */
+    background: hsl(var(--bg-secondary)); /* Use theme vars */
+    border: 1px solid hsl(var(--border-color));
+    padding: 0.5rem 0.75rem;
+    text-align: left;
+    color: hsl(var(--text-secondary));
+    font-size: 0.75rem;
+    font-weight: 500;
+    cursor: pointer;
+    width: auto; /* Allow button to size to content */
+    border-radius: 0.375rem;
+    transition: all 0.2s ease;
+}
+
+.dark-theme .quick-example-button {
+    background: hsl(var(--bg-secondary) / 0.5); /* Match dark input fields */
+    border-color: hsl(var(--border-color) / 0.5);
+    color: hsl(var(--text-primary));
+}
+
+.quick-example-button:hover {
+    background: hsl(var(--accent-primary) / 0.1);
+    border-color: hsl(var(--accent-primary));
+    color: hsl(var(--accent-primary));
+}
+
+/* Prompt Input Area within .ai-prompt-modern */
+.prompt-input-container {
+    position: relative;
+    width: 100%;
+    margin-bottom: 1rem; /* Space below input */
+}
+
+/* .prompt-input-label is for accessibility, screen-reader only, keep as is */
+.prompt-input-label {
+    position: absolute;
+    width: 1px; height: 1px; padding: 0; margin: -1px;
+    overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
+}
+
+.prompt-input-icon {
+    position: absolute;
+    left: 0.75rem;
+    top: 50%;
+    width: 1rem;
+    height: 1rem;
+    transform: translateY(-50%);
+    fill: var(--color-primary);
+    pointer-events: none;
+}
+
+.dark-theme .prompt-input-icon {
+    fill: var(--color-primary-dark);
+}
+
+.prompt-input-field {
+    width: 100%;
+    border: 1px solid var(--color-outline);
+    background: var(--color-surface-alt);
+    border-radius: var(--radius-radius);
+    padding: 0.75rem 6.5rem 0.75rem 2.5rem; /* Adjusted padding for slightly larger button */
+    font-size: 0.9rem; /* Slightly larger font */
+    color: var(--color-on-surface-strong);
+    transition: all 0.2s ease;
+    min-height: 44px; /* Ensure decent height */
+}
+
+.prompt-input-field:focus {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+    border-color: var(--color-primary) !important; /* Ensure focus border is visible */
+    background: var(--color-surface);
+}
+
+.prompt-input-field:disabled {
+    cursor: not-allowed;
+    opacity: 0.75;
+}
+
+.dark-theme .prompt-input-field {
+    border-color: var(--color-outline-dark);
+    background: var(--color-surface-dark-alt);
+    color: var(--color-on-surface-dark-strong);
+}
+
+.dark-theme .prompt-input-field:focus {
+    outline-color: var(--color-primary-dark);
+    border-color: var(--color-primary-dark) !important;
+    background: var(--color-surface-dark);
+}
+
+.prompt-generate-button {
+    position: absolute;
+    right: 0.5rem; /* Adjusted for consistency */
+    top: 50%;
+    transform: translateY(-50%);
+    background: var(--color-primary);
+    border-radius: var(--radius-radius);
+    padding: 0.5rem 0.8rem; /* Slightly larger */
+    font-size: 0.8rem; /* Slightly larger */
+    letter-spacing: 0.025em;
+    color: var(--color-on-primary);
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    min-height: 36px; /* Ensure decent height */
+}
+
+.prompt-generate-button:hover:not(:disabled) {
+    opacity: 0.85; /* Slightly less transparent */
+}
+
+.prompt-generate-button:focus {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+}
+
+.prompt-generate-button:active:not(:disabled) { /* Added active state */
+    opacity: 1;
+    transform: translateY(-50%) scale(0.98);
+}
+
+.prompt-generate-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.dark-theme .prompt-generate-button {
+    background: var(--color-primary-dark);
+    color: var(--color-on-primary-dark);
+}
+
+.dark-theme .prompt-generate-button:focus {
+    outline-color: var(--color-primary-dark);
+}
+
+/* Loading state for generate button */
+.prompt-generate-button.loading {
+    pointer-events: none;
+}
+
+.prompt-generate-button.loading::before {
+    content: '';
+    display: inline-block;
+    width: 0.75rem;
+    height: 0.75rem;
+    border: 2px solid transparent;
+    border-top-color: currentColor;
+    border-radius: 50%;
+    animation: spin 1s linear infinite; /* Assuming spin keyframes are in base.css */
+    margin-right: 0.25rem;
+    vertical-align: middle;
+}
+
+/* Parsing Feedback Section */
+.parsing-feedback {
+    background: var(--color-surface-alt);
+    border: 1px solid var(--color-outline);
+    border-radius: var(--radius-radius);
+    padding: 1rem;
+    margin-bottom: 1rem;
+    animation: slideInUp 0.3s ease; /* Assuming slideInUp is in base or components */
+}
+.dark-theme .parsing-feedback {
+    background: var(--color-surface-dark-alt);
+    border-color: var(--color-outline-dark);
+}
+
+.feedback-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--color-on-surface-strong);
+    margin-bottom: 0.75rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--color-outline);
+}
+.dark-theme .feedback-header {
+    color: var(--color-on-surface-dark-strong);
+    border-bottom-color: var(--color-outline-dark);
+}
+
+.feedback-header .material-symbols-outlined {
+    font-size: 0.9rem;
+    color: var(--color-primary);
+}
+.dark-theme .feedback-header .material-symbols-outlined {
+    color: var(--color-primary-dark);
+}
+
+.parsed-results {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); /* Allow more items per row */
+    gap: 0.75rem;
+}
+
+.parsed-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.parsed-label {
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: var(--color-on-surface);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+.dark-theme .parsed-label { color: var(--color-on-surface-dark); }
+
+.parsed-value {
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--color-on-surface-strong);
+    background: var(--color-surface);
+    border: 1px solid var(--color-outline);
+    border-radius: 0.4rem;
+    padding: 0.4rem 0.6rem;
+}
+.dark-theme .parsed-value {
+    background: var(--color-surface-dark);
+    border-color: var(--color-outline-dark);
+    color: var(--color-on-surface-dark-strong);
+}
+
+/* Generated URL Section */
+.generated-url-section {
+    background: var(--color-surface);
+    border: 1px solid var(--color-primary); /* Highlight with primary color */
+    border-radius: var(--radius-radius);
+    padding: 1.25rem;
+    margin-bottom: 1.5rem;
+    animation: slideInUp 0.3s ease;
+    box-shadow: 0 4px 15px hsl(var(--shadow-color) / 0.1);
+}
+.dark-theme .generated-url-section {
+    background: var(--color-surface-dark-alt);
+    border-color: var(--color-primary-dark);
+}
+
+.url-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.75rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--color-outline);
+}
+.dark-theme .url-header { border-bottom-color: var(--color-outline-dark); }
+
+.url-header span:first-child { /* The text "Generated Apollo.io URL:" */
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--color-on-surface-strong);
+}
+.dark-theme .url-header span:first-child { color: var(--color-on-surface-dark-strong); }
+
+/* .copy-url-btn is already in buttons.css */
+
+.url-display {
+    margin-bottom: 1rem;
+}
+
+.url-input {
+    width: 100%;
+    background: var(--color-surface-alt);
+    border: 1px solid var(--color-outline);
+    border-radius: 0.5rem;
+    padding: 0.75rem;
+    font-size: 0.75rem;
+    color: var(--color-on-surface-strong);
+    resize: vertical;
+    min-height: 80px;
+    font-family: 'Courier New', monospace;
+    line-height: 1.4;
+}
+.dark-theme .url-input {
+    background: var(--color-surface-dark);
+    border-color: var(--color-outline-dark);
+    color: var(--color-on-surface-dark-strong);
+}
+
+.url-input:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 2px hsl(var(--shadow-color) / 0.1); /* Use modern theme var */
+}
+.dark-theme .url-input:focus { border-color: var(--color-primary-dark); }
+
+.url-actions {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+}
+/* .action-btn styles are in buttons.css */
+
+
+/* AI Suggestions Container Styles */
+.ai-suggestions-container {
+    background: var(--color-surface-alt);
+    border: 1px solid var(--color-outline);
+    border-radius: var(--radius-radius-lg, 0.75rem); 
+    padding: 0; /* Remove padding, header/list will have their own */
+    margin-top: 1rem;
+    box-shadow: 0 8px 25px hsl(var(--shadow-color) / 0.05);
+    animation: fadeInSlide 0.5s ease-out forwards; /* Assuming fadeInSlide defined */
+    color: var(--color-on-surface-strong);
+}
+
+.dark-theme .ai-suggestions-container {
+    background: var(--color-surface-dark-alt);
+    border-color: var(--color-outline-dark);
+    color: var(--color-on-surface-dark-strong);
+}
+
+.suggestions-header {
+    padding: 1rem 1.25rem;
+    border-bottom: 1px solid var(--color-outline);
+    background: var(--color-surface);
+}
+.dark-theme .suggestions-header {
+    border-bottom-color: var(--color-outline-dark);
+    background: var(--color-surface-dark);
+}
+
+.suggestions-header-content {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.25rem; /* Reduced bottom margin */
+}
+
+.suggestions-header-content .material-symbols-outlined {
+    font-size: 1.1rem; /* Slightly smaller */
+    color: var(--color-primary);
+    background: hsl(var(--accent-primary) / 0.08);
+    padding: 0.4rem;
+    border-radius: 0.5rem;
+}
+.dark-theme .suggestions-header-content .material-symbols-outlined {
+    color: var(--color-primary-dark);
+    background: hsl(var(--accent-primary) / 0.15);
+}
+
+.suggestions-title {
+    font-size: 0.9rem; /* Slightly smaller */
+    font-weight: 600;
+    flex: 1;
+}
+
+.suggestions-count {
+    background: var(--color-primary);
+    color: var(--color-on-primary);
+    font-size: 0.7rem;
+    font-weight: 600;
+    padding: 0.2rem 0.45rem;
+    border-radius: 1rem;
+    min-width: 1.25rem;
+    text-align: center;
+}
+.dark-theme .suggestions-count {
+    background: var(--color-primary-dark);
+    color: var(--color-on-primary-dark);
+}
+
+.suggestions-subtitle {
+    font-size: 0.75rem; /* Slightly smaller */
+    color: var(--color-on-surface);
+    opacity: 0.9;
+}
+.dark-theme .suggestions-subtitle { color: var(--color-on-surface-dark); }
+
+.suggestions-list {
+    list-style-type: none;
+    padding: 0.75rem 1.25rem; /* Padding for the list items */
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem; /* Space between suggestion items */
+}
+
+.suggestion-item { /* This is the LI element */
+    display: flex;
+    align-items: center;
+    padding: 0; /* Button inside will have padding */
+    margin-bottom: 0; /* Gap on UL is enough */
+    border-radius: var(--radius-radius, 0.375rem);
+    transition: background-color 0.2s ease;
+}
+
+/* suggestion-btn styles are now more specific */
+button.suggestion-btn { /* Target the button directly */
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 0.6rem 0.75rem;
+    background-color: transparent; /* Transparent by default */
+    border: 1px solid transparent; /* No border by default */
+    border-radius: var(--radius-radius, 0.375rem);
+    text-align: left;
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--color-on-surface-strong);
+    cursor: pointer;
+    transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+.dark-theme button.suggestion-btn {
+    color: var(--color-on-surface-dark-strong);
+}
+
+button.suggestion-btn:hover:not(:disabled) {
+    background-color: hsl(var(--accent-primary) / 0.05);
+    border-color: hsl(var(--accent-primary) / 0.2);
+    color: var(--color-primary);
+}
+.dark-theme button.suggestion-btn:hover:not(:disabled) {
+    background-color: hsl(var(--accent-primary) / 0.1);
+    border-color: hsl(var(--accent-primary) / 0.3);
+    color: var(--color-primary-dark);
+}
+
+button.suggestion-btn:disabled, 
+button.suggestion-btn.applied-suggestion {
+    opacity: 0.6;
+    cursor: not-allowed;
+    background-color: hsl(var(--bg-secondary) / 0.3);
+}
+.dark-theme button.suggestion-btn:disabled,
+.dark-theme button.suggestion-btn.applied-suggestion {
+    background-color: hsl(var(--bg-secondary) / 0.2);
+}
+
+button.suggestion-btn .material-symbols-outlined { /* Icon inside the button */
+    margin-right: 0.5rem;
+    font-size: 1rem;
+    color: var(--color-primary);
+}
+.dark-theme button.suggestion-btn .material-symbols-outlined {
+    color: var(--color-primary-dark);
+}
+
+.suggestion-text-content { /* Span holding the suggestion text */
+    flex-grow: 1;
+}
+
+span.applied-text { /* Class for "(Applied)" text */
+    font-size: 0.7rem;
+    opacity: 0.7;
+    margin-left: 0.5rem;
+    color: var(--color-on-surface);
+}
+.dark-theme span.applied-text { color: var(--color-on-surface-dark); }
+
+
+.suggestions-actions { /* Container for Apply/Dismiss buttons */
+    padding: 0.75rem 1.25rem;
+    border-top: 1px solid var(--color-outline);
+    background: var(--color-surface);
+    display: flex;
+    gap: 0.75rem;
+    justify-content: flex-end;
+}
+.dark-theme .suggestions-actions {
+    border-top-color: var(--color-outline-dark);
+    background: var(--color-surface-dark);
+}
+
+/* .suggestions-action-btn styles are in buttons.css (assuming they are generic enough) */
+/* If not, define .apply-all and .dismiss specifically here */
+
+/* Responsive Design for AI Suggestions - kept from original for context */
+@media (max-width: 768px) {
+    .ai-suggestions-container {
+        margin: 0.75rem 0;
+        border-radius: 0.75rem;
+    }
+    
+    .suggestions-header {
+        padding: 1rem;
+    }
+    
+    .suggestions-list {
+        padding: 0.75rem 1rem;
+    }
+        
+    .suggestions-actions {
+        flex-direction: column;
+        padding: 0.75rem 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .suggestions-header-content {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+    
+    .suggestions-count {
+        align-self: flex-start;
+    }
+}
+
+/* Simple AI Prompt Component */
+.ai-prompt-simple {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+/* Examples Section */
+.ai-examples {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.examples-label {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--color-on-surface);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.examples-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.example-pill {
+    background: var(--color-surface-alt);
+    border: 1px solid var(--color-outline);
+    border-radius: 1rem;
+    padding: 0.4rem 0.8rem;
+    font-size: 0.8rem;
+    color: var(--color-on-surface);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+}
+
+.example-pill:hover {
+    background: var(--color-primary);
+    color: var(--color-on-primary);
+    transform: translateY(-1px);
+}
+
+.example-pill.selected {
+    background: var(--color-primary);
+    color: var(--color-on-primary);
+    transform: scale(0.95);
+}
+
+.dark-theme .example-pill {
+    background: var(--color-surface-dark-alt);
+    border-color: var(--color-outline-dark);
+    color: var(--color-on-surface-dark);
+}
+
+.dark-theme .example-pill:hover {
+    background: var(--color-primary-dark);
+    color: var(--color-on-primary-dark);
+}
+
+/* Input Group */
+.ai-input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.ai-input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+}
+
+.ai-input {
+    width: 100%;
+    background: var(--color-surface-alt);
+    border: 2px solid var(--color-outline);
+    border-radius: 0.75rem;
+    padding: 0.75rem 3rem 0.75rem 0.75rem;
+    font-size: 0.9rem;
+    color: var(--color-on-surface-strong);
+    resize: vertical;
+    min-height: 80px;
+    transition: all 0.2s ease;
+    font-family: inherit;
+}
+
+.ai-input:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    background: var(--color-surface);
+    box-shadow: 0 0 0 3px var(--color-primary-alpha);
+}
+
+.ai-input-icon {
+    position: absolute;
+    right: 0.75rem;
+    top: 0.75rem;
+    color: var(--color-primary);
+    pointer-events: none;
+}
+
+.dark-theme .ai-input {
+    background: var(--color-surface-dark-alt);
+    border-color: var(--color-outline-dark);
+    color: var(--color-on-surface-dark-strong);
+}
+
+.dark-theme .ai-input:focus {
+    border-color: var(--color-primary-dark);
+    background: var(--color-surface-dark);
+    box-shadow: 0 0 0 3px var(--color-primary-dark-alpha);
+}
+
+.dark-theme .ai-input-icon {
+    color: var(--color-primary-dark);
+}
+
+/* Action Buttons */
+.ai-buttons {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+}
+
+.ai-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.25rem;
+    border: none;
+    border-radius: 0.5rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    flex: 1;
+    min-width: 140px;
+    justify-content: center;
+}
+
+.enhance-btn {
+    background: var(--color-surface-alt);
+    color: var(--color-on-surface);
+    border: 2px solid var(--color-outline);
+}
+
+.enhance-btn:hover:not(:disabled) {
+    background: var(--color-primary-alpha);
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+    transform: translateY(-2px);
+}
+
+.generate-btn {
+    background: var(--color-primary);
+    color: var(--color-on-primary);
+}
+
+.generate-btn:hover:not(:disabled) {
+    background: var(--color-primary-variant);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px var(--color-primary-alpha);
+}
+
+.ai-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none !important;
+}
+
+.ai-btn .material-symbols-outlined {
+    font-size: 1.1rem;
+}
+
+.dark-theme .enhance-btn {
+    background: var(--color-surface-dark-alt);
+    color: var(--color-on-surface-dark);
+    border-color: var(--color-outline-dark);
+}
+
+.dark-theme .enhance-btn:hover:not(:disabled) {
+    background: var(--color-primary-dark-alpha);
+    border-color: var(--color-primary-dark);
+    color: var(--color-primary-dark);
+}
+
+.dark-theme .generate-btn {
+    background: var(--color-primary-dark);
+    color: var(--color-on-primary-dark);
+}
+
+.dark-theme .generate-btn:hover:not(:disabled) {
+    background: var(--color-primary-dark-variant);
+    box-shadow: 0 4px 12px var(--color-primary-dark-alpha);
+}
+
+/* Results Section */
+.ai-results {
+    background: var(--color-surface);
+    border: 2px solid var(--color-primary);
+    border-radius: 0.75rem;
+    padding: 1rem;
+    margin-top: 1rem;
+    animation: slideIn 0.3s ease;
+}
+
+.ai-result-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--color-primary);
+    margin-bottom: 0.75rem;
+}
+
+.ai-result-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.result-url {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.result-input {
+    flex: 1;
+    background: var(--color-surface-alt);
+    border: 1px solid var(--color-outline);
+    border-radius: 0.5rem;
+    padding: 0.5rem;
+    font-size: 0.8rem;
+    color: var(--color-on-surface);
+    font-family: monospace;
+}
+
+.copy-btn {
+    background: var(--color-surface-alt);
+    border: 1px solid var(--color-outline);
+    border-radius: 0.5rem;
+    padding: 0.5rem;
+    color: var(--color-on-surface);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.copy-btn:hover {
+    background: var(--color-primary);
+    color: var(--color-on-primary);
+}
+
+.result-actions {
+    display: flex;
+    gap: 0.75rem;
+}
+
+.result-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1rem;
+    border: none;
+    border-radius: 0.5rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    flex: 1;
+    justify-content: center;
+}
+
+.result-btn.secondary {
+    background: var(--color-surface-alt);
+    color: var(--color-on-surface);
+    border: 1px solid var(--color-outline);
+}
+
+.result-btn.secondary:hover {
+    background: var(--color-primary-alpha);
+    color: var(--color-primary);
+}
+
+.result-btn.primary {
+    background: var(--color-primary);
+    color: var(--color-on-primary);
+}
+
+.result-btn.primary:hover {
+    background: var(--color-primary-variant);
+    transform: translateY(-2px);
+}
+
+.dark-theme .ai-results {
+    background: var(--color-surface-dark);
+    border-color: var(--color-primary-dark);
+}
+
+.dark-theme .ai-result-header {
+    color: var(--color-primary-dark);
+}
+
+.dark-theme .result-input {
+    background: var(--color-surface-dark-alt);
+    border-color: var(--color-outline-dark);
+    color: var(--color-on-surface-dark);
+}
+
+.dark-theme .copy-btn {
+    background: var(--color-surface-dark-alt);
+    border-color: var(--color-outline-dark);
+    color: var(--color-on-surface-dark);
+}
+
+.dark-theme .copy-btn:hover {
+    background: var(--color-primary-dark);
+    color: var(--color-on-primary-dark);
+}
+
+.dark-theme .result-btn.secondary {
+    background: var(--color-surface-dark-alt);
+    color: var(--color-on-surface-dark);
+    border-color: var(--color-outline-dark);
+}
+
+.dark-theme .result-btn.secondary:hover {
+    background: var(--color-primary-dark-alpha);
+    color: var(--color-primary-dark);
+}
+
+.dark-theme .result-btn.primary {
+    background: var(--color-primary-dark);
+    color: var(--color-on-primary-dark);
+}
+
+.dark-theme .result-btn.primary:hover {
+    background: var(--color-primary-dark-variant);
+}
+
+/* Animations */
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .ai-buttons {
+        flex-direction: column;
+    }
+    
+    .ai-btn {
+        min-width: auto;
+    }
+    
+    .examples-pills {
+        gap: 0.4rem;
+    }
+    
+    .example-pill {
+        font-size: 0.75rem;
+        padding: 0.3rem 0.6rem;
+    }
+    
+    .result-actions {
+        flex-direction: column;
+    }
+} 

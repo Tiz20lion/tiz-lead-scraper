@@ -1,0 +1,25 @@
+modules = ["web", "python-3.11", "nodejs-20", "bash", "docker"]
+run = "uvicorn app.main:app --host 0.0.0.0 --port 5000"
+
+[nix]
+channel = "stable-24_05"
+packages = ["libxcrypt"]
+
+[deployment]
+run = ["sh", "-c", "uvicorn app.main:app --host 0.0.0.0 --port 5000"]
+
+[workflows]
+runButton = "Run"
+
+[[workflows.workflow]]
+name = "Run"
+author = 42556496
+mode = "sequential"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "python run_dev.py"
+
+[[ports]]
+localPort = 5000
+externalPort = 80

@@ -1,0 +1,707 @@
+/* Button Styles */
+
+/* Theme Toggle Button (from Header Controls) */
+.theme-toggle {
+  background: hsl(var(--bg-secondary));
+  border: 1px solid hsl(var(--border-color));
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: hsl(var(--text-secondary));
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  font-size: 0.8rem;
+}
+
+.theme-toggle:hover {
+  background: linear-gradient(135deg, hsl(var(--accent-primary)), hsl(var(--accent-secondary)));
+  color: white;
+  transform: scale(1.1) rotate(180deg);
+  box-shadow: 0 8px 25px hsl(var(--accent-primary) / 0.4);
+}
+
+.toggle-ripple { /* Associated with theme-toggle */
+  position: absolute;
+  border-radius: 50%;
+  background: hsl(var(--accent-primary) / 0.3);
+  transform: scale(0);
+  animation: ripple 0.6s linear;
+  pointer-events: none;
+}
+
+@keyframes ripple {
+  to {
+    transform: scale(4);
+    opacity: 0;
+  }
+}
+
+
+/* Start Button (Main action button) */
+.start-button {
+  width: 100%;
+  padding: 1rem 2rem;
+  background: linear-gradient(135deg, hsl(var(--accent-primary)) 0%, hsl(var(--accent-secondary)) 50%, hsl(var(--accent-primary)) 100%);
+  background-size: 200% 200%;
+  color: white;
+  border: none;
+  border-radius: 1rem;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 8px 20px hsl(var(--accent-primary) / 0.4), 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.start-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  animation: button-shine 2s infinite ease-in-out;
+}
+
+.start-button:hover:not(:disabled) {
+  transform: translateY(-6px) scale(1.08);
+  box-shadow: 0 20px 45px hsl(var(--accent-primary) / 0.5), 0 8px 16px rgba(0, 0, 0, 0.2);
+  animation: button-bounce 0.6s ease-out, button-gradient 1.5s ease-in-out infinite;
+  background-size: 300% 300%;
+}
+
+.start-button:active:not(:disabled) {
+  transform: translateY(-2px) scale(1.02);
+  animation: button-click 0.2s ease-out;
+}
+
+.start-button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none;
+  animation: none;
+}
+
+.start-button .loading-spinner { /* Assuming .loading-spinner is defined with @keyframes spin */
+  position: absolute;
+}
+
+@keyframes button-shine {
+  0% { left: -100%; }
+  50% { left: 100%; }
+  100% { left: 100%; }
+}
+
+@keyframes button-bounce {
+  0%, 100% { transform: translateY(-4px) scale(1.05); }
+  50% { transform: translateY(-6px) scale(1.08); }
+}
+
+@keyframes button-click {
+  0% { transform: translateY(-2px) scale(1.02); }
+  50% { transform: translateY(0px) scale(0.98); }
+  100% { transform: translateY(-2px) scale(1.02); }
+}
+
+@keyframes button-gradient { /* For start-button hover */
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+
+/* Quick Selection Buttons (e.g., for lead count) */
+.quick-btn {
+    background: linear-gradient(135deg, hsl(var(--bg-panel)), hsl(var(--bg-secondary)));
+    border: 1px solid hsl(var(--border-color));
+    border-radius: 0.5rem;
+    padding: 0.6rem 0.8rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: hsl(var(--text-primary));
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.quick-btn:hover {
+    border-color: hsl(var(--accent-primary));
+    background: linear-gradient(135deg, hsl(var(--accent-primary) / 0.1), hsl(var(--accent-secondary) / 0.05));
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px hsl(var(--accent-primary) / 0.15);
+}
+
+.quick-btn.active {
+    background: linear-gradient(135deg, hsl(var(--accent-primary)), hsl(var(--accent-secondary)));
+    border-color: hsl(var(--accent-primary));
+    color: white;
+    box-shadow: 0 4px 12px hsl(var(--accent-primary) / 0.3);
+}
+
+.quick-btn::before { /* Shimmer effect on hover for quick-btn */
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s;
+}
+
+.quick-btn:hover::before {
+    left: 100%;
+}
+
+
+/* Select All / Clear All Buttons (e.g., for field selection) */
+.select-all-btn,
+.clear-all-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.4rem 0.6rem;
+    border: 1px solid hsl(var(--border-color));
+    border-radius: 0.4rem;
+    background: hsl(var(--bg-panel));
+    color: hsl(var(--text-primary));
+    font-size: 0.75rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.select-all-btn:hover {
+    border-color: hsl(var(--accent-primary));
+    background: linear-gradient(135deg, hsl(var(--accent-primary) / 0.1), hsl(var(--accent-secondary) / 0.05));
+    transform: translateY(-1px);
+}
+
+.clear-all-btn:hover {
+    border-color: hsl(var(--accent-danger));
+    background: linear-gradient(135deg, hsl(var(--accent-danger) / 0.1), hsl(var(--accent-danger) / 0.05));
+    color: hsl(var(--accent-danger));
+    transform: translateY(-1px);
+}
+
+
+/* Action Buttons (e.g., Edit Search, Use This URL) */
+.action-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.7rem 1rem;
+    border: none;
+    border-radius: 0.5rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    flex: 1; /* Makes them share space in flex container */
+    min-width: 140px;
+    justify-content: center;
+}
+
+.action-btn.primary {
+    background: linear-gradient(135deg, hsl(var(--accent-primary)), hsl(var(--accent-secondary)));
+    color: white;
+    box-shadow: 0 4px 12px hsl(var(--accent-primary) / 0.3);
+}
+
+.action-btn.primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px hsl(var(--accent-primary) / 0.4);
+}
+
+.action-btn.secondary {
+    background: hsl(var(--bg-panel));
+    border: 1px solid hsl(var(--border-color));
+    color: hsl(var(--text-primary));
+}
+
+.action-btn.secondary:hover {
+    border-color: hsl(var(--accent-primary));
+    background: linear-gradient(135deg, hsl(var(--accent-primary) / 0.1), hsl(var(--accent-secondary) / 0.05));
+    transform: translateY(-1px);
+}
+
+.action-btn .material-symbols-outlined {
+    font-size: 1rem;
+}
+
+/* Copy URL Button (specific small button) */
+.copy-url-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    background: hsl(var(--bg-panel));
+    border: 1px solid hsl(var(--border-color));
+    border-radius: 0.4rem;
+    padding: 0.4rem 0.6rem;
+    font-size: 0.7rem;
+    font-weight: 500;
+    color: hsl(var(--text-primary));
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.copy-url-btn:hover {
+    border-color: hsl(var(--accent-primary));
+    background: linear-gradient(135deg, hsl(var(--accent-primary) / 0.1), hsl(var(--accent-secondary) / 0.05));
+    transform: translateY(-1px);
+}
+
+.copy-url-btn .material-symbols-outlined {
+    font-size: 0.8rem;
+}
+
+/* AI Assistant Button Variants */
+.action-btn.tiny-btn {
+    padding: 0.5rem 0.8rem;
+    font-size: 0.75rem;
+    min-width: 120px;
+    flex: none; /* Don't grow as much */
+    background: hsl(var(--bg-panel));
+    border: 1px solid hsl(var(--border-color));
+    color: hsl(var(--text-primary));
+}
+
+.action-btn.tiny-btn:hover:not(:disabled) {
+    border-color: hsl(var(--accent-primary));
+    background: linear-gradient(135deg, hsl(var(--accent-primary) / 0.1), hsl(var(--accent-secondary) / 0.05));
+    transform: translateY(-1px);
+}
+
+.action-btn.primary-btn {
+    background: linear-gradient(135deg, hsl(var(--accent-primary)), hsl(var(--accent-secondary)));
+    color: white;
+    box-shadow: 0 4px 12px hsl(var(--accent-primary) / 0.3);
+    border: none;
+}
+
+.action-btn.primary-btn:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px hsl(var(--accent-primary) / 0.4);
+}
+
+/* AI Action Buttons Container */
+.ai-action-buttons {
+    display: flex;
+    gap: 0.75rem;
+    margin-top: 0.75rem;
+    align-items: center;
+}
+
+/* Force AI buttons to be clickable - override any pointer-events issues */
+#enhancePromptBtn,
+#generateSearchQueryBtn {
+    pointer-events: auto !important;
+    cursor: pointer !important;
+    position: relative !important;
+    z-index: 10 !important;
+}
+
+#enhancePromptBtn:not(:disabled),
+#generateSearchQueryBtn:not(:disabled) {
+    pointer-events: auto !important;
+    cursor: pointer !important;
+}
+
+/* Loading Spinner for AI Buttons */
+.loading-spinner-small {
+    display: none;
+    width: 12px;
+    height: 12px;
+    border: 2px solid transparent;
+    border-top: 2px solid currentColor;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-left: 0.25rem;
+}
+
+/* Spinning animation */
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Disabled state for AI buttons */
+.action-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none !important;
+    box-shadow: none !important;
+}
+
+/* Export Buttons (Original version) */
+.export-button { /* These were from lines 1699-1746 */
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem 1.5rem;
+  border: none;
+  border-radius: 0.75rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  color: white;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.export-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s ease;
+}
+
+.export-button:hover::before {
+  left: 100%;
+}
+
+.export-button.csv {
+  background: hsl(var(--accent-secondary));
+}
+
+.export-button.json {
+  background: hsl(var(--accent-warning));
+}
+
+.export-button.sheets {
+  background: #0F9D58; /* Specific color */
+}
+
+.export-button.notion {
+  background: #000000; /* Specific color */
+}
+
+
+/* View Toggle Buttons (e.g., Card/Table view for results) */
+.view-toggle-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.5rem 0.75rem;
+    background: transparent;
+    border: none;
+    border-radius: 0.4rem;
+    color: hsl(var(--text-secondary));
+    font-size: 0.8rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.view-toggle-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, hsl(var(--accent-primary) / 0.1), hsl(var(--accent-secondary) / 0.05));
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    border-radius: 0.4rem;
+}
+
+.view-toggle-btn:hover::before {
+    opacity: 1;
+}
+
+.view-toggle-btn:hover {
+    color: hsl(var(--text-primary));
+    transform: translateY(-1px);
+}
+
+.view-toggle-btn.active {
+    background: linear-gradient(135deg, hsl(var(--accent-primary)), hsl(var(--accent-secondary)));
+    color: white;
+    box-shadow: 0 2px 8px hsl(var(--accent-primary) / 0.3);
+}
+
+.view-toggle-btn.active::before {
+    opacity: 0;
+}
+
+.view-toggle-btn .material-symbols-outlined {
+    font-size: 1rem;
+}
+
+/* Modern Export Button Design (This is a second set of export button styles found in the original file) */
+/* You might want to choose one set or merge them */
+.modern-export-btn {
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: 1.75rem 1.5rem;
+  background: linear-gradient(145deg, 
+    rgba(255, 255, 255, 0.08) 0%, 
+    rgba(255, 255, 255, 0.02) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  text-align: left;
+  color: hsl(var(--text-primary));
+  text-decoration: none;
+  overflow: hidden;
+  backdrop-filter: blur(50px);
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  transform: translateY(0);
+}
+
+.modern-export-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, 
+    rgba(255, 255, 255, 0.1) 0%, 
+    transparent 50%, 
+    rgba(0, 0, 0, 0.05) 100%);
+  border-radius: 20px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.modern-export-btn::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+  transform: rotate(45deg) translateX(-100%);
+  transition: transform 0.6s ease;
+  pointer-events: none;
+}
+
+.modern-export-btn .btn-gradient { /* Inner element for gradient effects */
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  opacity: 0;
+  transition: all 0.4s ease;
+  border-radius: 20px;
+  z-index: 1;
+}
+
+.modern-export-btn.csv .btn-gradient {
+  background: linear-gradient(135deg, 
+    rgba(34, 197, 94, 0.15) 0%, 
+    rgba(22, 163, 74, 0.25) 50%,
+    rgba(21, 128, 61, 0.15) 100%);
+}
+/* ... other .modern-export-btn variants (.json, .sheets, .notion) ... */
+
+.modern-export-btn .btn-content {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  z-index: 2;
+  width: 100%;
+}
+
+.modern-export-btn .btn-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 1.5rem;
+  flex-shrink: 0;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  position: relative;
+  overflow: hidden;
+}
+
+.modern-export-btn .btn-icon::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transform: translateX(-100%) rotate(45deg);
+  transition: transform 0.6s ease;
+}
+
+.modern-export-btn.csv .btn-icon {
+  background: linear-gradient(135deg, 
+    #22c55e 0%, 
+    #16a34a 50%, 
+    #15803d 100%);
+  box-shadow: 
+    0 8px 24px rgba(34, 197, 94, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+/* ... other .modern-export-btn .btn-icon variants ... */
+
+.modern-export-btn .btn-text {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.modern-export-btn .btn-title {
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: hsl(var(--text-primary));
+  line-height: 1.2;
+  transition: color 0.3s ease;
+}
+
+.modern-export-btn .btn-desc {
+  font-size: 0.85rem;
+  color: hsl(var(--text-muted));
+  line-height: 1.4;
+  transition: color 0.3s ease;
+}
+
+.modern-export-btn .btn-arrow {
+  position: absolute;
+  top: 50%;
+  right: 1.5rem;
+  transform: translateY(-50%) translateX(10px);
+  font-size: 1.2rem;
+  color: hsl(var(--text-muted));
+  opacity: 0;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  z-index: 3;
+}
+
+/* ... Hover, Active, Focus states for .modern-export-btn ... */
+.modern-export-btn:hover {
+  transform: translateY(-8px);
+  box-shadow: 
+    0 20px 40px rgba(0, 0, 0, 0.15),
+    0 0 0 1px rgba(255, 255, 255, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.modern-export-btn:hover::before {
+  opacity: 1;
+}
+
+.modern-export-btn:hover::after {
+  transform: rotate(45deg) translateX(100%);
+}
+
+.modern-export-btn:hover .btn-gradient {
+  opacity: 1;
+}
+
+.modern-export-btn:hover .btn-icon {
+  transform: scale(1.08) rotate(2deg);
+  box-shadow: 
+    0 12px 32px rgba(0, 0, 0, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+.modern-export-btn:hover .btn-icon::before {
+  animation: icon-shimmer 0.8s ease-out;
+}
+
+@keyframes icon-shimmer {
+  0% { transform: translateX(-100%) rotate(45deg); }
+  100% { transform: translateX(200%) rotate(45deg); }
+}
+
+.modern-export-btn:hover .btn-title {
+  color: hsl(var(--accent-primary));
+}
+
+.modern-export-btn:hover .btn-desc {
+  color: hsl(var(--text-primary));
+}
+
+.modern-export-btn:hover .btn-arrow {
+  opacity: 1;
+  transform: translateY(-50%) translateX(0);
+}
+
+/* ... states for specific .modern-export-btn types (csv, json, etc) ... */
+
+.modern-export-btn:disabled {
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+.modern-export-btn.success { /* For button feedback after action */
+    background: linear-gradient(135deg, rgba(34, 197, 94, 0.2) 0%, rgba(22, 163, 74, 0.1) 100%) !important;
+    border-color: rgba(34, 197, 94, 0.3) !important;
+}
+
+.modern-export-btn.error { /* For button feedback after action */
+    background: linear-gradient(135deg, rgba(239, 68, 68, 0.2) 0%, rgba(220, 38, 38, 0.1) 100%) !important;
+    border-color: rgba(239, 68, 68, 0.3) !important;
+}
+
+.glass-btn {
+    background: linear-gradient(135deg, 
+        hsl(var(--accent-primary) / 0.15),
+        hsl(var(--accent-secondary) / 0.1)
+    );
+    border: 1px solid hsl(var(--accent-primary) / 0.3);
+    color: hsl(var(--text-primary));
+    backdrop-filter: blur(50px);
+    border-radius: 12px;
+    padding: 0.75rem 1.5rem;
+    font-weight: 600;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.glass-btn:hover {
+    border-color: hsl(var(--accent-primary) / 0.6);
+    background: linear-gradient(135deg, 
+        hsl(var(--accent-primary) / 0.25),
+        hsl(var(--accent-secondary) / 0.15)
+    );
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px hsl(var(--accent-primary) / 0.2);
+} 

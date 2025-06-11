@@ -1,0 +1,652 @@
+/* ===================================
+   COMPACT RESULTS PAGE - CLEAN DESIGN
+   ================================== */
+
+/* Results Section Header */
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    padding: 1rem;
+    background: hsl(var(--bg-panel));
+    border: 1px solid hsl(var(--border-color));
+    border-radius: 0.75rem;
+}
+
+.section-header h2 {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: hsl(var(--text-primary));
+    margin: 0;
+}
+
+.section-header h2 .material-symbols-outlined {
+    font-size: 1.2rem;
+    color: hsl(var(--accent-primary));
+}
+
+.results-stats {
+    font-size: 0.85rem;
+    color: hsl(var(--text-secondary));
+    font-weight: 500;
+}
+
+/* Results Preview Section */
+.results-preview {
+    background: hsl(var(--bg-panel));
+    border: 1px solid hsl(var(--border-color));
+    border-radius: 0.75rem;
+    padding: 1.25rem;
+    margin-bottom: 1.5rem;
+}
+
+.results-preview h3 {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: hsl(var(--text-primary));
+    margin: 0 0 1rem 0;
+}
+
+.results-preview h3 .material-symbols-outlined {
+    font-size: 1rem;
+    color: hsl(var(--accent-primary));
+}
+
+/* Compact View Toggle */
+.view-toggle-compact {
+    display: flex;
+    background: hsl(var(--bg-secondary));
+    border: 1px solid hsl(var(--border-color));
+    border-radius: 0.5rem;
+    padding: 4px;
+    margin-bottom: 1rem;
+    width: fit-content;
+}
+
+.view-btn-compact {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.5rem 0.75rem;
+    border: none;
+    background: transparent;
+    border-radius: 0.35rem;
+    cursor: pointer;
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: hsl(var(--text-secondary));
+    transition: all 0.2s ease;
+}
+
+.view-btn-compact:hover {
+    color: hsl(var(--text-primary));
+    background: hsl(var(--bg-panel));
+}
+
+.view-btn-compact.active {
+    background: hsl(var(--accent-primary));
+    color: white;
+    box-shadow: 0 2px 4px hsl(var(--accent-primary) / 0.2);
+}
+
+.view-btn-compact .material-symbols-outlined {
+    font-size: 0.9rem;
+}
+
+/* Table Container with Horizontal Scrolling */
+.table-container {
+    background: hsl(var(--bg-secondary));
+    border: 1px solid hsl(var(--border-color));
+    border-radius: 0.5rem;
+    overflow: hidden;
+    max-height: 500px;
+    position: relative;
+}
+
+.table-wrapper {
+    overflow-x: auto;
+    overflow-y: auto;
+    max-height: 500px;
+    scrollbar-width: thin;
+    scrollbar-color: hsl(var(--accent-primary)) hsl(var(--bg-secondary));
+}
+
+.table-wrapper::-webkit-scrollbar {
+    height: 8px;
+    width: 8px;
+}
+
+.table-wrapper::-webkit-scrollbar-track {
+    background: hsl(var(--bg-secondary));
+}
+
+.table-wrapper::-webkit-scrollbar-thumb {
+    background: hsl(var(--accent-primary));
+    border-radius: 4px;
+}
+
+.table-wrapper::-webkit-scrollbar-thumb:hover {
+    background: hsl(var(--accent-secondary));
+}
+
+.results-table {
+    width: 100%;
+    min-width: 800px; /* Ensure minimum width for horizontal scrolling */
+    border-collapse: collapse;
+    font-size: 0.8rem;
+}
+
+.results-table th,
+.results-table td {
+    padding: 0.75rem;
+    text-align: left;
+    border-bottom: 1px solid hsl(var(--border-color));
+    white-space: nowrap; /* Prevent text wrapping */
+    min-width: 120px; /* Minimum column width */
+}
+
+.results-table th {
+    background: hsl(var(--bg-panel));
+    font-weight: 600;
+    color: hsl(var(--text-primary));
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.results-table td {
+    color: hsl(var(--text-secondary));
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+.results-table tr:hover {
+    background: hsl(var(--bg-panel) / 0.5);
+}
+
+.results-table a {
+    color: hsl(var(--accent-primary));
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.results-table a:hover {
+    color: hsl(var(--accent-secondary));
+    text-decoration: underline;
+}
+
+/* Cards Container */
+.cards-container {
+    max-height: 500px;
+    overflow-y: auto;
+    padding: 0.5rem;
+    background: hsl(var(--bg-secondary));
+    border: 1px solid hsl(var(--border-color));
+    border-radius: 0.5rem;
+}
+
+.cards-grid-compact {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 1rem;
+    padding: 0.5rem;
+}
+
+/* Lead Cards */
+.lead-card-compact {
+    background: hsl(var(--bg-panel));
+    border: 1px solid hsl(var(--border-color));
+    border-radius: 0.6rem;
+    padding: 1rem;
+    transition: all 0.2s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.lead-card-compact:hover {
+    border-color: hsl(var(--accent-primary));
+    box-shadow: 0 4px 12px hsl(var(--accent-primary) / 0.1);
+    transform: translateY(-1px);
+}
+
+.lead-header-compact {
+    margin-bottom: 0.75rem;
+}
+
+.lead-name-compact {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: hsl(var(--text-primary));
+    margin: 0 0 0.25rem 0;
+    line-height: 1.2;
+}
+
+.lead-title-compact {
+    font-size: 0.8rem;
+    color: hsl(var(--text-secondary));
+    margin: 0;
+    line-height: 1.2;
+}
+
+.lead-details-compact {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    margin-bottom: 0.75rem;
+}
+
+.company-detail,
+.location-detail,
+.industry-detail {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.75rem;
+    color: hsl(var(--text-muted));
+}
+
+.company-detail .material-symbols-outlined,
+.location-detail .material-symbols-outlined,
+.industry-detail .material-symbols-outlined {
+    font-size: 0.85rem;
+    color: hsl(var(--accent-primary));
+    flex-shrink: 0;
+}
+
+.contact-actions-compact {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.contact-btn-compact {
+    width: 32px;
+    height: 32px;
+    border: 1px solid hsl(var(--border-color));
+    background: hsl(var(--bg-secondary));
+    border-radius: 0.4rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: hsl(var(--text-secondary));
+    text-decoration: none;
+    transition: all 0.2s ease;
+    flex-shrink: 0;
+}
+
+.contact-btn-compact:hover {
+    border-color: hsl(var(--accent-primary));
+    background: hsl(var(--accent-primary));
+    color: white;
+}
+
+.contact-btn-compact .material-symbols-outlined {
+    font-size: 0.9rem;
+}
+
+/* Hide contact buttons that have empty href */
+.contact-btn-compact[href="#"], 
+.contact-btn-compact[href=""], 
+.contact-btn-compact:not([href]) {
+    display: none;
+}
+
+/* Empty State */
+.empty-state-compact {
+    text-align: center;
+    padding: 3rem 1rem;
+    color: hsl(var(--text-secondary));
+}
+
+.empty-state-compact .material-symbols-outlined {
+    font-size: 3rem;
+    color: hsl(var(--accent-primary));
+    margin-bottom: 1rem;
+    display: block;
+}
+
+.empty-state-compact h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: hsl(var(--text-primary));
+    margin: 0 0 0.5rem 0;
+}
+
+.empty-state-compact p {
+    font-size: 0.85rem;
+    margin: 0;
+}
+
+/* Export Section (New Compact Design) */
+.export-section {
+    background: hsl(var(--bg-panel));
+    border: 1px solid hsl(var(--border-color));
+    border-radius: 0.75rem;
+    padding: 1.25rem;
+}
+
+.export-section h3 {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: hsl(var(--text-primary));
+    margin: 0 0 1rem 0;
+}
+
+.export-section h3 .material-symbols-outlined {
+    font-size: 1rem;
+    color: hsl(var(--accent-primary));
+}
+
+/* Compact Export Grid */
+.export-grid-compact {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+}
+
+.export-btn-compact {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem;
+    background: hsl(var(--bg-secondary));
+    border: 1px solid hsl(var(--border-color));
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-align: center;
+    min-height: 80px;
+}
+
+.export-btn-compact:hover {
+    border-color: hsl(var(--accent-primary));
+    background: hsl(var(--accent-primary) / 0.05);
+    transform: translateY(-1px);
+}
+
+.export-icon-compact {
+    width: 28px;
+    height: 28px;
+    border-radius: 0.35rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.export-btn-compact.csv .export-icon-compact {
+    background: linear-gradient(135deg, #10b981, #059669);
+    color: white;
+}
+
+.export-btn-compact.json .export-icon-compact {
+    background: linear-gradient(135deg, #f59e0b, #d97706);
+    color: white;
+}
+
+.export-btn-compact.sheets .export-icon-compact {
+    background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+    color: white;
+}
+
+.export-btn-compact.notion .export-icon-compact {
+    background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+    color: white;
+}
+
+.export-icon-compact .material-symbols-outlined {
+    font-size: 1rem;
+}
+
+.export-info-compact {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.1rem;
+}
+
+.export-title-compact {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: hsl(var(--text-primary));
+    margin: 0;
+}
+
+.export-desc-compact {
+    font-size: 0.65rem;
+    color: hsl(var(--text-secondary));
+    margin: 0;
+    line-height: 1.2;
+}
+
+/* Export Note */
+.export-note {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.7rem;
+    color: hsl(var(--text-muted));
+    background: hsl(var(--bg-secondary) / 0.5);
+    padding: 0.6rem;
+    border-radius: 0.4rem;
+    border: 1px solid hsl(var(--border-color) / 0.3);
+}
+
+.export-note .material-symbols-outlined {
+    font-size: 0.9rem;
+    color: hsl(var(--accent-primary));
+}
+
+/* Loading Animation for Export Buttons */
+.spinning {
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Export Button Loading State */
+.export-btn-compact:disabled {
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+.export-btn-compact.loading {
+    opacity: 0.7;
+}
+
+.export-btn-compact.success {
+    border-color: hsl(var(--accent-secondary));
+    background: hsl(var(--accent-secondary) / 0.1);
+}
+
+.export-btn-compact.success .export-icon-compact {
+    background: linear-gradient(135deg, #10b981, #059669);
+}
+
+.export-btn-compact.error {
+    border-color: hsl(var(--accent-danger));
+    background: hsl(var(--accent-danger) / 0.1);
+}
+
+.export-btn-compact.error .export-icon-compact {
+    background: linear-gradient(135deg, #ef4444, #dc2626);
+}
+
+/* Integration Not Configured State */
+.export-btn-compact.integration-not-configured {
+    opacity: 0.6;
+    border-color: hsl(var(--text-muted) / 0.3);
+    background: hsl(var(--bg-secondary) / 0.5);
+    position: relative;
+}
+
+.export-btn-compact.integration-not-configured::before {
+    content: '⚠️';
+    position: absolute;
+    top: -2px;
+    right: -2px;
+    font-size: 0.6rem;
+    background: hsl(var(--accent-warning));
+    color: white;
+    border-radius: 50%;
+    width: 14px;
+    height: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 8px;
+    border: 1px solid hsl(var(--bg-panel));
+}
+
+.export-btn-compact.integration-not-configured .export-icon-compact {
+    background: linear-gradient(135deg, #6b7280, #4b5563);
+    opacity: 0.7;
+}
+
+.export-btn-compact.integration-not-configured .export-title-compact {
+    color: hsl(var(--text-muted));
+}
+
+.export-btn-compact.integration-not-configured .export-desc-compact {
+    color: hsl(var(--accent-warning));
+    font-weight: 600;
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+    .results-table {
+        min-width: 700px;
+    }
+    
+    .cards-grid-compact {
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    }
+    
+    .export-grid-compact {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .section-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+        padding: 0.75rem;
+    }
+    
+    .results-preview,
+    .export-section {
+        padding: 1rem;
+    }
+    
+    .export-grid-compact {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.5rem;
+    }
+    
+    .cards-grid-compact {
+        grid-template-columns: 1fr;
+        gap: 0.75rem;
+        padding: 0.75rem;
+    }
+    
+    .results-table {
+        min-width: 600px;
+        font-size: 0.7rem;
+    }
+    
+    .results-table th,
+    .results-table td {
+        padding: 0.5rem;
+        min-width: 100px;
+    }
+    
+    .table-container,
+    .cards-container {
+        max-height: 400px;
+    }
+    
+    .view-toggle-compact {
+        width: 100%;
+    }
+    
+    .view-btn-compact {
+        flex: 1;
+        justify-content: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .section-header h2 {
+        font-size: 1rem;
+    }
+    
+    .results-preview h3,
+    .export-section h3 {
+        font-size: 0.85rem;
+    }
+    
+    .view-btn-compact {
+        padding: 0.4rem 0.6rem;
+        font-size: 0.75rem;
+    }
+    
+    .export-btn-compact {
+        padding: 0.6rem;
+        gap: 0.4rem;
+        min-height: 70px;
+    }
+    
+    .export-icon-compact {
+        width: 24px;
+        height: 24px;
+    }
+    
+    .export-title-compact {
+        font-size: 0.7rem;
+    }
+    
+    .export-desc-compact {
+        font-size: 0.6rem;
+    }
+    
+    .lead-card-compact {
+        padding: 0.75rem;
+    }
+    
+    .contact-btn-compact {
+        width: 28px;
+        height: 28px;
+    }
+    
+    .results-table {
+        min-width: 500px;
+        font-size: 0.65rem;
+    }
+    
+    .results-table th,
+    .results-table td {
+        padding: 0.4rem;
+        min-width: 80px;
+    }
+    
+    .export-grid-compact {
+        grid-template-columns: 1fr;
+    }
+} 
